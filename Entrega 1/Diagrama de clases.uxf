@@ -53,11 +53,12 @@ Nicolas Hernandez Derch
       <x>40</x>
       <y>144</y>
       <w>216</w>
-      <h>40</h>
+      <h>56</h>
     </coordinates>
     <panel_attributes>Profesor
 --
 + learningPaths: ArrayList&lt;LearningPath&gt;
++ actividades: ArrayList&lt;Actividad&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -94,6 +95,8 @@ Nicolas Hernandez Derch
 - rating: double
 - metadatos: String
 - actividades: ArrayList&lt;Actividad&gt;
+- creador: Profesor
+
 </panel_attributes>
     <additional_attributes/>
   </element>
@@ -115,7 +118,9 @@ Nicolas Hernandez Derch
 - tiempo_limite: double
 - resultado: double
 - rating: double
-- resenia: String</panel_attributes>
+- resenia: String
+- obligatorio: boolean 
+- creador: Profesor</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -353,5 +358,27 @@ m1=0..n</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;.</panel_attributes>
     <additional_attributes>90.0;10.0;90.0;70.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>184</x>
+      <y>192</y>
+      <w>152</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>144</x>
+      <y>192</y>
+      <w>160</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>180.0;100.0;180.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
