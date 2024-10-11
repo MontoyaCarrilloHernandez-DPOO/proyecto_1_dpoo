@@ -436,4 +436,26 @@ m1=0..n</panel_attributes>
 </panel_attributes>
     <additional_attributes/>
   </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>184</x>
+      <y>192</y>
+      <w>152</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>170.0;20.0;10.0;20.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>144</x>
+      <y>192</y>
+      <w>160</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>180.0;100.0;180.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
 </diagram>
