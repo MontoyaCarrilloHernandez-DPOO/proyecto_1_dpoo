@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="15.1">
-  <zoom_level>8</zoom_level>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>40</x>
+      <x>198</x>
       <y>24</y>
-      <w>144</w>
-      <h>56</h>
+      <w>108</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>Diagrama de clases 
 Samuel Montoya Salazar
@@ -19,10 +19,10 @@ Nicolas Hernandez Derch
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>328</x>
-      <y>480</y>
-      <w>144</w>
-      <h>64</h>
+      <x>648</x>
+      <y>672</y>
+      <w>108</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>PreguntaAbierta
 --
@@ -33,10 +33,10 @@ Nicolas Hernandez Derch
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>192</x>
-      <y>24</y>
-      <w>112</w>
-      <h>80</h>
+      <x>372</x>
+      <y>0</y>
+      <w>204</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>Usuario
 --
@@ -44,45 +44,71 @@ Nicolas Hernandez Derch
 - password: String
 - nombre: String
 - apellido: String
-</panel_attributes>
+--
+-Usuario(): void
+-getAuth(String usuario, String contrasenia): boolean
+-getInfo(): void
+-setLogin(String usuario): void
+-setPassword(String contrasenia): void
+-setNombre(String nombre): void
+-setApellido(String apellido): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>144</y>
-      <w>216</w>
-      <h>40</h>
+      <x>312</x>
+      <y>186</y>
+      <w>228</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>Profesor
 --
 + learningPaths: ArrayList&lt;LearningPath&gt;
-</panel_attributes>
+--
+-Profesor(): void
+-crearLearningPath(ArrayList&lt;Actividad&gt; actividades): void
+-crearActividad(String nombre, String objetivo, 
+double duracion, ArrayList&lt;Actividad&gt; prerequisitos,
+ArrayList&lt;Actividad&gt; sugeridos, double timepoLimite,
+double resultado, double rating, String reseña):
+-ratear(String resenia, Actividad actividad): void
+-verResenias():
+-calificar(LearningPath lp,PreguntaAbierta pregunta, ):
+-duplicarLP(LearningPath lp): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
-      <y>24</y>
-      <w>224</w>
-      <h>56</h>
+      <x>714</x>
+      <y>0</y>
+      <w>234</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>Estudiante
 --
-- learningPaths: HashMap&lt;LearningPath, 
-  HashMap&lt;String, String&gt; &gt;
+- historialLearningPaths: ArrayList&lt;LearningPath&gt;
+- actualLearningPath : LearningPath
+- respuestas: HashMap&lt;PreguntaAbierta, 
+  String&gt;
+--
+-Estudiante(): void
+-enroll(LearningPath): void
+-unEntroll():void
+-comenzarActividad()
+-getProgreso(LearningPath lp): double
+-responter(String respuesta,PreguntaAbierta pregunta): void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>96</y>
-      <w>184</w>
-      <h>136</h>
+      <x>738</x>
+      <y>156</y>
+      <w>180</w>
+      <h>294</h>
     </coordinates>
     <panel_attributes>LearningPath
 --
@@ -94,16 +120,37 @@ Nicolas Hernandez Derch
 - rating: double
 - metadatos: String
 - actividades: ArrayList&lt;Actividad&gt;
+- estudiantes: ArrayList&lt;Estudiante&gt;
+--
+-LearningPath(): void
+-setTitulo(String titulo): void
+-setDuracion(double duracion): void
+-setDescripcion(String descripcion): void
+-setObjetivo(String objetivo): void
+-setDificultad(double dificultad): void
+-setRating(double rating): void
+-setMetaDatos(String metaDatos): void
+-setEstudiantes(Estudiante estudiante): void
+-getActividaddes(): ArrayList&lt;Actividad&gt;
+-getTitulo(): String
+-getDuracion(): double
+-getDescripcion(): String
+-getObjetivo(): String
+-getDificultad(): double
+-getRating(): double
+-getMetaDatos(): String
+-getActividaddes(): ArrayList&lt;Actividad&gt;
+-getEstudiantes():ArrayList&lt;Estudiante&gt;
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>240</x>
-      <y>280</y>
-      <w>192</w>
-      <h>168</h>
+      <x>588</x>
+      <y>516</y>
+      <w>144</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>Actividad
 --
@@ -115,16 +162,17 @@ Nicolas Hernandez Derch
 - tiempo_limite: double
 - resultado: double
 - rating: double
-- resenia: String</panel_attributes>
+- resenia: ArrayList&lt;String&gt;
+- completado: boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>80</x>
-      <y>280</y>
-      <w>120</w>
-      <h>56</h>
+      <x>426</x>
+      <y>516</y>
+      <w>90</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>Recurso
 --
@@ -135,10 +183,10 @@ Nicolas Hernandez Derch
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>712</x>
-      <y>296</y>
-      <w>152</w>
-      <h>120</h>
+      <x>990</x>
+      <y>552</y>
+      <w>114</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>PreguntaCerrada
 --
@@ -154,10 +202,10 @@ Nicolas Hernandez Derch
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>464</x>
-      <y>320</y>
-      <w>216</w>
-      <h>64</h>
+      <x>780</x>
+      <y>540</y>
+      <w>162</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Quiz
 --
@@ -168,10 +216,10 @@ Nicolas Hernandez Derch
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>72</x>
-      <y>368</y>
-      <w>128</w>
-      <h>64</h>
+      <x>426</x>
+      <y>582</y>
+      <w>90</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Tarea
 --
@@ -182,10 +230,10 @@ Nicolas Hernandez Derch
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>464</x>
-      <y>400</y>
-      <w>216</w>
-      <h>64</h>
+      <x>780</x>
+      <y>606</y>
+      <w>162</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Encuesta
 --
@@ -196,10 +244,10 @@ Nicolas Hernandez Derch
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>80</x>
-      <y>472</y>
-      <w>208</w>
-      <h>64</h>
+      <x>444</x>
+      <y>672</y>
+      <w>156</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>Examen
 --
@@ -211,147 +259,181 @@ Nicolas Hernandez Derch
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>296</x>
-      <y>40</y>
-      <w>120</w>
+      <x>534</x>
+      <y>234</y>
+      <w>216</w>
       <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>224</x>
-      <y>96</y>
-      <w>24</w>
-      <h>64</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>192</x>
-      <y>304</y>
-      <w>64</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>192</x>
-      <y>392</y>
-      <w>64</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>60.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>248</x>
-      <y>152</y>
-      <w>88</w>
-      <h>32</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..n</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>340.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>368</x>
-      <y>224</y>
-      <w>40</w>
-      <h>72</h>
+      <x>816</x>
+      <y>114</y>
+      <w>30</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-m1=0..n</panel_attributes>
+m1=0..1</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>496</x>
-      <y>64</y>
+      <x>594</x>
+      <y>690</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>648</y>
       <w>96</w>
-      <h>120</h>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>140.0;10.0;140.0;80.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>18</y>
+      <w>156</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;240.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>180</y>
+      <w>18</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>534</y>
+      <w>90</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>594</y>
+      <w>90</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>726</x>
+      <y>552</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>726</x>
+      <y>618</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>936</x>
+      <y>564</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>936</x>
+      <y>624</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>444</y>
+      <w>174</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 m1=0..n</panel_attributes>
-    <additional_attributes>10.0;120.0;100.0;120.0;100.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;270.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
+    <id>UMLClass</id>
     <coordinates>
-      <x>280</x>
-      <y>496</y>
-      <w>64</w>
-      <h>24</h>
+      <x>6</x>
+      <y>186</y>
+      <w>228</w>
+      <h>126</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+    <panel_attributes>Controlador
+--
+--
+-crearUsario(): void
+-crearEstudiante(): void
+-crearProfesor(): void
+-cargarEstudiantes(): ArrayList&lt;Estudiante&gt;
+-cargarProfesores(): ArrayList&lt;Profesor&gt;
+-cargarLearningPath(): ArrayList&lt;LearningPAth&gt;
+</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
+    <id>UMLClass</id>
     <coordinates>
-      <x>672</x>
-      <y>352</y>
-      <w>56</w>
-      <h>24</h>
+      <x>0</x>
+      <y>510</y>
+      <w>228</w>
+      <h>126</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>424</x>
-      <y>344</y>
-      <w>56</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>424</x>
-      <y>416</y>
-      <w>56</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>256</x>
-      <y>440</y>
-      <w>24</w>
-      <h>48</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>464</x>
-      <y>456</y>
-      <w>88</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
-    <additional_attributes>90.0;10.0;90.0;70.0;10.0;70.0</additional_attributes>
+    <panel_attributes>IPersistencia
+--
+
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
