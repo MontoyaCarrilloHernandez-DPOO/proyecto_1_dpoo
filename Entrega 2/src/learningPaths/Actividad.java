@@ -8,12 +8,12 @@ public class Actividad {
 	public ArrayList<Actividad> prerequisistos;
 	public ArrayList<Actividad> sugeridos;
 	public ArrayList<String> resenias;
+	public ArrayList<Integer> rating;
 	public double tiempoLimite;
 	public double resultado;
-	public double reting;
 	public boolean completado;
 	public Actividad(String objetivo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
-			ArrayList<String> resenias, double tiempoLimite, double resultado, double reting, boolean completado) {
+			ArrayList<String> resenias, double tiempoLimite, double resultado, ArrayList<Integer> rating, boolean completado) {
 		this.objetivo = objetivo;
 		this.nivel = nivel;
 		this.prerequisistos = prerequisistos;
@@ -21,7 +21,7 @@ public class Actividad {
 		this.resenias = resenias;
 		this.tiempoLimite = tiempoLimite;
 		this.resultado = resultado;
-		this.reting = reting;
+		this.rating = rating;
 		this.completado = completado;
 	}
 	public String getObjetivo() {
@@ -45,8 +45,8 @@ public class Actividad {
 	public double getResultado() {
 		return resultado;
 	}
-	public double getReting() {
-		return reting;
+	public ArrayList<Integer> getReting() {
+		return rating;
 	}
 	public boolean isCompletado() {
 		return completado;
@@ -72,8 +72,8 @@ public class Actividad {
 	protected void setResultado(double resultado) {
 		this.resultado = resultado;
 	}
-	protected void setReting(double reting) {
-		this.reting = reting;
+	protected void setReting(ArrayList<Integer> rating) {
+		this.rating = rating;
 	}
 	public void setCompletado(boolean completado) {
 		this.completado = completado;
