@@ -45,9 +45,10 @@ public class Actividad {
 	public double getResultado() {
 		return resultado;
 	}
-	public ArrayList<Integer> getReting() {
+	public ArrayList<Integer> getRating() {
 		return rating;
 	}
+	
 	public boolean isCompletado() {
 		return completado;
 	}
@@ -78,6 +79,7 @@ public class Actividad {
 	public void setCompletado(boolean completado) {
 		this.completado = completado;
 	}
-
+	
+	
 	
 }

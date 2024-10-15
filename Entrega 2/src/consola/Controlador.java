@@ -1,10 +1,17 @@
 package consola;
 
+
+
 public class Controlador {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	
+	public void mostrarMenuPrincipal() {
+		//Completar :(
 	}
+	
+	public static void main( String[] args )
+    {
+        Controlador c = new Controlador( );
+        c.mostrarMenuPrincipal( );
+    }
 
 }

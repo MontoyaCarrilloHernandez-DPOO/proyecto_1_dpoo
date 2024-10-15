@@ -70,7 +70,7 @@ public class LearningPath {
 	private void setMetadatos(String metadatos) {
 		this.metadatos = metadatos;
 	}
-	private ArrayList<Actividad> getActividades() {
+	public ArrayList<Actividad> getActividades() {
 		return actividades;
 	}
 	private void setActividades(ArrayList<Actividad> actividades) {

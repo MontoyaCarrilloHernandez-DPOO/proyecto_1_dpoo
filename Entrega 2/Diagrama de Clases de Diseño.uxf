@@ -101,11 +101,12 @@ double resultado, double rating, String reseña): void void
 + actualActividad: Actividad
 # respuestas: HashMap&lt;PreguntaAbierta, 
   String&gt;
++ progreso: Progreso
   **REVISAR COMO ASOCIAR ACTIVIDADES Y PREGUNTAS**
 --
 +Estudiante(): void
 -enroll(LearningPath): void
--unEntroll():void
+-unenroll():void
 -comenzarActividad(): void
 -getProgreso(LearningPath lp): double
 -responder(String respuesta, PreguntaAbierta pregunta): void
@@ -649,13 +650,12 @@ m1=0..n</panel_attributes>
 + actividadesIncoompletas: ArrayList&lt;Actividad&gt;
 --
 + Progreso(): void
--setLearningPath(LearningPath lp): void
--anadirCompletas(Actividad actividad): void
--quitarIncompletas(Actividad actividad): void
--getLearningPath(): LearningPath
--getActividadesCompletas(): ArrayList&lt;Actividad&gt;
--getActividadesIncompletas(): ArrayList&lt;Actividad&gt;
-
++ setNewLearningPath(LearningPath lp): void
++ anadirCompletasquitarIncompletas(Actividad actividad): void
++ getLearningPath(): LearningPath
++ getActividadesCompletas(): ArrayList&lt;Actividad&gt;
++ getActividadesIncompletas(): ArrayList&lt;Actividad&gt;
++ calcularProgreso(): double
 </panel_attributes>
     <additional_attributes/>
   </element>
