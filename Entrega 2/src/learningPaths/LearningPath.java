@@ -7,6 +7,7 @@ import usuarios.Estudiante;
 @SuppressWarnings("unused")
 public class LearningPath {
 	public String titulo;
+	public String propietario;
 	public double duracion;
 	public double dificultad;
 	public double rating;
@@ -16,9 +17,10 @@ public class LearningPath {
 	protected ArrayList<Actividad> actividades;
 	protected ArrayList<Estudiante> estudiantes;
 	
-	public LearningPath(String titulo, double duracion, double dificultad, double rating, String descripcion,
+	public LearningPath(String propietario, String titulo, double duracion, double dificultad, double rating, String descripcion,
 			String objetivo, String metadatos, ArrayList<Actividad> actividades, ArrayList<Estudiante> estudiantes) {
 		this.titulo = titulo;
+		this.propietario = propietario;
 		this.duracion = duracion;
 		this.dificultad = dificultad;
 		this.rating = rating;
@@ -28,43 +30,49 @@ public class LearningPath {
 		this.actividades = actividades;
 		this.estudiantes = estudiantes;
 	}
-	private String getTitulo() {
+	public String getTitulo() {
 		return titulo;
 	}
-	private void setTitulo(String titulo) {
+	protected void setPropietario(String nombre) {
+		this.propietario=nombre;
+	}
+	public String getPropietario() {
+		return propietario;
+	}
+	protected void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	private double getDuracion() {
+	public double getDuracion() {
 		return duracion;
 	}
 	private void setDuracion(double duracion) {
 		this.duracion = duracion;
 	}
-	private double getDificultad() {
+	public double getDificultad() {
 		return dificultad;
 	}
 	private void setDificultad(double dificultad) {
 		this.dificultad = dificultad;
 	}
-	private double getRating() {
+	public double getRating() {
 		return rating;
 	}
 	private void setRating(double rating) {
 		this.rating = rating;
 	}
-	private String getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 	private void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	private String getObjetivo() {
+	public String getObjetivo() {
 		return objetivo;
 	}
 	private void setObjetivo(String objetivo) {
 		this.objetivo = objetivo;
 	}
-	private String getMetadatos() {
+	public String getMetadatos() {
 		return metadatos;
 	}
 	private void setMetadatos(String metadatos) {
@@ -76,7 +84,7 @@ public class LearningPath {
 	private void setActividades(ArrayList<Actividad> actividades) {
 		this.actividades = actividades;
 	}
-	private ArrayList<Estudiante> getEstudiantes() {
+	public ArrayList<Estudiante> getEstudiantes() {
 		return estudiantes;
 	}
 	private void setEstudiantes(ArrayList<Estudiante> estudiantes) {

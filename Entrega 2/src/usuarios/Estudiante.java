@@ -3,20 +3,20 @@ import learningPaths.LearningPath;
 import learningPaths.Actividad;
 import learningPaths.PreguntaAbierta;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.ArrayList;
 import Excepciones.LPException;
 import learningPaths.Progreso;
 
-public class Estudiante {
+public class Estudiante extends Usuario{
 	private ArrayList<LearningPath> historialLearningPaths;
 	private LearningPath actualLearningPath;
-	private Actividad actualActividad;
+	public Actividad actualActividad;
 	protected HashMap<PreguntaAbierta, String> respuestas;
 	private Progreso progreso;
 	
-	public Estudiante(LearningPath learningPath, Actividad actividad)
+	public Estudiante(LearningPath learningPath, Actividad actividad,String contrasenia, String nombre, String apellido, String login)
 	{
+		super(contrasenia, nombre, apellido, login);
 		this.actualLearningPath = learningPath;
 		this.actualActividad = actividad;
 	}
@@ -37,9 +37,25 @@ public class Estudiante {
 		this.progreso = null;
 	}
 	
-	protected void comenzarActividad() {
+	private boolean verificarActividadEnLP(Actividad actividad) {
+		//false si no pertenece una actividad al lp al que esta inscrito el estudiante true si si
+		LearningPath lp = this.actualLearningPath;
+		if(lp.getActividades().contains(actividad)) {
+			return true;
+		}
+		return false;
+	}
+	
+	protected void comenzarActividad(Actividad actividad) {
+		if(actividad.equals(null)&& verificarActividadEnLP(actividad)==true) {
+			this.actualActividad = actividad;
+			
+		}
+	}
+	
+	protected void terminarActividad() {
 		//TODO
-		
+		this.actualActividad = null;
 	}
 	
 	public double getProgreso() {
@@ -51,7 +67,11 @@ public class Estudiante {
 		//TODO
 	}
 	
-	
-	
-	
+	public boolean viendoActividad() {
+		if(this.actualActividad.equals(null)) {
+			return true;
+		}else {
+			return false;
+			}
+	}
 }

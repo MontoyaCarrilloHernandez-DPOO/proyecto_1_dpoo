@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Actividad {
 	public String objetivo;
+	public String titulo;
 	public String nivel;
 	public ArrayList<Actividad> prerequisistos;
 	public ArrayList<Actividad> sugeridos;
@@ -12,7 +13,7 @@ public class Actividad {
 	public double tiempoLimite;
 	public double resultado;
 	public boolean completado;
-	public Actividad(String objetivo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
+	public Actividad(String objetivo,String titulo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
 			ArrayList<String> resenias, double tiempoLimite, double resultado, ArrayList<Integer> rating, boolean completado) {
 		this.objetivo = objetivo;
 		this.nivel = nivel;
@@ -23,7 +24,12 @@ public class Actividad {
 		this.resultado = resultado;
 		this.rating = rating;
 		this.completado = completado;
+		this.titulo = titulo;
 	}
+	public String getTitulo() {
+		return titulo;
+	}
+
 	public String getObjetivo() {
 		return objetivo;
 	}
@@ -57,6 +63,9 @@ public class Actividad {
 	}
 	public void setNivel(String nivel) {
 		this.nivel = nivel;
+	}
+		public void setTitulo(String titulo) {
+			this.titulo = titulo;
 	}
 	public void setPrerequisistos(ArrayList<Actividad> prerequisistos) {
 		this.prerequisistos = prerequisistos;
