@@ -3,6 +3,7 @@ package persistencia;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import usuarios.Estudiante;
 import learningPaths.LearningPath;
@@ -11,6 +12,17 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 public class PersistenciaEstudiante {
+	
+	public ArrayList<Object> serializar(JSONObject objetoJson, String nombreParametro, ArrayList<String> parametros){
+		ArrayList<Object> lista = new ArrayList<>();
+		JSONArray listaJson = objetoJson.getJSONArray(nombreParametro);
+		for(int i=0;i<objetoJson.lenght();i++) {
+			for(String parametro:parametros) {
+				lista.addLast(listaJson.getString(parametro));
+			}
+		}
+		return lista;
+	}
 	//read
 	ArrayList<Estudiante> estudiantesF = new ArrayList<>();
 	String content = new String(Files.readAllBytes(Paths.get("./datos/Estudiante.json")));
