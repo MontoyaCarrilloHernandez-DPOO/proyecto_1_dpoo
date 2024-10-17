@@ -1,5 +1,4 @@
-package consola;
-
+package persistencia;
 
 
 public class Controlador {
@@ -10,6 +9,7 @@ public class Controlador {
 	
 	public static void main( String[] args )
     {
+		DBConnection connectTest = new DBConnection();
         Controlador c = new Controlador( );
         c.mostrarMenuPrincipal( );
     }
