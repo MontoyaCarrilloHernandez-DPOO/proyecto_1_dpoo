@@ -14,11 +14,9 @@ public class Estudiante extends Usuario{
 	protected HashMap<PreguntaAbierta, String> respuestas;
 	public Progreso progreso;
 	
-	public Estudiante(LearningPath learningPath, Actividad actividad,String contrasenia, String nombre, String apellido, String login)
+	public Estudiante(String contrasenia, String nombre, String apellido, String login)
 	{
 		super(contrasenia, nombre, apellido, login);
-		this.actualLearningPath = learningPath;
-		this.actualActividad = actividad;
 	}
 	
 	protected void enroll(LearningPath learningPath) throws LPException {
