@@ -12,7 +12,7 @@ public class Estudiante extends Usuario{
 	private LearningPath actualLearningPath;
 	public Actividad actualActividad;
 	protected HashMap<PreguntaAbierta, String> respuestas;
-	private Progreso progreso;
+	public Progreso progreso;
 	
 	public Estudiante(LearningPath learningPath, Actividad actividad,String contrasenia, String nombre, String apellido, String login)
 	{
