@@ -15,16 +15,19 @@ public class Controlador {
 	private ArrayList<LearningPath> listaLearningPaths;
 	
 	public Controlador() {
+		this.listaEstudiantes = new ArrayList<>();
+		this.listaProfesores = new ArrayList<>();;
+		this.listaLearningPaths = new ArrayList<>();;
 	}
 	
-	public static void comprobarConexion()
+	public void comprobarConexion()
     {
 		DBConnection connectTest = new DBConnection();
     }
 	
 	public Estudiante crearEstudiante(String nombre, String apellido, String login, String contrasenia) throws SQLException 
 	{ 
-		Estudiante miEstudiante = new Estudiante(null, null, contrasenia, nombre, apellido, login);
+		Estudiante miEstudiante = new Estudiante(contrasenia, nombre, apellido, login);
 		listaEstudiantes.add(miEstudiante);
 		
 		/**

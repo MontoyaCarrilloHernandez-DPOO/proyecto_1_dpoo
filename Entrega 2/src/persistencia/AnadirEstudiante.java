@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 
 public class AnadirEstudiante {
 	
-	private static final String JDBC_URL =  "jdbc:derby:Proyecto1";
+	private static final String JDBC_URL =  "jdbc:derby:Proyecto1; create=true";
 	public void nuevoEstudiante(String nombre, String apellido, String login, String contrasenia) throws SQLException
 	{
 		Connection con = DriverManager.getConnection(JDBC_URL);
