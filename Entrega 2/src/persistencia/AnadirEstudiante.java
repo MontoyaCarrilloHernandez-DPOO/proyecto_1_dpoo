@@ -8,11 +8,11 @@ import java.sql.PreparedStatement;
 
 public class AnadirEstudiante {
 	
-	private static final String JDBC_URL =  "jdbc:derby:Proyecto1; create=true";
+	private static final String JDBC_URL =  "jdbc:derby:PROYECTO1";
 	public void nuevoEstudiante(String nombre, String apellido, String login, String contrasenia) throws SQLException
 	{
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("insert into Proyecto1.estudiantes(login, contrasenia, nombre, apellido) values (?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO ESTUDIANTES (login, contrasenia, nombre, apellido) values (?,?,?,?)");
 		ps.setString(1, login);
 		ps.setString(2, contrasenia);
 		ps.setString(3, nombre);
