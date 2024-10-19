@@ -23,6 +23,7 @@ public class Controlador {
 	public void comprobarConexion()
     {
 		DBConnection connectTest = new DBConnection();
+		DBConnection.mainPers(null);
     }
 	
 	public Estudiante crearEstudiante(String nombre, String apellido, String login, String contrasenia) throws SQLException 

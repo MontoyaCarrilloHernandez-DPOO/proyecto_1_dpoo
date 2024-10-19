@@ -11,8 +11,6 @@ public class ConsolaCrearControlador extends ConsolaBasica{
 	{
 		Controlador miControlador = new Controlador();
 		miControlador.comprobarConexion();
-		CrearTabla tablas = new CrearTabla();
-		tablas.nuevaTablaEstudiantes();
 		System.out.print("Sistema creado con exito. Ya puede agregar estudiantes y profesores. Si usted es un profesor, puede crear Learning Paths y atcividades \n" );
 		return miControlador;
 	}
