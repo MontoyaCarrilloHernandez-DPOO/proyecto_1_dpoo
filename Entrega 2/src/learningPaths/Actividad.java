@@ -14,6 +14,7 @@ public abstract class Actividad {
 	public ArrayList<Actividad> sugeridos;
 	public ArrayList<String> resenias;
 	public int rating;
+	public ArrayList<Integer> ratings;
 	public double tiempoLimite;
 	public double resultado;
 	public boolean completado;
