@@ -7,8 +7,8 @@ import usuarios.Estudiante;
 public class Examen extends Actividad {
 	
 	public boolean exitoso;
-	public double notaObtenida;
-	public double notaMinima;
+	public float notaObtenida;
+	public float notaMinima;
 	private ArrayList<PreguntaAbierta> preguntas;
 	public String enunciado;
 	public String respuestaGuia;
@@ -21,14 +21,12 @@ public class Examen extends Actividad {
 	public Actividad sugeridos;
 	public ArrayList<String> resenias;
 	public int rating;
-	public ArrayList<Integer> ratings;
-	public double tiempoLimite;
-	public double resultado;
+	public float tiempoLimite;
 	public boolean completado;
 	
-	public Examen(boolean enviado, boolean exitoso, double notaObtenida, double notaMinima,
+	public Examen(boolean enviado, boolean exitoso, float notaObtenida, float notaMinima,
 			ArrayList<PreguntaAbierta> preguntas, String enunciado,String respuestaGuia,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
 		
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
@@ -43,12 +41,12 @@ public class Examen extends Actividad {
 	}
 
 
-	public double getNotaObtenida() {
+	public float getNotaObtenida() {
 		return notaObtenida;
 	}
 
 
-	public double getNotaMinima() {
+	public float getNotaMinima() {
 		return notaMinima;
 	}
 
@@ -67,7 +65,7 @@ public class Examen extends Actividad {
 	}
 
 
-	protected void setNotaObtenida(double notaObtenida) {
+	protected void setNotaObtenida(float notaObtenida) {
 		this.notaObtenida = notaObtenida;
 	}
 

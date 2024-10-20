@@ -97,6 +97,8 @@ public class DBConnection {
 						+ "dificultad float, \n"
 						+ "rating float, \n"
 						+ "metadatos varchar(50) \n"
+						+ "Actividades varchar(1000), \n"
+						+ "Estudiantes varchar(1000), \n"
 						+ ")");
 			}
 		} catch (SQLException e) {

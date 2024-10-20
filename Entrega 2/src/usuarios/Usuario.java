@@ -52,7 +52,7 @@ public abstract class Usuario {
 	}
 	
 	public void ratear(int rating, Actividad actividad) {
-		actividad.ratings.addLast(rating);
+		actividad.ratear(rating);
 	}
 	public boolean getAuth(String login, String contrasenia) {
 		boolean flag = false;

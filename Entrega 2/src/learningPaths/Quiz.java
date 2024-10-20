@@ -3,8 +3,8 @@ package learningPaths;
 import java.util.ArrayList;
 public class Quiz extends Actividad{
 	
-	public double notaMinima;
-	public double notaObtenida;
+	public float notaMinima;
+	public float notaObtenida;
 	public boolean exitoso;
 	private ArrayList<PreguntaCerrada> preguntas;
 	
@@ -17,14 +17,14 @@ public class Quiz extends Actividad{
 	public ArrayList<String> resenias;
 	public int rating;
 	public ArrayList<Integer> ratings;
-	public double tiempoLimite;
-	public double resultado;
+	public float tiempoLimite;
+	public float resultado;
 	public boolean completado;
 
 	
 	public Quiz(String respuestaCorrecta, String justificacion, String enunciado, String opcionA, String opcionB,
-			String opcionC, String opcionD, double notaMinima, double notaObtenida,boolean exitoso, ArrayList<PreguntaCerrada> preguntas,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+			String opcionC, String opcionD, float notaMinima, float notaObtenida,boolean exitoso, ArrayList<PreguntaCerrada> preguntas,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
 		this.notaMinima = notaMinima;
 		this.notaObtenida = notaObtenida;
@@ -32,7 +32,7 @@ public class Quiz extends Actividad{
 		this.preguntas = preguntas;
 	}
 
-	public double getNotaObtenida() {
+	public float getNotaObtenida() {
 		return notaObtenida;
 	}
 
@@ -44,7 +44,7 @@ public class Quiz extends Actividad{
 		return preguntas;
 	}
 
-	public void setNotaObtenida(double notaObtenida) {
+	public void setNotaObtenida(float notaObtenida) {
 		this.notaObtenida = notaObtenida;
 	}
 
