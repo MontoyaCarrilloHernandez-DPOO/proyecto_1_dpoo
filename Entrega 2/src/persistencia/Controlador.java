@@ -44,7 +44,7 @@ public class Controlador {
 		
 	}
 	
-	public Profesor crearProfesor(String nombre, String apellido, String login, String contrasenia) 
+	public Profesor crearProfesor(String nombre, String apellido, String login, String contrasenia) throws SQLException 
 	{//TODO Complear la creacion de profesor desde su clase
 		Profesor miProfesor = new Profesor(contrasenia, nombre, apellido, login, null);
 		listaProfesores.add(miProfesor);
@@ -52,6 +52,7 @@ public class Controlador {
 		/**
 		 * Acá ponemos al profesor en la base de datos
 		*/
+		anadirDatos.nuevoProfesor(nombre, apellido, login, contrasenia);
 		
 		
 		return miProfesor;
