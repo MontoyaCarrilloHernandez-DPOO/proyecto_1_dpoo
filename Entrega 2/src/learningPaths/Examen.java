@@ -17,8 +17,8 @@ public class Examen extends Actividad {
 	public String objetivo;
 	public String titulo;
 	public String nivel;
-	public ArrayList<Actividad> prerequisistos;
-	public ArrayList<Actividad> sugeridos;
+	public Actividad prerequisistos;
+	public Actividad sugeridos;
 	public ArrayList<String> resenias;
 	public int rating;
 	public ArrayList<Integer> ratings;
@@ -27,7 +27,7 @@ public class Examen extends Actividad {
 	public boolean completado;
 	
 	public Examen(boolean enviado, boolean exitoso, double notaObtenida, double notaMinima,
-			ArrayList<PreguntaAbierta> preguntas, String enunciado,String respuestaGuia,String objetivo,String titulo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
+			ArrayList<PreguntaAbierta> preguntas, String enunciado,String respuestaGuia,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
 		
 		//actividad
@@ -91,8 +91,5 @@ public class Examen extends Actividad {
 		
 	}
 
-	@Override
-	public void setCompletado() {
 		
-	}		
 }

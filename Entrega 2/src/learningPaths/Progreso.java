@@ -46,7 +46,7 @@ public class Progreso {
 	public double calcularProgreso()
 	{
 		double progreso = this.actividadesCompletadas.size()/this.learningPath.actividades.size();
-		return progreso;
+		return progreso*100;
 	}
 
 	

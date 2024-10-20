@@ -12,8 +12,8 @@ public class Encuesta extends Actividad {
 	public String objetivo;
 	public String titulo;
 	public String nivel;
-	public ArrayList<Actividad> prerequisistos;
-	public ArrayList<Actividad> sugeridos;
+	public Actividad prerequisistos;
+	public Actividad sugeridos;
 	public ArrayList<String> resenias;
 	public int rating;
 	public ArrayList<Integer> ratings;
@@ -22,7 +22,7 @@ public class Encuesta extends Actividad {
 	public boolean completado;
 
 	public Encuesta(String respuestaGuia, String eneunciado, boolean enviado, ArrayList<PreguntaAbierta> preguntas,
-			String enunciado,String objetivo,String titulo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
+			String enunciado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);

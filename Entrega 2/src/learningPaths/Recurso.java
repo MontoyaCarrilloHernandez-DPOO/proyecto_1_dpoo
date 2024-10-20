@@ -1,25 +1,34 @@
 package learningPaths;
-//TODO implementar Abstracta actividad
-public class Recurso {
+
+import java.util.ArrayList;
+
+public class Recurso extends Actividad {
 
 	public String tipo;
-	public String estado;
 	
-	public Recurso(String tipo, String estado) {
+	//actividad
+	public String objetivo;
+	public String titulo;
+	public String nivel;
+	public Actividad prerequisistos;
+	public Actividad sugeridos;
+	public ArrayList<String> resenias;
+	public int rating;
+	public ArrayList<Integer> ratings;
+	public double tiempoLimite;
+	public double resultado;
+	public boolean completado;
+
+	
+	public Recurso(String tipo, String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+		//actividad
+		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
 		this.tipo = tipo;
-		this.estado = estado;
 	}
 
 	public String getTipo() {
 		return tipo;
 	}
 
-	public String getEstado() {
-		return estado;
-	}
-
-	protected void setEstado(String estado) {
-		this.estado = estado;
-	}
-	
 }

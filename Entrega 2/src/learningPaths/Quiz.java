@@ -1,23 +1,31 @@
 package learningPaths;
 
 import java.util.ArrayList;
-//TODO Implementar Abstracta actividad
-public class Quiz extends PreguntaCerrada{
-	public String respuestaCorrecta;
-	public String justificacion;
-	public String enunciado;
-	public String opcionA;
-	public String opcionB;
-	public String opcionC;
-	public String opcionD;
+public class Quiz extends Actividad{
+	
 	public double notaMinima;
 	public double notaObtenida;
 	public boolean exitoso;
 	private ArrayList<PreguntaCerrada> preguntas;
 	
+	//actividad
+	public String objetivo;
+	public String titulo;
+	public String nivel;
+	public Actividad prerequisistos;
+	public Actividad sugeridos;
+	public ArrayList<String> resenias;
+	public int rating;
+	public ArrayList<Integer> ratings;
+	public double tiempoLimite;
+	public double resultado;
+	public boolean completado;
+
+	
 	public Quiz(String respuestaCorrecta, String justificacion, String enunciado, String opcionA, String opcionB,
-			String opcionC, String opcionD, double notaMinima, double notaObtenida,boolean exitoso, ArrayList<PreguntaCerrada> preguntas) {
-		super(respuestaCorrecta, justificacion, enunciado, opcionA, opcionB, opcionC, opcionD);
+			String opcionC, String opcionD, double notaMinima, double notaObtenida,boolean exitoso, ArrayList<PreguntaCerrada> preguntas,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
 		this.notaMinima = notaMinima;
 		this.notaObtenida = notaObtenida;
 		this.exitoso = exitoso;
@@ -56,4 +64,5 @@ public class Quiz extends PreguntaCerrada{
 		}
 		return enunciado;
 	}
+
 }

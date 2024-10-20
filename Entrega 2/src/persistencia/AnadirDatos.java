@@ -73,7 +73,34 @@ public class AnadirDatos {
 			e.printStackTrace();
 		}
 	}
-	
+	//TODO cargar un lp
+	public void nuevoLearningPath(String nombre, String apellido, String login, String contrasenia) throws SQLException
+	{
+		try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		PreparedStatement ps = con.prepareStatement("INSERT INTO LEARNINGPATH () values (?,?,?,?,?)");
+		ps.setString(1, login);
+		ps.setString(2, contrasenia);
+		ps.setString(3, nombre);
+		ps.setString(4, apellido);
+		ps.setString(5, "");
+		ps.executeUpdate();
+		
+		Statement statement  = con.createStatement();
+		ResultSet resultSet = statement.executeQuery("Select * from PROFESORES");
+		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+		int columnCount = resultSetMetaData.getColumnCount();
+		for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+		while (resultSet.next()) {
+			System.out.println("");
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+		}
+		
+		System.out.println("\n Profesor creado con éxito. Inicia sesión para poder crear Learning Paths, actividades, etc.");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	//TODO: HACER CON LEARNING PATHS Y ACTIVIDADES
 
 }

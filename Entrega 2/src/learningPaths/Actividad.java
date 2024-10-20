@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import Excepciones.PRExceptions;
 import usuarios.Estudiante;
 
-public abstract class Actividad {
+public class Actividad {
 
 	public String objetivo;
 	public String titulo;
 	public String nivel;
-	public ArrayList<Actividad> prerequisistos;
-	public ArrayList<Actividad> sugeridos;
+	public Actividad prerequisistos;
+	public Actividad sugeridos;
 	public ArrayList<String> resenias;
 	public int rating;
 	public ArrayList<Integer> ratings;
@@ -20,7 +20,7 @@ public abstract class Actividad {
 	public boolean completado;
 	
 	
-	public Actividad(String objetivo,String titulo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
+	public Actividad(String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
 		this.objetivo = objetivo;
 		this.nivel = nivel;
@@ -34,7 +34,9 @@ public abstract class Actividad {
 		this.titulo = titulo;
 	}
 	
-	public abstract void setCompletado();
+	public void setCompletado() {
+		this.completado = true;
+	}
 	
 	
 	public String getTitulo() {
@@ -49,11 +51,11 @@ public abstract class Actividad {
 		return nivel;
 	}
 	
-	public ArrayList<Actividad> getPrerequisistos() {
+	public Actividad getPrerequisistos() {
 		return prerequisistos;
 	}
 	
-	public ArrayList<Actividad> getSugeridos() {
+	public Actividad getSugeridos() {
 		return sugeridos;
 	}
 	
@@ -89,11 +91,11 @@ public abstract class Actividad {
 		this.titulo = titulo;
 	}
 		
-	public void setPrerequisistos(ArrayList<Actividad> prerequisistos) {
+	public void setPrerequisistos(Actividad prerequisistos) {
 		this.prerequisistos = prerequisistos;
 	}
 	
-	public void setSugeridos(ArrayList<Actividad> sugeridos) {
+	public void setSugeridos(Actividad sugeridos) {
 		this.sugeridos = sugeridos;
 	}
 	
