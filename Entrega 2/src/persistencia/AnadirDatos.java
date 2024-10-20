@@ -73,7 +73,7 @@ public class AnadirDatos {
 			e.printStackTrace();
 		}
 	}
-	public void nuevoLearningPath(String titulo, String descripcion, String objetivos, String propietario, String metadatos, float dificultad, float duracion, float rating, String estudiantes, String actividades) throws SQLException
+	public void nuevoLearningPath(String titulo, String descripcion, String objetivos, String propietario, String metadatos, float dificultad, float duracion, float rating) throws SQLException
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
@@ -143,11 +143,49 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevaExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String enunciado, String respuestaGuia, String objetivo, String titulo, String nivel, int prerequisistos, int sugeridos, String resenias, int rating, float tiempoLimite, boolean completado) throws SQLException
+	public void nuevoExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String enunciado, String respuestaGuia, String objetivo, String titulo, String nivel, int prerequisistos, int sugeridos, String resenias, int rating, float tiempoLimite, boolean completado) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 			PreparedStatement ps = con.prepareStatement("INSERT INTO EXAMENES (  titulo, objetivo,  nivel,  prerequisistos,  sugeridos,  resenias,  rating,  tiempoLimite,  notaMinima, notaObtenida,exitoso, completado, preguntas, enunciado, respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			ps.setString(1, titulo);
+			ps.setString(2, objetivo);
+			ps.setString(3, nivel);
+			ps.setLong(4, prerequisistos);
+			ps.setLong(5, sugeridos);
+			ps.setString(6,  resenias);
+			ps.setLong(7,  (long) rating);
+			ps.setLong(8,  (long) tiempoLimite);
+			ps.setLong(9,  (long) notaMinima);
+			ps.setLong(10,  (long) notaObtenida);
+			ps.setBoolean(11,   exitoso);
+			ps.setBoolean(12,   completado);
+			ps.setString(13,  preguntas);
+			ps.setString(14,  enunciado);
+			ps.setString(15, respuestaGuia);
+			ps.executeUpdate();
+			
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from EXAMENES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
+			System.out.println("\n Examen creada con éxito.");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void nuevoQuiz(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String enunciado, String respuestaGuia, String objetivo, String titulo, String nivel, int prerequisistos, int sugeridos, String resenias, int rating, float tiempoLimite, boolean completado) throws SQLException
+	{
+		try {
+			Connection con = DriverManager.getConnection(JDBC_URL);
+			PreparedStatement ps = con.prepareStatement("INSERT INTO QUIZES (  titulo, objetivo,  nivel,  prerequisistos,  sugeridos,  resenias,  rating,  tiempoLimite,  notaMinima, notaObtenida,exitoso, completado, preguntas, enunciado, respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
