@@ -21,7 +21,7 @@ public class ConsolaPrincipal extends ConsolaBasica
         else if( opcionSeleccionada == 2 )
         {
         	ConsolaIniciarSesionEstudiante consolaEstudiante = new ConsolaIniciarSesionEstudiante( );
-            // TODO Mirar como empezar con mostrar estu -- Controlador = consolaProfe.mostrarOpciones( );
+            consolaEstudiante.autenticar();
         }
         else if( opcionSeleccionada == 3 )
         {
