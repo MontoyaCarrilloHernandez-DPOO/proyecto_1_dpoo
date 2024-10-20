@@ -18,11 +18,16 @@ public class RecogerDatos {
 		String contrasenia = null;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
-			Statement stmt = con.createStatement();
-			String qu = "SELECT contrasenia FROM ESTUDIANTES WHERE login = " + usuario;
-			resultado = stmt.executeQuery(qu);
-			contrasenia = resultado.getString("contrasenia");
-			
+	
+			String qu = "SELECT contrasenia FROM ESTUDIANTES WHERE login = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setString(1, usuario);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				contrasenia = resultado.getString("contrasenia");
+				System.out.println(contrasenia);
+			}
+			resultado.close();
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
