@@ -26,10 +26,10 @@ public class Examen extends Actividad {
 	
 	public Examen(boolean enviado, boolean exitoso, float notaObtenida, float notaMinima,
 			ArrayList<PreguntaAbierta> preguntas, String enunciado,String respuestaGuia,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
+			ArrayList<String> resenias, float tiempoLimite, double rating, boolean completado) {
 		
 		//actividad
-		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
+		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);
 		this.exitoso = exitoso;
 		this.notaObtenida = notaObtenida;
 		this.notaMinima = notaMinima;

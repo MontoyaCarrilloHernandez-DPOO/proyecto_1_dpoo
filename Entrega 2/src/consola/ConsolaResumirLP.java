@@ -29,12 +29,12 @@ public class ConsolaResumirLP extends ConsolaBasica {
             else if( opcionSeleccionada == 2 )
             {
             	String resenia = pedirCadena("Ingresa tu resenia");
-            	miEstudiante.ratear(resenia, miEstudiante.actualActividad);
+            	miEstudiante.reseniar(resenia, miEstudiante.actualActividad);
             }
             else if( opcionSeleccionada == 3 )
             {
-            	int rating = pedirNumero("Ingresa tu rating (recuerda que es un entero sobre 5)");
-            	miEstudiante.reseniar(rating, miEstudiante.actualActividad);
+            	double rating = pedirNumero("Ingresa tu rating (recuerda que es sobre 5)");
+            	miEstudiante.ratear(rating, miEstudiante.actualActividad);
             }
             else if( opcionSeleccionada == 4 )
             {

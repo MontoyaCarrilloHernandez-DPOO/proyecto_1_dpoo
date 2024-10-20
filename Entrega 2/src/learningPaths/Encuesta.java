@@ -15,7 +15,7 @@ public class Encuesta extends Actividad {
 	public Actividad prerequisistos;
 	public Actividad sugeridos;
 	public ArrayList<String> resenias;
-	public int rating;
+	public double rating;
 	public float ratings;
 	public float tiempoLimite;
 	public float resultado;
@@ -23,9 +23,9 @@ public class Encuesta extends Actividad {
 
 	public Encuesta(String respuestaGuia, String eneunciado, boolean enviado, ArrayList<PreguntaAbierta> preguntas,
 			String enunciado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
+			ArrayList<String> resenias, float tiempoLimite, double rating, boolean completado) {
 		//actividad
-		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
+		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);
 		this.enviado = enviado;
 		this.preguntas = preguntas;
 	}

@@ -13,21 +13,19 @@ public class Actividad {
 	public Actividad prerequisistos;
 	public Actividad sugeridos;
 	public ArrayList<String> resenias;
-	public int rating;
+	public double rating;
 	public float tiempoLimite;
-	public float resultado;
 	public boolean completado;
 	
 	
 	public Actividad(String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
+			ArrayList<String> resenias, float tiempoLimite, double rating, boolean completado) {
 		this.objetivo = objetivo;
 		this.nivel = nivel;
 		this.prerequisistos = prerequisistos;
 		this.sugeridos = sugeridos;
 		this.resenias = resenias;
 		this.tiempoLimite = tiempoLimite;
-		this.resultado = resultado;
 		this.rating = rating;
 		this.completado = completado;
 		this.titulo = titulo;
@@ -66,11 +64,8 @@ public class Actividad {
 		return tiempoLimite;
 	}
 	
-	public double getResultado() {
-		return resultado;
-	}
 	
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
 	
@@ -106,9 +101,6 @@ public class Actividad {
 		this.tiempoLimite = tiempoLimite;
 	}
 	
-	protected void setResultado(float resultado) {
-		this.resultado = resultado;
-	}
 	
 	protected void setRating() {
 		this.rating = 5;
@@ -126,7 +118,7 @@ public class Actividad {
 			System.out.println("Cuidado no cumple los prerequisitos para ver la actividad, puede verla pero bajo su riesgo.");
 		}
 	}
-	public void ratear(int rating) {
+	public void ratear(double rating) {
 		this.rating = (this.rating + rating)/2;
 	}
 }

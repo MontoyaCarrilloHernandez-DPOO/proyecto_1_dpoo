@@ -51,7 +51,7 @@ public abstract class Usuario {
 		actividad.resenias.addLast(resenia);
 	}
 	
-	public void ratear(int rating, Actividad actividad) {
+	public void ratear(double rating, Actividad actividad) {
 		actividad.ratear(rating);
 	}
 	public boolean getAuth(String login, String contrasenia) {
