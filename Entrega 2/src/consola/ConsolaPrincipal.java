@@ -16,7 +16,7 @@ public class ConsolaPrincipal extends ConsolaBasica
         if( opcionSeleccionada == 1 )
         {
         	ConsolaIniciarSesionProfesor consolaProfe = new ConsolaIniciarSesionProfesor( );
-            // TODO Mirar como empezar con mostrar profe -- Controlador = consolaProfe.mostrarOpciones( );
+        	consolaProfe.autenticar();
         }
         else if( opcionSeleccionada == 2 )
         {

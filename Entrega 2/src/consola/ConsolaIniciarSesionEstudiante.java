@@ -3,6 +3,8 @@ import persistencia.RecogerDatos;
 
 public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 	
+	private final String[] opcionesMenuEstudiante = new String[]{ "Incribirse a un Learning Path", "Salirse de un Learning Path", "Continuar con tu Learning Path actual","Salir" };
+	private final String[] opcionesMenuEstudianteLP = new String[]{ "Continuar con tu actividad actual", "Reseniar tu actividad actual", "Reseniar tu Learning Path actual","Volver al menú principal" };
 	
 	
 	public void autenticar() {
@@ -10,7 +12,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     	String contrasenia = pedirCadena( "Ingresa tu contrasenia " );
     	
     	RecogerDatos datos = new RecogerDatos();
-    	String contraseniaEsperada = datos.getContrasenia(login);
+    	String contraseniaEsperada = datos.getContraseniaEstudiante(login);
     	
     	if (! contrasenia.equals(contraseniaEsperada)) {
     		int respuesta = pedirEntero( "Contrasena o login incorrecto. Pulsa 1 para volver a intentar o 2 para salir ");
@@ -22,6 +24,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		}
     	} else {
     		System.out.println("Inicio de sesión correcto");
+    		
     		
     	}
 	}

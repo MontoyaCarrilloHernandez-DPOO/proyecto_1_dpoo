@@ -59,7 +59,7 @@ public class ConsolaCrearUsuarios extends ConsolaBasica
     }
 
 
-    private Profesor crearNuevoProfesor(Controlador sistema)
+    private Profesor crearNuevoProfesor(Controlador sistema) throws SQLException
     {
     	String nombre = pedirCadena( "Ingresa tu nombre " );
     	String apellido = pedirCadena( "Ingresa tu apellido " );
