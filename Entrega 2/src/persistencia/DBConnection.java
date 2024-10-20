@@ -128,7 +128,6 @@ public class DBConnection {
 						+ "sugerido int, \n"
 						+ "tiempoLimite float, \n"
 						+ "rating float, \n"
-						+ "lista_ratings varchar(1000), \n"
 						+ "lista_resenias varchar(1000), \n"
 						+ "completado boolean \n"
 						+ "tipo varchar(50) \n"

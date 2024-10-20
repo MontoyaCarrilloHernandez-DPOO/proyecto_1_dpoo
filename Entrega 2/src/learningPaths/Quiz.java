@@ -14,17 +14,16 @@ public class Quiz extends Actividad{
 	public String nivel;
 	public Actividad prerequisistos;
 	public Actividad sugeridos;
-	public ArrayList<String> resenias;
+	public String resenias;
 	public double rating;
-	public ArrayList<Integer> ratings;
 	public float tiempoLimite;
 	public boolean completado;
 
 	
 	public Quiz(String respuestaCorrecta, String justificacion, String enunciado, String opcionA, String opcionB,
 			String opcionC, String opcionD, float notaMinima, float notaObtenida,boolean exitoso, ArrayList<PreguntaCerrada> preguntas,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, float tiempoLimite, double rating, boolean completado) {
-		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);
+			float tiempoLimite, double rating, boolean completado) {
+		super(objetivo, titulo, nivel, prerequisistos, sugeridos, tiempoLimite, rating, completado);
 		this.notaMinima = notaMinima;
 		this.notaObtenida = notaObtenida;
 		this.exitoso = exitoso;

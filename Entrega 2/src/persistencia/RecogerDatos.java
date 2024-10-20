@@ -99,6 +99,8 @@ public class RecogerDatos {
 			
 			for ( String titulo : lpArray) {
 				String qu = "SELECT * FROM LEARNING_PATH WHERE titulo = ?";
+				ArrayList<Actividad> arrayActividades = new ArrayList<Actividad>(); 
+				ArrayList<Estudiante> arrayEstudiantes = new ArrayList<Estudiante>(); 
 				float duracion = 0;
 				String propietario = null;
 				String descripcion = null;
@@ -123,8 +125,8 @@ public class RecogerDatos {
 					actividades = resultado.getString("actividades");
 					estudiantes = resultado.getString("estudiantes");
 					
-					ArrayList<Actividad> arrayActividades = getActividadesDeString(actividades); 
-					ArrayList<Estudiante> arrayEstudiantes = getEstudiantesDeString(estudiantes); 
+					arrayActividades = getActividadesDeString(actividades); 
+					arrayEstudiantes = getEstudiantesDeString(estudiantes); 
 				}
 				
 				resultado.close();
@@ -149,36 +151,41 @@ public ArrayList<Actividad> getActividadesDeString(String cadena){
 			
 			for ( String id : actArray) {
 				String qu = "SELECT * FROM ACTIVIDADES WHERE id = ?";
-				float duracion = 0;
-				String propietario = null;
-				String descripcion = null;
+				String titulo = null;
 				String objetivo = null;
-				float dificultad = 0;
+				String nivel = null;
+				float duracion = 0;
+				String learningPath = null;
+				int prerequisito = 0;
+				int sugerido = 0;
+				float tiempoLimite = 0;
 				float rating = 0;
-				String metadatos = null;
-				String actividades = null;
-				String estudiantes = null;
+				String lista_ratings = null;
+				String lista_resenias = null;
+				boolean completado = false;
+				String tipo = null;
 				
 				PreparedStatement pstmt = con.prepareStatement(qu);
 			    pstmt.setString(1, id);
 				resultado = pstmt.executeQuery();
 				if (resultado.next()) {
-					duracion = resultado.getFloat("duracion");
-					propietario = resultado.getString("propietario");
-					descripcion = resultado.getString("descripcion");
+					titulo = resultado.getString("titulo");
 					objetivo = resultado.getString("objetivo");
-					dificultad = resultado.getFloat("dificultad");
+					nivel = resultado.getString("nivel");
+					duracion = resultado.getFloat("duracion");
+					learningPath = resultado.getString("learningPath");
+					prerequisito = resultado.getInt("prerequisito");
+					sugerido = resultado.getInt("sugerido");
+					tiempoLimite = resultado.getFloat("tiempoLimite");
 					rating = resultado.getFloat("rating");
-					metadatos = resultado.getString("metadatos");
-					actividades = resultado.getString("actividades");
-					estudiantes = resultado.getString("estudiantes");
-					
-					ArrayList<Actividad> arrayActividades = getActividadesDeString(actividades); 
-					ArrayList<Estudiante> arrayEstudiantes = getEstudiantesDeString(estudiantes); 
+					lista_resenias = resultado.getString("lista_resenias");
+					completado = resultado.getBoolean("completado");
+					tipo = resultado.getString("tipo");
 				}
-				
+				String id_sugerido = Integer.toString(sugerido);
+				String id_prerequisito = Integer.toString(prerequisito);
 				resultado.close();
-				Actividad estaAct = new Actividad(alo);
+				Actividad estaAct = new Actividad(objetivo, titulo, nivel, getActividadesDeString(id_sugerido).get(0) , getActividadesDeString(id_prerequisito).get(0), lista_resenias, tiempoLimite, rating, completado);
 				listaAct.add(estaAct);
 			}
 			

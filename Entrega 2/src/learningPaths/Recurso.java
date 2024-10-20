@@ -14,7 +14,6 @@ public class Recurso extends Actividad {
 	public Actividad sugeridos;
 	public ArrayList<String> resenias;
 	public float rating;
-	public ArrayList<Integer> ratings;
 	public float tiempoLimite;
 	public boolean completado;
 
