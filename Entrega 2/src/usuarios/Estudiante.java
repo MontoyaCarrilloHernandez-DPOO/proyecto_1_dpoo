@@ -19,7 +19,7 @@ public class Estudiante extends Usuario{
 		super(contrasenia, nombre, apellido, login);
 	}
 	
-	protected void enroll(LearningPath learningPath) throws LPException {
+	public void enroll(LearningPath learningPath) throws LPException {
 		if (actualLearningPath == null && !historialLearningPaths.contains(learningPath)) {
 			this.actualLearningPath = learningPath;
 			this.progreso = new Progreso(learningPath);
@@ -30,7 +30,7 @@ public class Estudiante extends Usuario{
 		}
 	}
 	
-	protected void unenroll(LearningPath learningPath) {
+	public void unenroll() {
 		this.actualLearningPath = null;
 		this.progreso = null;
 	}
