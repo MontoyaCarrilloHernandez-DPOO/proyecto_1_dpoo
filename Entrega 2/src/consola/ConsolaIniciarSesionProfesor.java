@@ -1,17 +1,28 @@
 package consola;
-import persistencia.RecogerDatos;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+
+import persistencia.RecogerDatos;
+import usuarios.Profesor;
+import learningPaths.LearningPath;
 public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 	
 	private final String[] opcionesMenuProfesor = new String[]{ "Crear un Learning Path", "Crear actividad", "Calificar estudiantes", "Salir" };
 	private final String[] opcionesMenuProfesorCreador = new String[]{ "Crear quiz", "Crear recurso", "Crear tarea", "Crear examen","Crear encuesta","Crear Pregunta Abierta","Crear Pregunta Cerrada", "Salir"};
 	
-	public void autenticar() {
+	private Profesor profesor;
+	
+	public void autenticar() throws SQLException {
 		String login = pedirCadena( "Ingresa tu login " );
     	String contrasenia = pedirCadena( "Ingresa tu contrasenia " );
-    	
     	RecogerDatos datos = new RecogerDatos();
-    	String contraseniaEsperada = datos.getContraseniaProfesor(login);
+    	
+    	ArrayList<String> datosProfe= datos.getContraseniaProfesor(login);
+    	String contraseniaEsperada = datosProfe.get(0);
+    	String nombre = datosProfe.get(1);
+    	String apellido = datosProfe.get(2);
+    	String DBLearningPaths = datosProfe.get(3);
     	
     	if (! contrasenia.equals(contraseniaEsperada)) {
     		int respuesta = pedirEntero( "Contrasena o login incorrecto. Pulsa 1 para volver a intentar o 2 para salir ");
@@ -24,7 +35,36 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
     	} else {
     		System.out.println("Inicio de sesión correcto");
     		
+    		ArrayList<LearningPath> LearningPaths = datos.getLearningPathsDeString(DBLearningPaths);
+    		this.profesor = new Profesor(contrasenia, nombre, apellido, login,LearningPaths);
+    		mostrarMenuProfesor();
+    		
     	}
+	}
+	
+	public void mostrarMenuProfesor() throws SQLException {
+		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuProfesor );
+		if( opcionSeleccionada == 1 )
+        {
+			//TODO
+			//TODO estudiante.enroll(null);
+        }
+        else if( opcionSeleccionada == 2 )
+        {
+        	//TODO
+        }
+        else if( opcionSeleccionada == 3 )
+        {
+        	//ConsolaResumirLP consola = new ConsolaResumirLP(profesor);
+        	//consola.mostrarOpciones();
+        }
+        
+        else if( opcionSeleccionada == 4 )
+        {
+            System.out.println( "Saliendo ..." );
+            System.exit( 0 );
+        }
+		mostrarMenuProfesor( );
 	}
 
 }

@@ -58,7 +58,6 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
         {
         	ConsolaResumirLP consola = new ConsolaResumirLP(estudiante);
         	consola.mostrarOpciones();
-        	
         }
         
         else if( opcionSeleccionada == 4 )
