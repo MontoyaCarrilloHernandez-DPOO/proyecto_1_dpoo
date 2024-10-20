@@ -15,13 +15,13 @@ public class Tarea extends Actividad{
 	public ArrayList<String> resenias;
 	public int rating;
 	public ArrayList<Integer> ratings;
-	public double tiempoLimite;
-	public double resultado;
+	public float tiempoLimite;
+	public float resultado;
 	public boolean completado;
 
 	
 	public Tarea(boolean enviado, boolean estado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
 		this.estado = estado;

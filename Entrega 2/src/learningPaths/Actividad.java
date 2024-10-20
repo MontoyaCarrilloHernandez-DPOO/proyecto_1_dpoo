@@ -14,14 +14,13 @@ public class Actividad {
 	public Actividad sugeridos;
 	public ArrayList<String> resenias;
 	public int rating;
-	public ArrayList<Integer> ratings;
-	public double tiempoLimite;
-	public double resultado;
+	public float tiempoLimite;
+	public float resultado;
 	public boolean completado;
 	
 	
 	public Actividad(String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
 		this.objetivo = objetivo;
 		this.nivel = nivel;
 		this.prerequisistos = prerequisistos;
@@ -103,11 +102,11 @@ public class Actividad {
 		this.resenias = resenias;
 	}
 	
-	public void setTiempoLimite(double tiempoLimite) {
+	public void setTiempoLimite(float tiempoLimite) {
 		this.tiempoLimite = tiempoLimite;
 	}
 	
-	protected void setResultado(double resultado) {
+	protected void setResultado(float resultado) {
 		this.resultado = resultado;
 	}
 	

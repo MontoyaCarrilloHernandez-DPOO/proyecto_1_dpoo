@@ -16,14 +16,14 @@ public class Encuesta extends Actividad {
 	public Actividad sugeridos;
 	public ArrayList<String> resenias;
 	public int rating;
-	public ArrayList<Integer> ratings;
-	public double tiempoLimite;
-	public double resultado;
+	public float ratings;
+	public float tiempoLimite;
+	public float resultado;
 	public boolean completado;
 
 	public Encuesta(String respuestaGuia, String eneunciado, boolean enviado, ArrayList<PreguntaAbierta> preguntas,
 			String enunciado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+			ArrayList<String> resenias, float tiempoLimite, float resultado, int rating, boolean completado) {
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
 		this.enviado = enviado;
