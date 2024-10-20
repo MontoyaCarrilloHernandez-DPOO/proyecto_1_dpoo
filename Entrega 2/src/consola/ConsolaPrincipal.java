@@ -6,7 +6,7 @@ import persistencia.Controlador;
 
 public class ConsolaPrincipal extends ConsolaBasica
 {
-    private final String[] opcionesMenuPrincipal = new String[]{ "Iniciar sesion como profesor", "Iniciar sesion como estudiante", "Crear usuario", "Crear Sistema","Salir" };
+    private final String[] opcionesMenuPrincipal = new String[]{ "Iniciar sesion como profesor", "Iniciar sesion como estudiante", "Crear usuario", "Crear Sistema","Subir Sistema","Salir" };
 
     private Controlador sistema;
 
@@ -35,6 +35,10 @@ public class ConsolaPrincipal extends ConsolaBasica
         	sistema = consolaControlador.crear( );
         }
         else if( opcionSeleccionada == 5 )
+        {
+            //TODO Ver cómo subir datos
+        }
+        else if( opcionSeleccionada == 6 )
         {
             System.out.println( "Saliendo ..." );
             System.exit( 0 );
