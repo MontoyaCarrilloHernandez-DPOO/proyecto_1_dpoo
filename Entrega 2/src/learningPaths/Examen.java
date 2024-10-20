@@ -2,8 +2,10 @@ package learningPaths;
 
 import java.util.ArrayList;
 
-public class Examen extends PreguntaAbierta {
-	public boolean enviado;
+import usuarios.Estudiante;
+
+public class Examen extends Actividad {
+	
 	public boolean exitoso;
 	public double notaObtenida;
 	public double notaMinima;
@@ -11,22 +13,30 @@ public class Examen extends PreguntaAbierta {
 	public String enunciado;
 	public String respuestaGuia;
 	
+	//actividad
+	public String objetivo;
+	public String titulo;
+	public String nivel;
+	public ArrayList<Actividad> prerequisistos;
+	public ArrayList<Actividad> sugeridos;
+	public ArrayList<String> resenias;
+	public int rating;
+	public ArrayList<Integer> ratings;
+	public double tiempoLimite;
+	public double resultado;
+	public boolean completado;
 	
 	public Examen(boolean enviado, boolean exitoso, double notaObtenida, double notaMinima,
-			ArrayList<PreguntaAbierta> preguntas, String enunciado,String respuestaGuia) {
-		super(respuestaGuia, enunciado );
-		this.enviado = enviado;
+			ArrayList<PreguntaAbierta> preguntas, String enunciado,String respuestaGuia,String objetivo,String titulo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
+			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+		
+		//actividad
+		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
 		this.exitoso = exitoso;
 		this.notaObtenida = notaObtenida;
 		this.notaMinima = notaMinima;
 		this.preguntas = preguntas;
 	}
-
-
-	public boolean isEnviado() {
-		return enviado;
-	}
-
 
 	public boolean isExitoso() {
 		return exitoso;
@@ -45,11 +55,6 @@ public class Examen extends PreguntaAbierta {
 
 	public ArrayList<PreguntaAbierta> getPreguntas() {
 		return preguntas;
-	}
-
-
-	protected void setEnviado(boolean enviado) {
-		this.enviado = enviado;
 	}
 
 
@@ -79,5 +84,15 @@ public class Examen extends PreguntaAbierta {
 		}
 		return enunciado;
 	}
+
+
+	public void setCompletado(Estudiante estudiante) {
+		this.completado = true;
 		
+	}
+
+	@Override
+	public void setCompletado() {
+		
+	}		
 }

@@ -4,7 +4,7 @@ import learningPaths.LearningPath;
 import usuarios.Estudiante;
 import java.util.ArrayList;
 import java.util.List;
-
+//TODO revisar Si falta algo
 public class Progreso {
 	private LearningPath learningPath;
 	private ArrayList<Actividad> actividadesCompletadas;

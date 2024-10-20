@@ -2,16 +2,30 @@ package learningPaths;
 
 import java.util.ArrayList;
 
-public class Encuesta extends PreguntaAbierta {
+public class Encuesta extends Actividad {
 	public boolean enviado;
 	private ArrayList<PreguntaAbierta> preguntas;
 	public String enunciado;
 	public String respuestaGuia;
 	
+	//actividad
+	public String objetivo;
+	public String titulo;
+	public String nivel;
+	public ArrayList<Actividad> prerequisistos;
+	public ArrayList<Actividad> sugeridos;
+	public ArrayList<String> resenias;
+	public int rating;
+	public ArrayList<Integer> ratings;
+	public double tiempoLimite;
+	public double resultado;
+	public boolean completado;
 
 	public Encuesta(String respuestaGuia, String eneunciado, boolean enviado, ArrayList<PreguntaAbierta> preguntas,
-			String enunciado) {
-		super(respuestaGuia, eneunciado);
+			String enunciado,String objetivo,String titulo, String nivel, ArrayList<Actividad> prerequisistos, ArrayList<Actividad> sugeridos,
+			ArrayList<String> resenias, double tiempoLimite, double resultado, int rating, boolean completado) {
+		//actividad
+		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, resultado, rating, completado);
 		this.enviado = enviado;
 		this.preguntas = preguntas;
 	}
@@ -39,5 +53,11 @@ public class Encuesta extends PreguntaAbierta {
 			enunciado += "\n \n \n";
 		}
 		return enunciado;
+	}
+
+
+	@Override
+	public void setCompletado() {
+		this.completado = true;
 	}
 }

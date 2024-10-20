@@ -1,5 +1,5 @@
 package learningPaths;
-
+//TODO implementar abstacta actividad
 public class Tarea {
 	public boolean enviado;
 	public boolean estado;

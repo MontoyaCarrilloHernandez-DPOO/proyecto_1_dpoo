@@ -52,8 +52,9 @@ public class Estudiante extends Usuario{
 	}
 	
 	protected void terminarActividad() {
-		//TODO
+		this.progreso.anadirCompletasQuitarIncompleta(actualActividad);
 		this.actualActividad = null;
+		
 	}
 	
 	public double getProgreso() {
@@ -61,8 +62,26 @@ public class Estudiante extends Usuario{
 		return miProgreso;
 	}
 	
-	private void responder(String respuesta, PreguntaAbierta pregunta) {
-		//TODO
+	public void responder(String respuesta, PreguntaAbierta pregunta) {
+		respuestas.put(pregunta, respuesta);
+	}
+	
+	public void marcarCompletado(ArrayList<String> respuestasAc, ArrayList<PreguntaAbierta> preguntas, Actividad actividad) {
+		//Las actividades que le entren a esta funcion deben de ser de tipo examen o encuesta.
+		if(respuestasAc.size()!=preguntas.size()) {
+			if(respuestasAc.size()<preguntas.size()) {
+				System.out.println("Hay mas preguntas que respuestas, responda todas las preguntas");				
+			}else {				
+				System.out.println("Hay mas respuestas que preguntas");				
+			}
+		}
+		else {
+		for (int i=0; i< respuestasAc.size();i++) {
+			respuestas.put(preguntas.get(i), respuestasAc.get(i));
+		}
+		actividad.setCompletado();
+		System.out.println("Actividad marcada como completada con exito");				
+	}
 	}
 	
 	public boolean viendoActividad() {
