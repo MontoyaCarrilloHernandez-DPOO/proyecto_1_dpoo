@@ -1,7 +1,7 @@
 package learningPaths;
 
 import java.util.ArrayList;
-
+//TODO Implementar Abstracta actividad
 public class Quiz extends PreguntaCerrada{
 	public String respuestaCorrecta;
 	public String justificacion;

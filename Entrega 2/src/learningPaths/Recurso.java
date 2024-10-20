@@ -1,5 +1,5 @@
 package learningPaths;
-
+//TODO implementar Abstracta actividad
 public class Recurso {
 
 	public String tipo;

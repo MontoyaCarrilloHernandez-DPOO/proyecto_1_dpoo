@@ -109,8 +109,8 @@ public abstract class Actividad {
 		this.resultado = resultado;
 	}
 	
-	protected void setReting(int rating) {
-		this.rating = rating;
+	protected void setRating() {
+		this.rating = 5;
 	}
 	
 	protected void advertenciaPrerequisitos(Actividad actividadPR, Estudiante estudiante) throws PRExceptions {
@@ -124,6 +124,9 @@ public abstract class Actividad {
 		}else {
 			System.out.println("Cuidado no cumple los prerequisitos para ver la actividad, puede verla pero bajo su riesgo.");
 		}
+	}
+	public void ratear(int rating) {
+		this.rating = (this.rating + rating)/2;
 	}
 }
 
