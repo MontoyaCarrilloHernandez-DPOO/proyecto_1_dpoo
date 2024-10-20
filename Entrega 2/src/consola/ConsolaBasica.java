@@ -70,6 +70,7 @@ public abstract class ConsolaBasica
         }
         return valorResultado;
     }
+    
 
     protected double pedirNumero( String mensaje )
     {

@@ -4,7 +4,7 @@ import persistencia.RecogerDatos;
 public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 	
 	private final String[] opcionesMenuProfesor = new String[]{ "Crear un Learning Path", "Crear actividad", "Calificar estudiantes", "Salir" };
-	private final String[] opcionesMenuProfesorCreador = new String[]{ "Crear quiz", "Salirse de un Learning Path", "Calificar estudiantes", "Salir" };
+	private final String[] opcionesMenuProfesorCreador = new String[]{ "Crear quiz", "Crear recurso", "Crear tarea", "Crear examen","Crear encuesta","Crear Pregunta Abierta","Crear Pregunta Cerrada", "Salir"};
 	
 	public void autenticar() {
 		String login = pedirCadena( "Ingresa tu login " );
