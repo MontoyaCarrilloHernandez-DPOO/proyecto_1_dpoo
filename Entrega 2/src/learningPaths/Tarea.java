@@ -20,7 +20,7 @@ public class Tarea extends Actividad{
 
 	
 	public Tarea(boolean enviado, boolean estado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			ArrayList<String> resenias, float tiempoLimite, double rating, boolean completado) {
+			String resenias, float tiempoLimite, double rating, boolean completado) {
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);
 		this.estado = estado;
