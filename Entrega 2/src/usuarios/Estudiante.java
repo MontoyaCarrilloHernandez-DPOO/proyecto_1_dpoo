@@ -19,9 +19,7 @@ public class Estudiante extends Usuario{
 		super(contrasenia, nombre, apellido, login);
 	}
 	
-	public void reseniar(String resenia, Actividad actividad) {
-		actividad.resenias.addLast(resenia);
-	}
+
 	
 	public void ratear(int rating, Actividad actividad) {
 		actividad.ratear(rating);

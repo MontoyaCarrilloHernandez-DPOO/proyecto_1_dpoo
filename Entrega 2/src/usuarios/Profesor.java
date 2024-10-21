@@ -29,7 +29,7 @@ public class Profesor extends Usuario{
 
 	}
 	
-	private ArrayList<String> verResenias(String nombre){
+	private String verResenias(String nombre){
 		for(Actividad actividad:actividades) {
 			if(nombre.equals(actividad.getTitulo())) {
 				return actividad.getResenias();

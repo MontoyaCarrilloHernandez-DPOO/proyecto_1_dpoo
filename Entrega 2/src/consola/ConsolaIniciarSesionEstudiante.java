@@ -45,7 +45,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuEstudiante );
 		if( opcionSeleccionada == 1 )
         {
-			//TODO
+			//TODO Toca poner lo de poner los cosos de los learning paths que se ven en controlador
 			//TODO estudiante.enroll(null);
         }
         else if( opcionSeleccionada == 2 )
