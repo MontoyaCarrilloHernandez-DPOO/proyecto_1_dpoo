@@ -1,16 +1,20 @@
 package consola;
 
 import java.sql.SQLException;
+
+import persistencia.Controlador;
 import usuarios.Estudiante;
 
 
 public class ConsolaResumirLP extends ConsolaBasica {
 	
 	private final String[] opcionesMenuEstudianteLP = new String[]{ "Continuar con tu actividad actual", "Reseniar tu actividad actual", "Ratear tu actividad actual","Volver al menú principal" };
+	private Controlador sistema;
 	private Estudiante miEstudiante;
 	
-	public ConsolaResumirLP(Estudiante estudiante) {
+	public ConsolaResumirLP(Estudiante estudiante, Controlador sistema) {
 		this.miEstudiante = estudiante;
+		this.sistema = sistema;
 	}
 	
 	
@@ -24,7 +28,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
             int opcionSeleccionada = mostrarMenu( "Menú de Progreso", opcionesMenuEstudianteLP );
             if( opcionSeleccionada == 1 )
             {
-                //TODO
+                //Crear nueva funcion que muestre las atcividades y eso e imprimir
             }
             else if( opcionSeleccionada == 2 )
             {

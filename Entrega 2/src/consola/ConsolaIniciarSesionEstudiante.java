@@ -2,18 +2,26 @@ package consola;
 import persistencia.Controlador;
 import persistencia.RecogerDatos;
 import usuarios.Estudiante;
+import learningPaths.LearningPath;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import Excepciones.LPException;
 import consola.ConsolaResumirLP;
 
 public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 	
 	private final String[] opcionesMenuEstudiante = new String[]{ "Incribirse a un Learning Path", "Salirse de tu Learning Path", "Continuar con tu Learning Path actual","Salir" };
 	
+	private Controlador sistema;
 	private Estudiante estudiante;
 	
-	public void autenticar() throws SQLException {
+	public ConsolaIniciarSesionEstudiante (Controlador sistema) {
+		this.sistema= sistema;
+	}
+	
+	public void autenticar() throws SQLException, LPException {
 		String login = pedirCadena( "Ingresa tu login " );
     	String contrasenia = pedirCadena( "Ingresa tu contrasenia " );
     	RecogerDatos datos = new RecogerDatos();
@@ -41,12 +49,24 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     	}
 	}
 	
-	public void mostrarMenuEstudiante() throws SQLException {
+	public void mostrarMenuEstudiante() throws SQLException, LPException {
 		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuEstudiante );
 		if( opcionSeleccionada == 1 )
         {
-			//TODO Toca poner lo de poner los cosos de los learning paths que se ven en controlador
-			//TODO estudiante.enroll(null);
+			LearningPath miLP = null;
+			ArrayList<LearningPath> lpsDisponibles = sistema.listaLearningPaths;
+			ArrayList<String> opcionesLps = new ArrayList<String>();
+			for (LearningPath lp: lpsDisponibles) {
+				System.out.println("-"+lp.titulo);
+				opcionesLps.addLast(lp.titulo);
+			}
+			String titulo = pedirCadena("Escribe el titulo de alguno de los Learning Paths para unirte");
+			for (LearningPath lp: lpsDisponibles) {
+				if (lp.titulo.equals(titulo)) {
+					 miLP = lp;
+				}
+			}
+			estudiante.enroll(miLP);
         }
         else if( opcionSeleccionada == 2 )
         {
@@ -56,7 +76,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
         }
         else if( opcionSeleccionada == 3 )
         {
-        	ConsolaResumirLP consola = new ConsolaResumirLP(estudiante);
+        	ConsolaResumirLP consola = new ConsolaResumirLP(estudiante, sistema);
         	consola.mostrarOpciones();
         }
         

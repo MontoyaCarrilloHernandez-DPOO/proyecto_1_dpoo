@@ -8,19 +8,19 @@ public class ConsolaPrincipal extends ConsolaBasica
 {
     private final String[] opcionesMenuPrincipal = new String[]{ "Iniciar sesion como profesor", "Iniciar sesion como estudiante", "Crear usuario", "Crear Sistema","Subir Sistema","Salir" };
 
-    private Controlador sistema;
+    public Controlador sistema;
 
     private void mostrarMenuPrincipal( ) throws SQLException
     {
         int opcionSeleccionada = mostrarMenu( "Menú principal", opcionesMenuPrincipal );
         if( opcionSeleccionada == 1 )
         {
-        	ConsolaIniciarSesionProfesor consolaProfe = new ConsolaIniciarSesionProfesor( );
+        	ConsolaIniciarSesionProfesor consolaProfe = new ConsolaIniciarSesionProfesor( sistema );
         	consolaProfe.autenticar();
         }
         else if( opcionSeleccionada == 2 )
         {
-        	ConsolaIniciarSesionEstudiante consolaEstudiante = new ConsolaIniciarSesionEstudiante( );
+        	ConsolaIniciarSesionEstudiante consolaEstudiante = new ConsolaIniciarSesionEstudiante( sistema );
             consolaEstudiante.autenticar();
         }
         else if( opcionSeleccionada == 3 )

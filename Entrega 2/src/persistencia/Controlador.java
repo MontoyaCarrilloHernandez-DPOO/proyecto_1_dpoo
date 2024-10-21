@@ -11,10 +11,10 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class Controlador {
 	
-	private ArrayList<Estudiante> listaEstudiantes;
-	private ArrayList<Profesor> listaProfesores;
-	private ArrayList<LearningPath> listaLearningPaths;
-	private AnadirDatos anadirDatos;
+	public ArrayList<Estudiante> listaEstudiantes;
+	public ArrayList<Profesor> listaProfesores;
+	public ArrayList<LearningPath> listaLearningPaths;
+	public AnadirDatos anadirDatos;
 	
 	public Controlador() {
 		this.listaEstudiantes = new ArrayList<>();

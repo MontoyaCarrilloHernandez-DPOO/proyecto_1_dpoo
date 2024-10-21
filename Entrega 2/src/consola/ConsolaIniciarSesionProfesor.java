@@ -1,8 +1,8 @@
 package consola;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-
+import consola.ConsolaCrearActividades;
+import persistencia.Controlador;
 import persistencia.RecogerDatos;
 import usuarios.Profesor;
 import learningPaths.LearningPath;
@@ -10,8 +10,12 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 	
 	private final String[] opcionesMenuProfesor = new String[]{ "Crear un Learning Path", "Crear actividad", "Calificar estudiantes", "Salir" };
 	private final String[] opcionesMenuProfesorCreador = new String[]{ "Crear quiz", "Crear recurso", "Crear tarea", "Crear examen","Crear encuesta","Crear Pregunta Abierta","Crear Pregunta Cerrada", "Salir"};
-	
+	private Controlador sistema;
 	private Profesor profesor;
+	
+	public ConsolaIniciarSesionProfesor (Controlador sistema) {
+		this.sistema= sistema;
+	}
 	
 	public void autenticar() throws SQLException {
 		String login = pedirCadena( "Ingresa tu login " );
@@ -46,17 +50,16 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuProfesor );
 		if( opcionSeleccionada == 1 )
         {
-			//TODO
-			//TODO estudiante.enroll(null);
+			//TODO Crear LP
         }
         else if( opcionSeleccionada == 2 )
-        {
-        	//TODO
+        { 
+        	ConsolaCrearActividades consola = new ConsolaCrearActividades();
+        	//completar
         }
         else if( opcionSeleccionada == 3 )
         {
-        	//ConsolaResumirLP consola = new ConsolaResumirLP(profesor);
-        	//consola.mostrarOpciones();
+        	//MIRAR COMO HACER LAS PREGUNTSAS Y CALIFICAR
         }
         
         else if( opcionSeleccionada == 4 )
