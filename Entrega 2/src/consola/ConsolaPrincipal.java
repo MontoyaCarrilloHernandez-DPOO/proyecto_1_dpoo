@@ -2,6 +2,7 @@ package consola;
 
 import java.sql.SQLException;
 
+import Excepciones.LPException;
 import persistencia.Controlador;
 
 public class ConsolaPrincipal extends ConsolaBasica
@@ -10,7 +11,7 @@ public class ConsolaPrincipal extends ConsolaBasica
 
     public Controlador sistema;
 
-    private void mostrarMenuPrincipal( ) throws SQLException
+    private void mostrarMenuPrincipal( ) throws SQLException, LPException
     {
         int opcionSeleccionada = mostrarMenu( "Menú principal", opcionesMenuPrincipal );
         if( opcionSeleccionada == 1 )
@@ -47,7 +48,7 @@ public class ConsolaPrincipal extends ConsolaBasica
     }
 
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, LPException {
 		ConsolaPrincipal c = new ConsolaPrincipal( );
 		c.mostrarMenuPrincipal( );
 	}
