@@ -14,7 +14,7 @@ public class Profesor extends Usuario{
 		this.learningPaths = learningPaths;
 	}
 	public void crearLearningPath(ArrayList<Actividad> actividades,ArrayList<Estudiante> estudiantes,String titulo,String descripcion,String objetivo, String metadatos,double duracion,double dificultad,double rating) {
-		LearningPath lp = new LearningPath(this.nombre,titulo,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades,estudiantes);
+		LearningPath lp = new LearningPath(this.nombre,titulo+"."+this.nombre ,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades,estudiantes);
 		this.learningPaths.addLast(lp);
 		
 		//TODO:implementar que al crear el lp se guarde en el DB
