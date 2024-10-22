@@ -13,23 +13,25 @@ public class Profesor extends Usuario{
 		super(contrasenia, nombre, apellido, login);
 		this.learningPaths = learningPaths;
 	}
-	private void crearLearningPath(ArrayList<Actividad> actividades,ArrayList<Estudiante> estudiantes,String titulo,String descripcion,String objetivo, String metadatos,double duracion,double dificultad,double rating) {
+	public void crearLearningPath(ArrayList<Actividad> actividades,ArrayList<Estudiante> estudiantes,String titulo,String descripcion,String objetivo, String metadatos,double duracion,double dificultad,double rating) {
 		LearningPath lp = new LearningPath(this.nombre,titulo,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades,estudiantes);
 		this.learningPaths.addLast(lp);
-		//TODO:implementar que al crear el lp se guarde en el json
+		
+		//TODO:implementar que al crear el lp se guarde en el DB
 	}
 	
-	private void crearActividad(String nombre, String objetivo,
-			double duracion, ArrayList<Actividad> prerequisitos,
-			ArrayList<Actividad> sugeridos, double timepoLimite,
-			double resultado, double rating, String reseña) {
+	public void crearActividad(String nombre, String objetivo, String nivel,
+			double duracion, Actividad prerequisito,
+			Actividad sugerido, float tiempoLimite,
+			double resultado, double rating, String resenias) {
+		Actividad actividad = new Actividad(objetivo, nombre, nivel, prerequisito, sugerido, resenias, tiempoLimite, rating, false);
+		actividades.add(actividad);
 		
-		//Actividad actividad = new Actividad();
-		//TODO:implementar que al crear la actividad se guarde en el json
+		//TODO:implementar que al crear la actividad se guarde en el DB
 
 	}
 	
-	private String verResenias(String nombre){
+	public String verResenias(String nombre){
 		for(Actividad actividad:actividades) {
 			if(nombre.equals(actividad.getTitulo())) {
 				return actividad.getResenias();
@@ -37,13 +39,13 @@ public class Profesor extends Usuario{
 		}
 		return null;
 	}
-	private void calificar(LearningPath lp, PreguntaAbierta pregunta) {
+	public void calificar(LearningPath lp, PreguntaAbierta pregunta) {
 		if(lp.getPropietario().equals(this.nombre)) {
 			//TODO: implementar, no se pudo implementar porque soy un chimpance que no programo actividad como abstracta y no puedo acceder al tipo de actividad, recordar pensar la proxima vez
 			
 		}
 	}
-	private void duplicarLP(LearningPath lp) {
+	public void duplicarLP(LearningPath lp) {
 		crearLearningPath(lp.getActividades(),lp.getEstudiantes(),lp.getTitulo(),lp.getDescripcion(),lp.getObjetivo(),lp.getMetadatos(),lp.getDuracion(),lp.getDificultad(),lp.getRating());	
 	}
 	private ArrayList<Estudiante> getEstudiantesAsociados(LearningPath lp){

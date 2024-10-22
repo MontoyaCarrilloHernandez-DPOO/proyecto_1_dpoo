@@ -50,6 +50,7 @@ public class DBConnection {
 						+ "lp_actual varchar(50), \n"
 						+ "actividad_actual int \n"
 						+ ")");
+				//sera que incluimos progreso y lo de preguntas y respuestas? ayuda ahí plz
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());

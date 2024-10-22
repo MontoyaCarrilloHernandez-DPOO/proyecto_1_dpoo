@@ -47,18 +47,18 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 	
 	public void mostrarMenuProfesor() throws SQLException {
 		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuProfesor );
+		ConsolaCrearActividades consola = new ConsolaCrearActividades(sistema);
 		if( opcionSeleccionada == 1 )
         {
-			//TODO Crear LP
+			consola.mostrarOpcionesLP();
         }
         else if( opcionSeleccionada == 2 )
         { 
-        	ConsolaCrearActividades consola = new ConsolaCrearActividades();
-        	//completar
+        	consola.mostrarOpcionesActividad();
         }
         else if( opcionSeleccionada == 3 )
         {
-        	//MIRAR COMO HACER LAS PREGUNTSAS Y CALIFICAR
+        	//TODO MIRAR COMO HACER LAS PREGUNTSAS Y CALIFICAR
         }
         
         else if( opcionSeleccionada == 4 )

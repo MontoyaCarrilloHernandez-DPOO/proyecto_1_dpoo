@@ -67,10 +67,12 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 				}
 			}
 			estudiante.enroll(miLP);
+			//TODO Directamente en estudiante, crear la persistencia para actualizar los datos del estudiante
         }
         else if( opcionSeleccionada == 2 )
         {
         	estudiante.unenroll();
+        	//TODO Directamente en estudiante, crear la persistencia para actualizar los datos del estudiante
         	System.out.println( "Haz salido de este Learning Path con éxito" );
         	
         }
