@@ -30,6 +30,13 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				//print de las actividades
 				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
 				//print de las actividades
+				String resenias = "";
+				int rating = 5;
+				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float notaMinima = (float) pedirNumero("Ingrese la nota minima para aprobar el quiz (recuerde que es de 0 a 5).");
+				float notaObtenida;
+				
+				
 				
 			}
 			//Recurso 
