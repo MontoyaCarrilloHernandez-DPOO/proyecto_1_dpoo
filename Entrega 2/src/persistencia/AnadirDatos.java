@@ -73,7 +73,7 @@ public class AnadirDatos {
 			e.printStackTrace();
 		}
 	}
-	public void nuevoLearningPath(String titulo, String descripcion, String objetivos, String propietario, String metadatos, float dificultad, float duracion, float rating) throws SQLException
+	public void nuevoLearningPath(String titulo, String descripcion, String objetivos, String propietario, String metadatos, float dificultad, float duracion, float rating, String actividades) throws SQLException
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
@@ -86,7 +86,7 @@ public class AnadirDatos {
 		ps.setLong(6,  (long) dificultad);
 		ps.setLong(7,  (long) duracion);
 		ps.setLong(8,  (long) rating);
-		ps.setString(9, "");
+		ps.setString(9, actividades);
 		ps.setString(10, "");
 		ps.executeUpdate();
 		

@@ -1,5 +1,6 @@
 package consola;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import usuarios.Profesor;
 import learningPaths.LearningPath;
@@ -105,7 +106,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 		}
 	}
 	
-public void mostrarOpcionesLP(){
+public void mostrarOpcionesLP() throws SQLException{
 		
 		boolean salir = false;
 		while(!salir) {
@@ -126,8 +127,13 @@ public void mostrarOpcionesLP(){
 				}
 				String titulo = pedirCadena("Escribe el titulo de alguno de los Learning Paths para duplicar");
 				for (LearningPath lp: lpsDisponibles) {
-					if (lp.titulo.equals(titulo)) {
-						 miLP = lp;
+					try {
+						if (lp.titulo.equals(titulo)) {
+							 miLP = lp;
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				this.profesor.duplicarLP(miLP);
