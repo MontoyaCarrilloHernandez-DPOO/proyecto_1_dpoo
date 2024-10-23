@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Encuesta extends Actividad {
 	public boolean enviado;
 	private ArrayList<PreguntaAbierta> preguntas;
-	public String enunciado;
-	public String respuestaGuia;
 	
 	public static final String tipo = "ENCUESTAS";
 	//actividad
@@ -21,8 +19,8 @@ public class Encuesta extends Actividad {
 	public float resultado;
 	public boolean completado;
 
-	public Encuesta(String respuestaGuia, String eneunciado, boolean enviado, ArrayList<PreguntaAbierta> preguntas,
-			String enunciado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+	public Encuesta(boolean enviado, ArrayList<PreguntaAbierta> preguntas,
+			String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			String resenias, float tiempoLimite, double rating, boolean completado) {
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);

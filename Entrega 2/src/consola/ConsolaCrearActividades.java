@@ -158,8 +158,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				int rating = 5;
 				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
 				boolean estado = false;
-				//TODO Completar atributos bien
-				Tarea miTarea = new Tarea(estado, estado, resenias, resenias, resenias, miSugerido, miSugerido, resenias, timepoLimite, timepoLimite, estado);
+				Tarea miTarea = new Tarea(false, estado, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, timepoLimite, rating, false);
 				sistema.listaActividades.add(miTarea);
 				profesor.actividades.add(miTarea);
 				sistema.crearActividad(miTarea, "Tarea");
@@ -193,7 +192,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 				String resenias = "";
 				int rating = 5;
-				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
 				boolean exitoso = false;
 				float notaObtenida = 0;
 				float notaMinima = (float) pedirNumero("Ingresa la nota mínima para aprobar");
@@ -209,8 +208,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
-				//TODO Completar atributos bien
-				Examen miExamen = new Examen(exitoso, exitoso, notaMinima, notaMinima, preguntas, resenias, resenias, resenias, miSugerido, miSugerido, resenias, notaMinima, notaMinima, exitoso);
+				Examen miExamen = new Examen(false, false, 0, notaMinima, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
 				profesor.actividades.add(miExamen);
 				sistema.listaActividades.add(miExamen);
 				sistema.crearActividad(miExamen, "Examen");
@@ -244,9 +242,20 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 				String resenias = "";
 				int rating = 5;
-				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
-				//TODO Completar atributos
-				Encuesta miEncuesta = new Encuesta(resenias, resenias, salir, null, resenias, resenias, resenias, resenias, miSugerido, miSugerido, resenias, timepoLimite, timepoLimite, salir);
+				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				int cantidadPreguntas = pedirEntero("\n Cuantas preguntas tendra tu examen?");
+				ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+				int j=1;
+				while (j <= cantidadPreguntas) {
+					System.out.println("\n Pregunta " + j + ".");
+					String enunciado = pedirCadena("Ingresa el enunciado de la pregunta");
+					String respuestaGuia = pedirCadena("Ingresa la respuesta guia para calificar");
+					PreguntaAbierta nuevaPregunta = crearPreguntaAbierta(enunciado, respuestaGuia);
+					preguntas.add(nuevaPregunta);
+					j+=1;
+				}
+				
+				Encuesta miEncuesta = new Encuesta(false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
 				profesor.actividades.add(miEncuesta);
 				sistema.listaActividades.add(miEncuesta);
 				sistema.crearActividad(miEncuesta, "Encuesta");
