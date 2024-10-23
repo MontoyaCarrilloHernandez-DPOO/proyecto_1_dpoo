@@ -98,7 +98,7 @@ public class RecogerDatos {
 			String[] lpArray = cadena.split(",");
 			
 			for ( String titulo : lpArray) {
-				String qu = "SELECT * FROM LEARNING_PATH WHERE titulo = ?";
+				String qu = "SELECT * FROM LEARNING_PATHS WHERE titulo = ?";
 				ArrayList<Actividad> arrayActividades = new ArrayList<Actividad>(); 
 				ArrayList<Estudiante> arrayEstudiantes = new ArrayList<Estudiante>(); 
 				float duracion = 0;

@@ -3,12 +3,12 @@ package consola;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import usuarios.Profesor;
-import learningPaths.LearningPath;
+import learningPaths.*;
 import persistencia.Controlador;
 
 public class ConsolaCrearActividades extends ConsolaBasica {
 	
-	private final String[] opcionesMenuProfesorCreador = new String[]{ "Crear quiz", "Crear recurso", "Crear tarea", "Crear examen","Crear encuesta","Crear Pregunta Abierta","Crear Pregunta Cerrada", "Volver al menu de profesor"};
+	private final String[] opcionesMenuProfesorCreador = new String[]{ "Crear quiz", "Crear recurso", "Crear tarea", "Crear examen","Crear encuesta", "Volver al menu de profesor"};
 	private final String[] opcionesMenuProfesorCreadorLP = new String[]{ "Crear Learning Path Nuevo", "Copiar Learning Path", "Volver al menu de profesor"};
 	
 	private Profesor profesor;
@@ -17,88 +17,243 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 	public ConsolaCrearActividades(Controlador sistema) {
 		this.sistema = sistema;
 	}
-	public void mostrarOpcionesActividad(){
+	public void mostrarOpcionesActividad() throws SQLException{
 		
 		boolean salir = false;
+		ArrayList<Actividad> actividades = sistema.listaActividades;
 		while(!salir) {
 			int opcionSeleccionada=mostrarMenu("Menu crear actividades.",opcionesMenuProfesorCreador);
 			//Quiz 
 			if(opcionSeleccionada == 1) {
-				String titulo = pedirCadena("Ingrese el titulo del quiz");
+				String titulo = pedirCadena("Ingrese el titulo del quiz (sin espacios)");
 				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
 				String nivel = pedirCadena("Ingrese el nivel del quiz");
-				int prerequisistos = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				//print de las actividades
-				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				//print de las actividades
+				System.out.println("A continuacion se presentan las actividades disponibles");
+				if (actividades == null) {
+					System.out.println("No hay actividades disponibles. Esta actividad no tendrá prerequisitos ni actividades sugeridas");
+				}
+				else {
+					int i = 1;
+					for (Actividad act : actividades) {
+						System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+						i+=1;
+					}
+					String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del quiz");
+					Actividad miPrerequisito = null;
+					for (Actividad act : actividades) {
+						if (prerequisito.equals(act.titulo)) {
+							miPrerequisito = act;
+						}
+					}
+					String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del quiz");
+					Actividad miSugerido = null;
+					for (Actividad act : actividades) {
+						if (sugerido.equals(act.titulo)) {
+							miSugerido = act;
+						}
+					}
+					
+				}
+				
+				Actividad miPrerequisito = null;
+				Actividad miSugerido = null;
 				String resenias = "";
 				int rating = 5;
-				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
 				float notaMinima = (float) pedirNumero("Ingrese la nota minima para aprobar el quiz (recuerde que es de 0 a 5).");
-				float notaObtenida;
+				float notaObtenida = 0;
 				
+				System.out.println("A continuacion, podrás crear preguntas cerradas para incluir en tu quiz");
+				int cantidadPreguntas = pedirEntero("¿Cuantas preguntas tendra tu quiz?");
+				ArrayList<PreguntaCerrada> preguntas = new ArrayList<PreguntaCerrada>();
+				int j=1;
+				while (j <= cantidadPreguntas) {
+					System.out.println("Pregunta " + j + ".");
+					String enunciado = pedirCadena("Ingresa el enunciado de la pregunta");
+					String opcionA = pedirCadena("Ingresa la opcion A");
+					String opcionB = pedirCadena("Ingresa la opcion B");
+					String opcionC = pedirCadena("Ingresa la opcion C");
+					String opcionD = pedirCadena("Ingresa la opcion D");
+					String respuestaCorrecta= pedirCadena("Ingresa la respuesta correcta (Letra)");
+					String justificacion = pedirCadena("Ingresa la justificacion de la respuesta");
+					
+					
+					PreguntaCerrada nuevaPregunta = crearPreguntaCerrada(respuestaCorrecta, justificacion, enunciado,opcionA,
+							opcionB, opcionC, opcionD);
+					preguntas.add(nuevaPregunta);
+					j+=1;
+				}
+				
+				Quiz miQuiz= new Quiz(notaMinima, notaObtenida, false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
+				sistema.listaActividades.add(miQuiz);
+				sistema.crearActividad(miQuiz, "Quiz");
 				
 				
 			}
 			//Recurso 
 			if(opcionSeleccionada == 2) {
-				//TODO
-				String titulo = pedirCadena("Ingrese el titulo del quiz");
-				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
-				String nivel = pedirCadena("Ingrese el nivel del quiz");
-				int prerequisistos = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-								
+				String titulo = pedirCadena("Ingrese el titulo del recurso (sin espacios)");
+				String objetivo = pedirCadena("Ingrese el objetivo del recurso");
+				String nivel = pedirCadena("Ingrese el nivel del recurso");
+				System.out.println("\n A conitnuacion se presentan las actividades disponibles");
+				int i = 1;
+				for (Actividad act : actividades) {
+					System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+					i+=1;
+				}
+				
+				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del recurso");
+				Actividad miPrerequisito = null;
+				for (Actividad act : actividades) {
+					if (prerequisito.equals(act.titulo)) {
+						miPrerequisito = act;
+					}
+				}
+				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del recurso");
+				Actividad miSugerido = null;
+				for (Actividad act : actividades) {
+					if (sugerido.equals(act.titulo)) {
+						miSugerido = act;
+					}
+				}
+				
+				
+				String resenias = "";
+				int rating = 5;
+				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				
+				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
+				profesor.actividades.add(miRecurso);
+				sistema.listaActividades.add(miRecurso);
+				sistema.crearActividad(miRecurso, "Recurso");
+				
 			}
 			//Tarea 
 			if(opcionSeleccionada == 3) {
-				//TODO
-				String titulo = pedirCadena("Ingrese el titulo del quiz");
-				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
-				String nivel = pedirCadena("Ingrese el nivel del quiz");
-				int prerequisistos = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
+				String titulo = pedirCadena("Ingrese el titulo de la tarea (sin espacios)");
+				String objetivo = pedirCadena("Ingrese el objetivo de la tarea");
+				String nivel = pedirCadena("Ingrese el nivel de la tarea");
+				System.out.println("\n A conitnuacion se presentan las actividades disponibles");
+				int i = 1;
+				for (Actividad act : actividades) {
+					System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+					i+=1;
+				}
+				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito de la tarea");
+				Actividad miPrerequisito = null;
+				for (Actividad act : actividades) {
+					if (prerequisito.equals(act.titulo)) {
+						miPrerequisito = act;
+					}
+				}
+				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después de la tarea");
+				Actividad miSugerido = null;
+				for (Actividad act : actividades) {
+					if (sugerido.equals(act.titulo)) {
+						miSugerido = act;
+					}
+				}
+					
+				String resenias = "";
+				int rating = 5;
+				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				boolean estado = false;
+				//TODO Completar atributos bien
+				Tarea miTarea = new Tarea(estado, estado, resenias, resenias, resenias, miSugerido, miSugerido, resenias, timepoLimite, timepoLimite, estado);
+				sistema.listaActividades.add(miTarea);
+				profesor.actividades.add(miTarea);
+				sistema.crearActividad(miTarea, "Tarea");
 				
 			}//Examen 
 			if(opcionSeleccionada == 4) {
-				//TODO
-				String titulo = pedirCadena("Ingrese el titulo del quiz");
-				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
-				String nivel = pedirCadena("Ingrese el nivel del quiz");
-				int prerequisistos = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
+				String titulo = pedirCadena("Ingrese el titulo del examen (sin espacios)");
+				String objetivo = pedirCadena("Ingrese el objetivo del examen");
+				String nivel = pedirCadena("Ingrese el nivel del examen");
+				System.out.println("\n A conitnuacion se presentan las actividades disponibles");
+				int i = 1;
+				for (Actividad act : actividades) {
+					System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+					i+=1;
+				}
+				
+				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del examen");
+				Actividad miPrerequisito = null;
+				for (Actividad act : actividades) {
+					if (prerequisito.equals(act.titulo)) {
+						miPrerequisito = act;
+					}
+				}
+				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del examen");
+				Actividad miSugerido = null;
+				for (Actividad act : actividades) {
+					if (sugerido.equals(act.titulo)) {
+						miSugerido = act;
+					}
+				}
+				
+				String resenias = "";
+				int rating = 5;
+				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				boolean exitoso = false;
+				float notaObtenida = 0;
+				float notaMinima = (float) pedirNumero("Ingresa la nota mínima para aprobar");
+				System.out.println("\n A continuacion, podrás crear preguntas abiertas para incluir en tu examen");
+				int cantidadPreguntas = pedirEntero("\n Cuantas preguntas tendra tu examen?");
+				ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+				int j=1;
+				while (j <= cantidadPreguntas) {
+					System.out.println("\n Pregunta " + j + ".");
+					String enunciado = pedirCadena("Ingresa el enunciado de la pregunta");
+					String respuestaGuia = pedirCadena("Ingresa la respuesta guia para calificar");
+					PreguntaAbierta nuevaPregunta = crearPreguntaAbierta(enunciado, respuestaGuia);
+					preguntas.add(nuevaPregunta);
+					j+=1;
+				}
+				//TODO Completar atributos bien
+				Examen miExamen = new Examen(exitoso, exitoso, notaMinima, notaMinima, preguntas, resenias, resenias, resenias, miSugerido, miSugerido, resenias, notaMinima, notaMinima, exitoso);
+				profesor.actividades.add(miExamen);
+				sistema.listaActividades.add(miExamen);
+				sistema.crearActividad(miExamen, "Examen");
 				
 			}
 			//Encuesta 
 			if(opcionSeleccionada == 5) {
-				//TODO
-				String titulo = pedirCadena("Ingrese el titulo del quiz");
-				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
-				String nivel = pedirCadena("Ingrese el nivel del quiz");
-				int prerequisistos = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
+				String titulo = pedirCadena("Ingrese el titulo de la encuesta (sin espacios)");
+				String objetivo = pedirCadena("Ingrese el objetivo de la encuesta");
+				String nivel = pedirCadena("Ingrese el nivel de la encuesta");
+				System.out.println("\n A conitnuacion se presentan las actividades disponibles");
+				int i = 1;
+				for (Actividad act : actividades) {
+					System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+					i+=1;
+				}
+				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito de la encuesta");
+				Actividad miPrerequisito = null;
+				for (Actividad act : actividades) {
+					if (prerequisito.equals(act.titulo)) {
+						miPrerequisito = act;
+					}
+				}
+				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después de la encuesta");
+				Actividad miSugerido = null;
+				for (Actividad act : actividades) {
+					if (sugerido.equals(act.titulo)) {
+						miSugerido = act;
+					}
+				}
+				
+				String resenias = "";
+				int rating = 5;
+				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				//TODO Completar atributos
+				Encuesta miEncuesta = new Encuesta(resenias, resenias, salir, null, resenias, resenias, resenias, resenias, miSugerido, miSugerido, resenias, timepoLimite, timepoLimite, salir);
+				profesor.actividades.add(miEncuesta);
+				sistema.listaActividades.add(miEncuesta);
+				sistema.crearActividad(miEncuesta, "Encuesta");
 				
 			}
-			//Pregunta Abierta 
-			if(opcionSeleccionada == 6) {
-				//TODO
-				String titulo = pedirCadena("Ingrese el titulo del quiz");
-				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
-				String nivel = pedirCadena("Ingrese el nivel del quiz");
-				int prerequisistos = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				
-			}//Pregunta Cerrada
-			if(opcionSeleccionada == 7) {
-				//TODO
-				String titulo = pedirCadena("Ingrese el titulo del quiz");
-				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
-				String nivel = pedirCadena("Ingrese el nivel del quiz");
-				int prerequisistos = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				int sugerido = pedirEntero("Ingrese el prerequisito del quiz como un entero");
-				
-			}
-			else if(opcionSeleccionada == 8) {
+			
+			else if(opcionSeleccionada == 6) {
 				salir = true;
 				
 			}
@@ -147,4 +302,17 @@ public void mostrarOpcionesLP() throws SQLException{
 		}
 	}
 	
+public PreguntaAbierta crearPreguntaAbierta(String enunciado, String respuestaGuia) {
+	PreguntaAbierta miPreguntaAbierta = new PreguntaAbierta(respuestaGuia, enunciado);
+	return miPreguntaAbierta;
+	}
+
+public PreguntaCerrada crearPreguntaCerrada(String respuestaCorrecta, String justificacion, String enunciado, String opcionA,
+		String opcionB, String opcionC, String opcionD) {
+	PreguntaCerrada miPreguntaCerrada = new PreguntaCerrada( respuestaCorrecta,  justificacion,  enunciado,  opcionA,
+			 opcionB,  opcionC,  opcionD);
+	return miPreguntaCerrada;
+	}
+
+
 }

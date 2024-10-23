@@ -2,11 +2,11 @@ package learningPaths;
 
 public class PreguntaAbierta {
 	private String respuestaGuia;
-	public String eneunciado;
+	public String enunciado;
 	
 	public PreguntaAbierta(String respuestaGuia, String eneunciado) {
 		this.respuestaGuia = respuestaGuia;
-		this.eneunciado = eneunciado;
+		this.enunciado = eneunciado;
 	}
 
 	public String getRespuestaGuia() {
@@ -14,7 +14,7 @@ public class PreguntaAbierta {
 	}
 
 	public String getEnunciado() {
-		return eneunciado;
+		return enunciado;
 	}
 	 
 }

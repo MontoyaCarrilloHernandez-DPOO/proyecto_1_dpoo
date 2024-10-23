@@ -3,6 +3,7 @@ import persistencia.AnadirDatos;
 import usuarios.Estudiante;
 import usuarios.Profesor;
 import learningPaths.LearningPath;
+import learningPaths.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class Controlador {
 	public ArrayList<Estudiante> listaEstudiantes;
 	public ArrayList<Profesor> listaProfesores;
 	public ArrayList<LearningPath> listaLearningPaths;
+	public ArrayList<Actividad> listaActividades;
 	public AnadirDatos anadirDatos;
 	
 	public Controlador() {
@@ -57,5 +59,45 @@ public class Controlador {
 		
 		return miProfesor;
 	}
+	public LearningPath crearLearningPath() throws SQLException 
+	{ 
+		//TODO
+		LearningPath miLP = new LearningPath(null, null, 0, 0, 0, null, null, null, listaActividades, listaEstudiantes);
+		listaLearningPaths.add(miLP);
+		
+		/**
+		 * Acá ponemos en la base de datos
+		*/
+		
+		anadirDatos.nuevoLearningPath(null, null, null, null, null, 0, 0, 0, null);
+		
+		return miLP;
+
+	}
 	
+	public void crearActividad(Actividad act, String tipo) throws SQLException {
+		
+		//TODO
+		if (tipo == "Quiz") {
+			anadirDatos.nuevoQuiz(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, 0, 0, false, tipo);
+		}
+		else if (tipo == "Recurso") {
+			anadirDatos.nuevoRecurso(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, tipo);
+		}
+		else if (tipo == "Tarea") {
+			anadirDatos.nuevaTarea(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, tipo);
+		}
+
+		else if (tipo == "Examen") {
+			anadirDatos.nuevoExamen(false, 0, 0, tipo, tipo, tipo, tipo, tipo, tipo, 0, 0, tipo, 0, 0, false);
+		}
+
+		else if (tipo == "Encuesta") {
+			anadirDatos.nuevaEncuesta(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, false, tipo, tipo, tipo);
+		}
+
+		
+		
+		
+	}
 }

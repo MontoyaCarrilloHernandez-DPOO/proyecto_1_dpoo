@@ -10,9 +10,7 @@ public class Examen extends Actividad {
 	public float notaObtenida;
 	public float notaMinima;
 	private ArrayList<PreguntaAbierta> preguntas;
-	public String enunciado;
-	public String respuestaGuia;
-	
+	public static final String tipo = "EXAMENES";
 	//actividad
 	public String objetivo;
 	public String titulo;
@@ -25,7 +23,7 @@ public class Examen extends Actividad {
 	public boolean completado;
 	
 	public Examen(boolean enviado, boolean exitoso, float notaObtenida, float notaMinima,
-			ArrayList<PreguntaAbierta> preguntas, String enunciado,String respuestaGuia,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+			ArrayList<PreguntaAbierta> preguntas,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			String resenias, float tiempoLimite, double rating, boolean completado) {
 		
 		//actividad

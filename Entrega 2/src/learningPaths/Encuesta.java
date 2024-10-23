@@ -8,6 +8,7 @@ public class Encuesta extends Actividad {
 	public String enunciado;
 	public String respuestaGuia;
 	
+	public static final String tipo = "ENCUESTAS";
 	//actividad
 	public String objetivo;
 	public String titulo;

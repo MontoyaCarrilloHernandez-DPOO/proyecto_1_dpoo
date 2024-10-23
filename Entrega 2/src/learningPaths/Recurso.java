@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Recurso extends Actividad {
 
-	public String tipo;
+	public static final String tipo = "RECURSOS";
 	
 	//actividad
 	public String objetivo;
@@ -18,11 +18,10 @@ public class Recurso extends Actividad {
 	public boolean completado;
 
 	
-	public Recurso(String tipo, String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+	public Recurso(String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			String resenias, float tiempoLimite, double rating, boolean completado) {
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);
-		this.tipo = tipo;
 	}
 
 	public String getTipo() {

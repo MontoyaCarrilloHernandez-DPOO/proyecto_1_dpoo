@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 //TODO implementar abstacta actividad
 public class Tarea extends Actividad{
-
+	public static final String tipo = "TAREAS";
 	public boolean estado;
 	//actividad
 	public String objetivo;

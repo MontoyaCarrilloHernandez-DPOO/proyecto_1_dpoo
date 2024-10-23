@@ -7,7 +7,7 @@ public class Quiz extends Actividad{
 	public float notaObtenida;
 	public boolean exitoso;
 	private ArrayList<PreguntaCerrada> preguntas;
-	
+	public static final String tipo = "QUIZES";
 	//actividad
 	public String objetivo;
 	public String titulo;
@@ -20,14 +20,14 @@ public class Quiz extends Actividad{
 	public boolean completado;
 
 	
-	public Quiz(String respuestaCorrecta, String justificacion, String enunciado, String opcionA, String opcionB,
-			String opcionC, String opcionD, float notaMinima, float notaObtenida,boolean exitoso, ArrayList<PreguntaCerrada> preguntas,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+	public Quiz(float notaMinima, float notaObtenida,boolean exitoso, ArrayList<PreguntaCerrada> preguntas,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			String resenias, float tiempoLimite, double rating, boolean completado) {
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);
 		this.notaMinima = notaMinima;
 		this.notaObtenida = notaObtenida;
 		this.exitoso = exitoso;
 		this.preguntas = preguntas;
+
 	}
 
 	public float getNotaObtenida() {
