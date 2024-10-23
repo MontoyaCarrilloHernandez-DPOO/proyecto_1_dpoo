@@ -48,8 +48,8 @@ public abstract class Usuario {
 	}
 	
 	public void reseniar(String resenia, Actividad actividad) {
-		String anterioresResenias = actividad.resenias;
-		actividad.resenias = anterioresResenias + resenia;
+		String anterioresResenias = actividad.getResenias();
+		actividad.setResenias(anterioresResenias + resenia);
 	}
 	
 	public void ratear(double rating, Actividad actividad) {
