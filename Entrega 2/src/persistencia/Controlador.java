@@ -15,7 +15,7 @@ public class Controlador {
 	public ArrayList<Estudiante> listaEstudiantes;
 	public ArrayList<Profesor> listaProfesores;
 	public ArrayList<LearningPath> listaLearningPaths;
-	public ArrayList<Actividad> listaActividades;
+	public ArrayList<Actividad> listaActividades = new ArrayList<>();
 	public AnadirDatos anadirDatos;
 	
 	public Controlador() {
@@ -23,6 +23,7 @@ public class Controlador {
 		this.listaProfesores = new ArrayList<>();
 		this.listaLearningPaths = new ArrayList<>();
 		this.anadirDatos = new AnadirDatos();
+		this.listaActividades.addLast(new Actividad("","ActividadVacia","basico",null,null,"",9925,5,false));
 		
 	}
 	
@@ -95,7 +96,7 @@ public class Controlador {
 		else if (tipo == "Encuesta") {
 			anadirDatos.nuevaEncuesta(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, false, tipo, tipo, tipo);
 		}
-
+		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado());
 		
 		
 		
