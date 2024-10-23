@@ -44,18 +44,26 @@ public class Encuesta extends Actividad {
 	}
 
 
-	public String getEnunciados(ArrayList<PreguntaAbierta> preguntas) {
+	public String getEnunciados() {
+		ArrayList<PreguntaAbierta> preguntas = getPreguntas();
 		String enunciado = "";
 		for (PreguntaAbierta pregunta:preguntas) {
 			enunciado += pregunta.getEnunciado();
-			enunciado += "\n \n \n";
+			enunciado += ",";
 		}
 		return enunciado;
 	}
 
-
-	@Override
-	public void setCompletado() {
-		this.completado = true;
+	public String getRespuestasGuias() {
+		ArrayList<PreguntaAbierta> preguntas = getPreguntas();
+		String enunciado = "";
+		for (PreguntaAbierta pregunta:preguntas) {
+			enunciado += pregunta.getRespuestaGuia();
+			enunciado += ",";
+		}
+		return enunciado;
 	}
+
+	
+	
 }

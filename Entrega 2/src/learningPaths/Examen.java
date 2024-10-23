@@ -72,11 +72,21 @@ public class Examen extends Actividad {
 		this.preguntas = preguntas;
 	}
 	
-	public String getEnunciados(ArrayList<PreguntaAbierta> preguntas) {
+	public String getEnunciados() {
+		preguntas = getPreguntas();
 		String enunciado = "";
 		for (PreguntaAbierta pregunta:preguntas) {
 			enunciado += pregunta.getEnunciado();
-			enunciado += "\n \n \n";
+			enunciado += ",";
+		}
+		return enunciado;
+	}
+	public String getRespuestaGuia() {
+		preguntas = getPreguntas();
+		String enunciado = "";
+		for (PreguntaAbierta pregunta:preguntas) {
+			enunciado += pregunta.getRespuestaGuia();
+			enunciado += ",";
 		}
 		return enunciado;
 	}

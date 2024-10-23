@@ -94,9 +94,13 @@ public class Controlador {
 		anadirDatos.nuevaTarea(tarea.getObjetivo(),tarea.getTitulo(),tarea.getNivel(),tarea.getPrerequisistos().getTitulo(), tarea.getSugeridos().getTitulo(),tarea.getResenias(),(float) tarea.getRating(),(float) tarea.getTiempoLimite(),false,tarea.isEstado());
 		crearActividad(tarea , "TAREA");
 	}
-	//TODO: terminar crearEncuesta y examen
-	public void crearEncuesta(Tarea tarea) throws SQLException {
-		anadirDatos.nuevaTarea(tarea.getObjetivo(),tarea.getTitulo(),tarea.getNivel(),tarea.getPrerequisistos().getTitulo(), tarea.getSugeridos().getTitulo(),tarea.getResenias(),(float) tarea.getRating(),(float) tarea.getTiempoLimite(),false,tarea.isEstado());
-		crearActividad(tarea , "TAREA");
+	public void crearEncuesta(Encuesta encuesta) throws SQLException {
+		anadirDatos.nuevaEncuesta(encuesta.getObjetivo(),encuesta.getTitulo(),encuesta.getNivel(),encuesta.getPrerequisistos().getTitulo(),encuesta.getSugeridos().getTitulo(),encuesta.getResenias(),(float) encuesta.getRating(),(float) encuesta.getTiempoLimite(),encuesta.isCompletado(),encuesta.isEnviado(), encuesta.getEnunciados(), encuesta.getRespuestasGuias());
+		crearActividad(encuesta , "ENCUESTA");
+	}
+
+	public void crearExamen(Examen examen) throws SQLException {
+		anadirDatos.nuevoExamen(examen.exitoso,examen.getNotaObtenida(),examen.getNotaMinima(),examen.getEnunciados(),examen.getRespuestaGuia(),examen.getObjetivo(),examen.getTitulo(),examen.getNivel(),examen.getPrerequisistos().getTitulo(),examen.getSugeridos().getTitulo(),examen.getResenias(), (float) examen.getRating(), (float) examen.getTiempoLimite(),examen.isCompletado());
+		crearActividad(examen , "EXAMEN");
 	}
 }

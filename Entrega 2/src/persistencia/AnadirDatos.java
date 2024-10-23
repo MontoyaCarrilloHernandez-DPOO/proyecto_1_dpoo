@@ -106,11 +106,11 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevaEncuesta(  String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias,  float rating, float tiempoLimite, boolean completado, boolean enviado,String preguntas,String enunciado,String respuestaGuia) throws SQLException
+	public void nuevaEncuesta(  String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias,  float rating, float tiempoLimite, boolean completado, boolean enviado,String preguntas,String respuestaGuia) throws SQLException
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO ENCUESTAS (titulo, objetivo,  nivel,  prerequisistos,  sugeridos,  resenias,  rating,  tiempoLimite,   completado,  enviado, preguntas, enunciado, respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO ENCUESTAS (titulo, objetivo,  nivel,  prerequisistos,  sugeridos,  resenias,  rating,  tiempoLimite,   completado,  enviado, preguntas,  respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, titulo);
 		ps.setString(2, objetivo);
 		ps.setString(3, nivel);
@@ -122,8 +122,7 @@ public class AnadirDatos {
 		ps.setBoolean(9,   completado);
 		ps.setBoolean(10,   enviado);
 		ps.setString(11,  preguntas);// no se si se deja asi o no, depronto solo se debe cambiar por un "" y ya.
-		ps.setString(12,  enunciado);
-		ps.setString(13, respuestaGuia);
+		ps.setString(12, respuestaGuia);
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
@@ -142,11 +141,11 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevoExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String enunciado, String respuestaGuia, String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias, int rating, float tiempoLimite, boolean completado) throws SQLException
+	public void nuevoExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String respuestaGuia, String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias, float rating, float tiempoLimite, boolean completado) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
-			PreparedStatement ps = con.prepareStatement("INSERT INTO EXAMENES (  titulo, objetivo,  nivel,  prerequisistos,  sugeridos,  resenias,  rating,  tiempoLimite,  notaMinima, notaObtenida,exitoso, completado, preguntas, enunciado, respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO EXAMENES (  titulo, objetivo,  nivel,  prerequisistos,  sugeridos,  resenias,  rating,  tiempoLimite,  notaMinima, notaObtenida,exitoso, completado, preguntas, respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
@@ -160,8 +159,7 @@ public class AnadirDatos {
 			ps.setBoolean(11,   exitoso);
 			ps.setBoolean(12,   completado);
 			ps.setString(13,  preguntas);
-			ps.setString(14,  enunciado);
-			ps.setString(15, respuestaGuia);
+			ps.setString(14, respuestaGuia);
 			ps.executeUpdate();
 			
 			Statement statement  = con.createStatement();
