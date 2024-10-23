@@ -306,6 +306,7 @@ public class AnadirDatos {
 		}
 	}
 	
+
 	public void nuevaPreguntaCerrada(  String respuestaCorrecta, String justificacion, String enunciado, String opcionA, String opcionB, String opcionC, String opcionD) throws SQLException
 	{
 		try {
@@ -331,6 +332,37 @@ public class AnadirDatos {
 			}
 			
 			System.out.println("\n Pregunta cerrada creada con éxito.");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void nuevaActividad( String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado) throws SQLException
+	{
+		try {
+			Connection con = DriverManager.getConnection(JDBC_URL);
+			PreparedStatement ps = con.prepareStatement("INSERT INTO ACTIVIDADES (  titulo, objetivo, nivel, prerequisistos, sugeridos, resenias, rating, tiempoLimite, completado) values (?,?,?,?,?,?,?,?,?)");
+			ps.setString(1, titulo);
+			ps.setString(2, objetivo);
+			ps.setString(3, nivel);
+			ps.setString(4, prerequisistos);
+			ps.setString(5, sugeridos);
+			ps.setString(6,  resenias);
+			ps.setLong(7,  (long) rating);
+			ps.setLong(8,  (long) tiempoLimite);
+			ps.setBoolean(9,   completado);
+			ps.executeUpdate();
+			
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from ACTIVIDADES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
+			System.out.println("\n Actividad cerrada creada con éxito.");
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
