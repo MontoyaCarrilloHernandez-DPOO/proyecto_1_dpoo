@@ -14,8 +14,9 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 	private Profesor profesor;
 	private Controlador sistema;
 	
-	public ConsolaCrearActividades(Controlador sistema) {
+	public ConsolaCrearActividades(Controlador sistema, Profesor profe) {
 		this.sistema = sistema;
+		this.profesor = profe;
 	}
 	public void mostrarOpcionesActividad() throws SQLException{
 		

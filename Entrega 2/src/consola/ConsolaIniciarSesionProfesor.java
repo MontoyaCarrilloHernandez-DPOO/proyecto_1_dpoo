@@ -46,8 +46,8 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 	}
 	
 	public void mostrarMenuProfesor() throws SQLException {
-		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuProfesor );
-		ConsolaCrearActividades consola = new ConsolaCrearActividades(sistema);
+		int opcionSeleccionada = mostrarMenu( "Menú de Profesor", opcionesMenuProfesor );
+		ConsolaCrearActividades consola = new ConsolaCrearActividades(sistema, profesor);
 		if( opcionSeleccionada == 1 )
         {
 			consola.mostrarOpcionesLP();
