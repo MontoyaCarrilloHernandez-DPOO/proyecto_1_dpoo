@@ -33,6 +33,10 @@ public class Quiz extends Actividad{
 	public float getNotaObtenida() {
 		return notaObtenida;
 	}
+	
+	public float getNotaMinima() {
+		return notaMinima;
+	}
 
 	public boolean isExitoso() {
 		return exitoso;
@@ -62,5 +66,11 @@ public class Quiz extends Actividad{
 		}
 		return enunciado;
 	}
-
+	public String getEnunciadoPreguntas() {
+		String enunciado = "";
+		for(PreguntaCerrada pregunta:this.preguntas) {
+			enunciado +=  pregunta.getEnunciado() + ",";
+		}
+		return enunciado;
+	}
 }

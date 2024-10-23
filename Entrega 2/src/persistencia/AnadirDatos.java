@@ -336,11 +336,11 @@ public class AnadirDatos {
 			e.printStackTrace();
 		}
 	}
-	public void nuevaActividad( String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado) throws SQLException
+	public void nuevaActividad( String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,String tipo) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
-			PreparedStatement ps = con.prepareStatement("INSERT INTO ACTIVIDADES (  titulo, objetivo, nivel, prerequisistos, sugeridos, resenias, rating, tiempoLimite, completado) values (?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO ACTIVIDADES (  titulo, objetivo, nivel, prerequisistos, sugeridos, resenias, rating, tiempoLimite, completado, tipo) values (?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
@@ -350,6 +350,7 @@ public class AnadirDatos {
 			ps.setLong(7,  (long) rating);
 			ps.setLong(8,  (long) tiempoLimite);
 			ps.setBoolean(9,   completado);
+			ps.setString(10,   tipo);
 			ps.executeUpdate();
 			
 			Statement statement  = con.createStatement();

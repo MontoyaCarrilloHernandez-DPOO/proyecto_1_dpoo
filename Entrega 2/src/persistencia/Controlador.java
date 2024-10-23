@@ -16,14 +16,16 @@ public class Controlador {
 	public ArrayList<Profesor> listaProfesores;
 	public ArrayList<LearningPath> listaLearningPaths;
 	public ArrayList<Actividad> listaActividades = new ArrayList<>();
+	public Actividad actividadVacia = new Actividad("","ActividadVacia","basico",null,null,"",9925,5,false);
 	public AnadirDatos anadirDatos;
+	
 	
 	public Controlador() {
 		this.listaEstudiantes = new ArrayList<>();
 		this.listaProfesores = new ArrayList<>();
 		this.listaLearningPaths = new ArrayList<>();
 		this.anadirDatos = new AnadirDatos();
-		this.listaActividades.addLast(new Actividad("","ActividadVacia","basico",null,null,"",9925,5,false));
+		this.listaActividades.addLast(new Actividad("","ActividadVacia","basico",actividadVacia,actividadVacia,"",9925,5,false));
 		
 	}
 	
@@ -77,28 +79,10 @@ public class Controlador {
 	}
 	
 	public void crearActividad(Actividad act, String tipo) throws SQLException {
-		
-		//TODO
-		if (tipo == "Quiz") {
-			anadirDatos.nuevoQuiz(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, 0, 0, false, tipo);
-		}
-		else if (tipo == "Recurso") {
-			anadirDatos.nuevoRecurso(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, tipo);
-		}
-		else if (tipo == "Tarea") {
-			anadirDatos.nuevaTarea(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, tipo);
-		}
-
-		else if (tipo == "Examen") {
-			anadirDatos.nuevoExamen(false, 0, 0, tipo, tipo, tipo, tipo, tipo, tipo, 0, 0, tipo, 0, 0, false);
-		}
-
-		else if (tipo == "Encuesta") {
-			anadirDatos.nuevaEncuesta(tipo, tipo, tipo, 0, 0, tipo, 0, 0, false, false, tipo, tipo, tipo);
-		}
-		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado());
-		
-		
-		
+		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado(), tipo);
+	}
+	
+	public void crearQuiz(Quiz quiz) {
+		anadirDatos.nuevoQuiz(quiz.getObjetivo(), quiz.getTitulo(), quiz.getNivel(), quiz.getPrerequisistos().getTitulo(), quiz.getSugeridos().getTitulo(), quiz.getResenias(), quiz.getRating(), quiz.getTiempoLimite(), quiz.isCompletado(), quiz.getNotaMinima(), quiz.getNotaObtenida(), false, quiz.getEnunciadoPreguntas());
 	}
 }
