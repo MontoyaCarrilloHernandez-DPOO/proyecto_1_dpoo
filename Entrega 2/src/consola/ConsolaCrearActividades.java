@@ -122,8 +122,8 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				String resenias = "";
 				int rating = 5;
 				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
-				
-				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
+				String tipo = pedirCadena("Ingrese el tipo del recurso");
+				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false,tipo);
 				profesor.actividades.add(miRecurso);
 				sistema.listaActividades.add(miRecurso);
 				sistema.crearActividad(miRecurso, "Recurso");

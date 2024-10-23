@@ -82,7 +82,21 @@ public class Controlador {
 		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado(), tipo);
 	}
 	
-	public void crearQuiz(Quiz quiz) {
-		anadirDatos.nuevoQuiz(quiz.getObjetivo(), quiz.getTitulo(), quiz.getNivel(), quiz.getPrerequisistos().getTitulo(), quiz.getSugeridos().getTitulo(), quiz.getResenias(), quiz.getRating(), quiz.getTiempoLimite(), quiz.isCompletado(), quiz.getNotaMinima(), quiz.getNotaObtenida(), false, quiz.getEnunciadoPreguntas());
+	public void crearQuiz(Quiz quiz) throws SQLException {
+		anadirDatos.nuevoQuiz(quiz.getObjetivo(), quiz.getTitulo(), quiz.getNivel(), quiz.getPrerequisistos().getTitulo(), quiz.getSugeridos().getTitulo(), quiz.getResenias(), (float) quiz.getRating(), (float) quiz.getTiempoLimite(), quiz.isCompletado(), quiz.getNotaMinima(), quiz.getNotaObtenida(), false, quiz.getEnunciadoPreguntas());
+		crearActividad(quiz , "QUIZ");
+	}
+	public void crearRecurso(Recurso recurso) throws SQLException {
+		anadirDatos.nuevoRecurso(recurso.getObjetivo(),recurso.getTitulo(), recurso.getNivel(), recurso.getPrerequisistos().getTitulo(),recurso.getSugeridos().getTitulo(),recurso.getResenias(),(float) recurso.getRating(),(float) recurso.getTiempoLimite(),false, recurso.getTipo());
+		crearActividad(recurso , "RECURSO");
+	}
+	public void crearTarea(Tarea tarea) throws SQLException {
+		anadirDatos.nuevaTarea(tarea.getObjetivo(),tarea.getTitulo(),tarea.getNivel(),tarea.getPrerequisistos().getTitulo(), tarea.getSugeridos().getTitulo(),tarea.getResenias(),(float) tarea.getRating(),(float) tarea.getTiempoLimite(),false,tarea.isEstado());
+		crearActividad(tarea , "TAREA");
+	}
+	//TODO: terminar crearEncuesta y examen
+	public void crearEncuesta(Tarea tarea) throws SQLException {
+		anadirDatos.nuevaTarea(tarea.getObjetivo(),tarea.getTitulo(),tarea.getNivel(),tarea.getPrerequisistos().getTitulo(), tarea.getSugeridos().getTitulo(),tarea.getResenias(),(float) tarea.getRating(),(float) tarea.getTiempoLimite(),false,tarea.isEstado());
+		crearActividad(tarea , "TAREA");
 	}
 }

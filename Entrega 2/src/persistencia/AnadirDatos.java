@@ -106,7 +106,7 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevaEncuesta(  String objetivo, String titulo, String nivel, int prerequisistos, int sugeridos, String resenias,  float rating, float tiempoLimite, boolean completado, boolean enviado,String preguntas,String enunciado,String respuestaGuia) throws SQLException
+	public void nuevaEncuesta(  String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias,  float rating, float tiempoLimite, boolean completado, boolean enviado,String preguntas,String enunciado,String respuestaGuia) throws SQLException
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
@@ -114,8 +114,8 @@ public class AnadirDatos {
 		ps.setString(1, titulo);
 		ps.setString(2, objetivo);
 		ps.setString(3, nivel);
-		ps.setLong(4, prerequisistos);
-		ps.setLong(5, sugeridos);
+		ps.setString(4, prerequisistos);
+		ps.setString(5, sugeridos);
 		ps.setString(6,  resenias);
 		ps.setLong(7,  (long) rating);
 		ps.setLong(8,  (long) tiempoLimite);
@@ -142,7 +142,7 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevoExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String enunciado, String respuestaGuia, String objetivo, String titulo, String nivel, int prerequisistos, int sugeridos, String resenias, int rating, float tiempoLimite, boolean completado) throws SQLException
+	public void nuevoExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String enunciado, String respuestaGuia, String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias, int rating, float tiempoLimite, boolean completado) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
@@ -150,8 +150,8 @@ public class AnadirDatos {
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
-			ps.setLong(4, prerequisistos);
-			ps.setLong(5, sugeridos);
+			ps.setString(4, prerequisistos);
+			ps.setString(5, sugeridos);
 			ps.setString(6,  resenias);
 			ps.setLong(7,  (long) rating);
 			ps.setLong(8,  (long) tiempoLimite);
@@ -180,7 +180,7 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevoQuiz(  String objetivo,String titulo,String nivel,int prerequisistos,int sugeridos,String resenias,int rating,float tiempoLimite,boolean completado,float notaMinima,float notaObtenida,boolean exitoso,String preguntas) throws SQLException
+	public void nuevoQuiz(  String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,float notaMinima,float notaObtenida,boolean exitoso,String preguntas) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
@@ -188,8 +188,8 @@ public class AnadirDatos {
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
-			ps.setLong(4, prerequisistos);
-			ps.setLong(5, sugeridos);
+			ps.setString(4, prerequisistos);
+			ps.setString(5, sugeridos);
 			ps.setString(6,  resenias);
 			ps.setLong(7,  (long) rating);
 			ps.setLong(8,  (long) tiempoLimite);
@@ -216,7 +216,7 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevoRecurso( String objetivo,String titulo,String nivel,int prerequisistos,int sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,String tipo) throws SQLException
+	public void nuevoRecurso( String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,String tipo) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
@@ -224,8 +224,8 @@ public class AnadirDatos {
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
-			ps.setLong(4, prerequisistos);
-			ps.setLong(5, sugeridos);
+			ps.setString(4, prerequisistos);
+			ps.setString(5, sugeridos);
 			ps.setString(6,  resenias);
 			ps.setLong(7,  (long) rating);
 			ps.setLong(8,  (long) tiempoLimite);
@@ -248,7 +248,7 @@ public class AnadirDatos {
 			e.printStackTrace();
 		}
 	}
-	public void nuevaTarea( String objetivo,String titulo,String nivel,int prerequisistos,int sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,String estado) throws SQLException
+	public void nuevaTarea( String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,boolean estado) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
@@ -256,13 +256,13 @@ public class AnadirDatos {
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
-			ps.setLong(4, prerequisistos);
-			ps.setLong(5, sugeridos);
+			ps.setString(4, prerequisistos);
+			ps.setString(5, sugeridos);
 			ps.setString(6,  resenias);
 			ps.setLong(7,  (long) rating);
 			ps.setLong(8,  (long) tiempoLimite);
 			ps.setBoolean(9,   completado);
-			ps.setString(10,  estado);
+			ps.setBoolean(10,  estado);
 			ps.executeUpdate();
 			
 			Statement statement  = con.createStatement();
