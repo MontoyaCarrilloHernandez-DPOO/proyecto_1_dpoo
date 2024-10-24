@@ -9,7 +9,7 @@ import Excepciones.LPException;
 import learningPaths.Progreso;
 
 public class Estudiante extends Usuario{
-	private ArrayList<LearningPath> historialLearningPaths;
+	public ArrayList<LearningPath> historialLearningPaths;
 	public LearningPath actualLearningPath;
 	public Actividad actualActividad;
 	public HashMap<PreguntaAbierta, String> respuestas;

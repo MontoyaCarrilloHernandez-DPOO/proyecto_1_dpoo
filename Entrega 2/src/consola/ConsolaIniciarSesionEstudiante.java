@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Excepciones.LPException;
 import consola.ConsolaResumirLP;
 import persistencia.*;
+import learningPaths.*;
 
 public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 	
@@ -29,6 +30,10 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     	String contraseniaEsperada = datosEstudiante.get(0);
     	String nombre = datosEstudiante.get(1);
     	String apellido = datosEstudiante.get(2);
+    	String historial_lp = datosEstudiante.get(3);
+		String lp_actual = datosEstudiante.get(4);
+		String actividad_actual = datosEstudiante.get(5);
+		String DBprogreso = datosEstudiante.get(6);
     	
     	
     	if (! contrasenia.equals(contraseniaEsperada)) {
@@ -41,7 +46,22 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		}
     	} else {
     		System.out.println("Inicio de sesión correcto");
+    		
     		this.estudiante = new Estudiante(contrasenia, nombre, apellido, login);
+    		
+    		Actividad miActividad = null;
+    		LearningPath miLP = datos.getLearningPathsDeString(DBprogreso); //CAMBIAR ESTO!!!
+    		ArrayList<LearningPath> miHistorial = null;
+    		Progreso miProgreso = null;
+    		
+    		this.estudiante.actualActividad = miActividad;
+    		this.estudiante.actualLearningPath = miLP;
+    		this.estudiante.historialLearningPaths = miHistorial;
+    		this.estudiante.progreso = miProgreso;
+    		
+    		this.sistema.listaEstudiantes.add(estudiante);
+    		
+    		//TODO mirar como incluir al estudiante al learning path y al profesor???
     		//TODO: Subir los datos actuales del estudiante de la base de datos a su propia clase
     		mostrarMenuEstudiante();
     		
