@@ -5,18 +5,21 @@ import java.util.ArrayList;
 import usuarios.Profesor;
 import learningPaths.*;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
+
 
 public class ConsolaCrearActividades extends ConsolaBasica {
 	
 	private final String[] opcionesMenuProfesorCreador = new String[]{ "Crear quiz", "Crear recurso", "Crear tarea", "Crear examen","Crear encuesta", "Volver al menu de profesor"};
 	private final String[] opcionesMenuProfesorCreadorLP = new String[]{ "Crear Learning Path Nuevo", "Copiar Learning Path", "Volver al menu de profesor"};
-	
+	private ModificarDatos modificarDatos;
 	private Profesor profesor;
 	private Controlador sistema;
 	
 	public ConsolaCrearActividades(Controlador sistema, Profesor profe) {
 		this.sistema = sistema;
 		this.profesor = profe;
+		this.modificarDatos = new ModificarDatos();
 	}
 	public void mostrarOpcionesActividad() throws SQLException{
 		
@@ -39,14 +42,14 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 						System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
 						i+=1;
 					}
-					String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del quiz");
+					String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del quiz. Si no hay, digita \".\" ");
 					Actividad miPrerequisito = null;
 					for (Actividad act : actividades) {
 						if (prerequisito.equals(act.titulo)) {
 							miPrerequisito = act;
 						}
 					}
-					String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del quiz");
+					String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del quiz. Si no hay, digita \".\" ");
 					Actividad miSugerido = null;
 					for (Actividad act : actividades) {
 						if (sugerido.equals(act.titulo)) {
@@ -86,9 +89,9 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				}
 				
 				Quiz miQuiz= new Quiz(notaMinima, notaObtenida, false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
-				sistema.listaActividades.add(miQuiz);
-				sistema.crearActividad(miQuiz, "Quiz");
-				
+				profesor.actividades.add(miQuiz);
+				sistema.crearQuiz(miQuiz);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
 			//Recurso 
@@ -96,21 +99,21 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				String titulo = pedirCadena("Ingrese el titulo del recurso (sin espacios)");
 				String objetivo = pedirCadena("Ingrese el objetivo del recurso");
 				String nivel = pedirCadena("Ingrese el nivel del recurso");
-				System.out.println("\n A conitnuacion se presentan las actividades disponibles");
+				System.out.println("\n A continuacion se presentan las actividades disponibles");
 				int i = 1;
 				for (Actividad act : actividades) {
 					System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
 					i+=1;
 				}
 				
-				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del recurso");
+				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del recurso.  Si no hay, digita \".\"");
 				Actividad miPrerequisito = null;
 				for (Actividad act : actividades) {
 					if (prerequisito.equals(act.titulo)) {
 						miPrerequisito = act;
 					}
 				}
-				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del recurso");
+				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del recurso.  Si no hay, digita \".\"");
 				Actividad miSugerido = null;
 				for (Actividad act : actividades) {
 					if (sugerido.equals(act.titulo)) {
@@ -125,8 +128,8 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				String tipo = pedirCadena("Ingrese el tipo del recurso");
 				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false,tipo);
 				profesor.actividades.add(miRecurso);
-				sistema.listaActividades.add(miRecurso);
-				sistema.crearActividad(miRecurso, "Recurso");
+				sistema.crearRecurso(miRecurso);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
 			//Tarea 
@@ -160,9 +163,9 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
 				boolean estado = false;
 				Tarea miTarea = new Tarea(false, estado, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, timepoLimite, rating, false);
-				sistema.listaActividades.add(miTarea);
 				profesor.actividades.add(miTarea);
-				sistema.crearActividad(miTarea, "Tarea");
+				sistema.crearTarea(miTarea);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}//Examen 
 			if(opcionSeleccionada == 4) {
@@ -176,14 +179,14 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					i+=1;
 				}
 				
-				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del examen");
+				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito del examen. Si no hay, digita \".\"");
 				Actividad miPrerequisito = null;
 				for (Actividad act : actividades) {
 					if (prerequisito.equals(act.titulo)) {
 						miPrerequisito = act;
 					}
 				}
-				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del examen");
+				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después del examen. Si no hay, digita \".\"");
 				Actividad miSugerido = null;
 				for (Actividad act : actividades) {
 					if (sugerido.equals(act.titulo)) {
@@ -211,8 +214,8 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				}
 				Examen miExamen = new Examen(false, false, 0, notaMinima, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
 				profesor.actividades.add(miExamen);
-				sistema.listaActividades.add(miExamen);
-				sistema.crearActividad(miExamen, "Examen");
+				sistema.crearExamen(miExamen);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
 			//Encuesta 
@@ -226,14 +229,14 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
 					i+=1;
 				}
-				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito de la encuesta");
+				String prerequisito = pedirCadena("Ingrese el nombre del prerequisito de la encuesta. Si no hay, digita \".\"");
 				Actividad miPrerequisito = null;
 				for (Actividad act : actividades) {
 					if (prerequisito.equals(act.titulo)) {
 						miPrerequisito = act;
 					}
 				}
-				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después de la encuesta");
+				String sugerido = pedirCadena("Ingrese el nombre de la actividad sugerida después de la encuesta. Si no hay, digita \".\"");
 				Actividad miSugerido = null;
 				for (Actividad act : actividades) {
 					if (sugerido.equals(act.titulo)) {
@@ -258,8 +261,8 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 				Encuesta miEncuesta = new Encuesta(false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
 				profesor.actividades.add(miEncuesta);
-				sistema.listaActividades.add(miEncuesta);
-				sistema.crearActividad(miEncuesta, "Encuesta");
+				sistema.crearEncuesta(miEncuesta);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
 			
@@ -297,11 +300,11 @@ public void mostrarOpcionesLP() throws SQLException{
 							 miLP = lp;
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 				this.profesor.duplicarLP(miLP);
+				//TODO implementar con DB
 								
 			}
 			else if(opcionSeleccionada == 3) {

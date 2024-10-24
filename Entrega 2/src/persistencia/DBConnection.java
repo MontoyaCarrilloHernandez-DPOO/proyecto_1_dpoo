@@ -1,8 +1,10 @@
 package persistencia;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
@@ -20,6 +22,15 @@ public class DBConnection {
 		crearTablaProfesores();
 		crearTablaLearningPaths();
 		crearTablaActividades();
+		crearTablaEncuestas();
+		crearTablaExamenes();
+		crearTablaQuizes();
+		crearTablaRecurso();
+		crearTablaTarea();
+		crearTablaPreguntaAbierta();
+		crearTablaPreguntaCerrada();
+		crearTablaProceso();
+		
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -48,9 +59,34 @@ public class DBConnection {
 						+ "apellido varchar(50), \n"
 						+ "historial_lp varchar(1000), \n"
 						+ "lp_actual varchar(50), \n"
-						+ "actividad_actual int \n"
+						+ "actividad_actual int, \n"
+						+ "progreso varchar(50) \n"
 						+ ")");
-				//sera que incluimos progreso y lo de preguntas y respuestas? ayuda ahí plz
+				//preguntas y respuestas? ayuda 
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+		}
+	}
+	
+	void crearTablaProceso(){
+		String NOMBRE_TABLA = "PROCESOS";
+		try {
+			stmt = conn.createStatement();
+			DatabaseMetaData dbm = conn.getMetaData();
+			ResultSet tables = dbm.getTables(null,  null,  NOMBRE_TABLA.toUpperCase(), null);
+			if (tables.next()) {
+				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
+			} else {
+				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
+						+ "login varchar(50) primary key, \n"
+						+ "learningPath varchar(50), \n"
+						+ "actividades_completadas varchar(1000), \n"
+						+ "actividades_incompletas varchar(1000), \n"
+						+ "porcentaje float \n"
+						+ ")");
+				
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -72,7 +108,8 @@ public class DBConnection {
 						+ "contrasenia varchar(50), \n"
 						+ "nombre varchar(50), \n"
 						+ "apellido varchar(50), \n"
-						+ "lista_lps varchar(1000) \n"
+						+ "lista_lps varchar(1000), \n"
+						+ "lista_actividades varchar(1000) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -98,9 +135,9 @@ public class DBConnection {
 						+ "objetivo varchar(500), \n"
 						+ "dificultad float, \n"
 						+ "rating float, \n"
-						+ "metadatos varchar(50) \n"
+						+ "metadatos varchar(50), \n"
 						+ "Actividades varchar(1000), \n"
-						+ "Estudiantes varchar(1000), \n"
+						+ "Estudiantes varchar(1000) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -119,18 +156,16 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
-						+ "titulo varchar(50), \n"
+						+ "titulo varchar(50) primary key, \n"
 						+ "objetivo varchar(500), \n"
 						+ "nivel varchar(50), \n"
 						+ "duracion float, \n"
-						+ "learning_path varchar(50), \n"
-						+ "prerequisito int, \n"
-						+ "sugerido int, \n"
+						+ "prerequisito varchar(50), \n"
+						+ "sugerido varchar(50), \n"
 						+ "tiempoLimite float, \n"
 						+ "rating float, \n"
 						+ "lista_resenias varchar(1000), \n"
-						+ "completado boolean \n"
+						+ "completado boolean, \n"
 						+ "tipo varchar(50) \n"
 						+ ")");
 			}
@@ -150,20 +185,19 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
-						+ "titulo varchar(50), \n"
+						+ "titulo varchar(50) primary key, \n"
 						+ "objetivo varchar(500), \n"
 						+ "nivel varchar(50), \n"
-						+ "prerequisito int, \n"
-						+ "sugerido int, \n"
+						+ "prerequisito varchar(50), \n"
+						+ "sugerido varchar(50), \n"
 						+ "resenias varchar(1000), \n"
 						+ "rating float, \n"
 						+ "tiempoLimite float, \n"
-						+ "completado boolean \n"
-						+ "enviado boolean \n"
+						+ "completado boolean, \n"
+						+ "enviado boolean, \n"
 						+ "preguntas varchar(50), \n"
 						+ "enunciado varchar(50), \n"
-						+ "respuestaGuia varchar(50), \n"
+						+ "respuestaGuia varchar(50) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -181,22 +215,19 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
-						+ "titulo varchar(50), \n"
+						+ "titulo varchar(50) primary key, \n"
 						+ "objetivo varchar(500), \n"
 						+ "nivel varchar(50), \n"
-						+ "prerequisito int, \n"
-						+ "sugerido int, \n"
+						+ "prerequisito varchar(50), \n"
+						+ "sugerido varchar(50), \n"
 						+ "resenias varchar(1000), \n"
 						+ "rating float, \n"
 						+ "tiempoLimite float, \n"
 						+ "notaMinima float, \n"
 						+ "notaObtenida float, \n"
-						+ "exitoso boolean \n"
-						+ "completado boolean \n"
-						+ "preguntas varchar(50), \n"
-						+ "enunciado varchar(50), \n"
-						+ "respuestaGuia varchar(50), \n"
+						+ "exitoso boolean, \n"
+						+ "completado boolean, \n"
+						+ "preguntas varchar(50) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -214,20 +245,19 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
-						+ "titulo varchar(50), \n"
+						+ "titulo varchar(50) primary key, \n"
 						+ "objetivo varchar(500), \n"
 						+ "nivel varchar(50), \n"
-						+ "prerequisito int, \n"
-						+ "sugerido int, \n"
+						+ "prerequisito varchar(50), \n"
+						+ "sugerido varchar(50), \n"
 						+ "resenias varchar(1000), \n"
 						+ "rating float, \n"
 						+ "tiempoLimite float, \n"
-						+ "completado boolean \n"
+						+ "completado boolean, \n"
 						+ "notaMinima float, \n"
 						+ "notaObtenida float, \n"
-						+ "exitoso boolean \n"
-						+ "preguntas varchar(50), \n"
+						+ "exitoso boolean, \n"
+						+ "preguntas varchar(50) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -245,17 +275,16 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
-						+ "titulo varchar(50), \n"
+						+ "titulo varchar(50) primary key, \n"
 						+ "objetivo varchar(500), \n"
 						+ "nivel varchar(50), \n"
-						+ "prerequisito int, \n"
-						+ "sugerido int, \n"
+						+ "prerequisito varchar(50), \n"
+						+ "sugerido varchar(50), \n"
 						+ "resenias varchar(1000), \n"
 						+ "rating float, \n"
 						+ "tiempoLimite float, \n"
-						+ "completado boolean \n"
-						+ "tipo varchar(50), \n"
+						+ "completado boolean, \n"
+						+ "tipo varchar(50) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -273,17 +302,16 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
-						+ "titulo varchar(50), \n"
+						+ "titulo varchar(50) primary key, \n"
 						+ "objetivo varchar(500), \n"
 						+ "nivel varchar(50), \n"
-						+ "prerequisito int, \n"
-						+ "sugerido int, \n"
+						+ "prerequisito varchar(50), \n"
+						+ "sugerido varchar(50), \n"
 						+ "resenias varchar(1000), \n"
 						+ "rating float, \n"
 						+ "tiempoLimite float, \n"
-						+ "completado boolean \n"
-						+ "tipo varchar(50), \n"
+						+ "completado boolean, \n"
+						+ "estado boolean \n "
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -301,9 +329,9 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
+						+ "id int GENERATED ALWAYS AS IDENTITY primary key, \n"
 						+ "enunciado varchar(500), \n"
-						+ "respuestaGuia varchar(500), \n"
+						+ "respuestaGuia varchar(500) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -321,13 +349,13 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int primary key, \n"
+						+ "id int GENERATED ALWAYS AS IDENTITY primary key, \n"
 						+ "justificacion varchar(500), \n"
 						+ "enunciado varchar(500), \n"
 						+ "opcionA varchar(500), \n"
 						+ "opcionB varchar(500), \n"
 						+ "opcionC varchar(500), \n"
-						+ "opcionD varchar(500), \n"
+						+ "opcionD varchar(500) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -335,6 +363,7 @@ public class DBConnection {
 		} finally {
 		}
 	}
+	
 }
 
 	

@@ -11,15 +11,23 @@ import persistencia.AnadirDatos;
 public class Profesor extends Usuario{
 	public ArrayList<LearningPath> learningPaths;
 	public ArrayList<Actividad> actividades;
+	
 	public Profesor(String contrasenia, String nombre, String apellido, String login,ArrayList<LearningPath> learningPaths) {	
+		
 		super(contrasenia, nombre, apellido, login);
+		this.actividades = new ArrayList<Actividad>();
 		this.learningPaths = learningPaths;
+
+		
 	}
 	
 	//Importante: al crear un learning path, este no debería preocuparse por no tener una lista de estudiantes asociada. Ellos luego se meten y no hay problema :)
 	public void crearLearningPath(ArrayList<Actividad> actividades,String titulo,String descripcion,String objetivo, String metadatos,double duracion,double dificultad,double rating) throws SQLException {
 		LearningPath lp = new LearningPath(this.nombre,titulo+"."+this.nombre ,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades, null );
+		if (this.learningPaths == null) {
+			this.learningPaths = new ArrayList<LearningPath>();
 		this.learningPaths.addLast(lp);
+		}
 		
 		AnadirDatos anadir = new AnadirDatos();
 		String actividadesStr = "";

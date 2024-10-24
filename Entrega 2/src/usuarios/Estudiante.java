@@ -28,7 +28,7 @@ public class Estudiante extends Usuario{
 	public void enroll(LearningPath learningPath) throws LPException {
 		if (actualLearningPath == null && !historialLearningPaths.contains(learningPath)) {
 			this.actualLearningPath = learningPath;
-			this.progreso = new Progreso(learningPath);
+			this.progreso = new Progreso(learningPath, this.login);
 			this.historialLearningPaths.add(learningPath);
 			this.actualActividad = null;
 			

@@ -4,15 +4,17 @@ import learningPaths.LearningPath;
 import usuarios.Estudiante;
 import java.util.ArrayList;
 import java.util.List;
-//TODO revisar Si falta algo
+
 public class Progreso {
+	private String estudiante;
 	private LearningPath learningPath;
 	private ArrayList<Actividad> actividadesCompletadas;
 	private ArrayList<Actividad> actividadesIncompletas;
 	
-	public Progreso(LearningPath learningPath)
+	public Progreso(LearningPath learningPath, String login)
 	{
 		this.learningPath = learningPath;
+		this.estudiante = login;
 	}
 	
 	public void setNewLearningPath(LearningPath learningPath)
@@ -49,6 +51,8 @@ public class Progreso {
 		return progreso*100;
 	}
 
-	
+	public String getEstudiante() {
+		return this.estudiante;
+	}
 
 }

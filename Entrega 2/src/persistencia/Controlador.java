@@ -17,7 +17,8 @@ public class Controlador {
 	public ArrayList<LearningPath> listaLearningPaths;
 	public ArrayList<Actividad> listaActividades = new ArrayList<>();
 	public Actividad actividadVacia = new Actividad("","ActividadVacia","basico",null,null,"",9925,5,false);
-	public AnadirDatos anadirDatos;
+	private AnadirDatos anadirDatos;
+	private ModificarDatos modificarDatos;
 	
 	
 	public Controlador() {
@@ -25,7 +26,8 @@ public class Controlador {
 		this.listaProfesores = new ArrayList<>();
 		this.listaLearningPaths = new ArrayList<>();
 		this.anadirDatos = new AnadirDatos();
-		this.listaActividades.addLast(new Actividad("","ActividadVacia","basico",actividadVacia,actividadVacia,"",9925,5,false));
+		this.listaActividades = new ArrayList<>();
+		this.listaActividades.addLast(new Actividad("",".",".",actividadVacia,actividadVacia,"",9925,5,false));
 		
 	}
 	
@@ -33,6 +35,7 @@ public class Controlador {
     {
 		DBConnection connectTest = new DBConnection();
     }
+
 	
 	public Estudiante crearEstudiante(String nombre, String apellido, String login, String contrasenia) throws SQLException 
 	{ 
@@ -79,28 +82,33 @@ public class Controlador {
 	}
 	
 	public void crearActividad(Actividad act, String tipo) throws SQLException {
-		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado(), tipo);
+		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado(), tipo, act.getTiempoLimite());
 	}
 	
 	public void crearQuiz(Quiz quiz) throws SQLException {
 		anadirDatos.nuevoQuiz(quiz.getObjetivo(), quiz.getTitulo(), quiz.getNivel(), quiz.getPrerequisistos().getTitulo(), quiz.getSugeridos().getTitulo(), quiz.getResenias(), (float) quiz.getRating(), (float) quiz.getTiempoLimite(), quiz.isCompletado(), quiz.getNotaMinima(), quiz.getNotaObtenida(), false, quiz.getEnunciadoPreguntas());
-		crearActividad(quiz , "QUIZ");
+		this.listaActividades.add(quiz);
+		crearActividad(quiz , "QUIZES");
 	}
 	public void crearRecurso(Recurso recurso) throws SQLException {
 		anadirDatos.nuevoRecurso(recurso.getObjetivo(),recurso.getTitulo(), recurso.getNivel(), recurso.getPrerequisistos().getTitulo(),recurso.getSugeridos().getTitulo(),recurso.getResenias(),(float) recurso.getRating(),(float) recurso.getTiempoLimite(),false, recurso.getTipo());
-		crearActividad(recurso , "RECURSO");
+		crearActividad(recurso , "RECURSOS");
+		this.listaActividades.add(recurso);
 	}
 	public void crearTarea(Tarea tarea) throws SQLException {
 		anadirDatos.nuevaTarea(tarea.getObjetivo(),tarea.getTitulo(),tarea.getNivel(),tarea.getPrerequisistos().getTitulo(), tarea.getSugeridos().getTitulo(),tarea.getResenias(),(float) tarea.getRating(),(float) tarea.getTiempoLimite(),false,tarea.isEstado());
-		crearActividad(tarea , "TAREA");
+		crearActividad(tarea , "TAREAS");
+		this.listaActividades.add(tarea);
 	}
 	public void crearEncuesta(Encuesta encuesta) throws SQLException {
 		anadirDatos.nuevaEncuesta(encuesta.getObjetivo(),encuesta.getTitulo(),encuesta.getNivel(),encuesta.getPrerequisistos().getTitulo(),encuesta.getSugeridos().getTitulo(),encuesta.getResenias(),(float) encuesta.getRating(),(float) encuesta.getTiempoLimite(),encuesta.isCompletado(),encuesta.isEnviado(), encuesta.getEnunciados(), encuesta.getRespuestasGuias());
-		crearActividad(encuesta , "ENCUESTA");
+		crearActividad(encuesta , "ENCUESTAS");
+		this.listaActividades.add(encuesta);
 	}
 
 	public void crearExamen(Examen examen) throws SQLException {
 		anadirDatos.nuevoExamen(examen.exitoso,examen.getNotaObtenida(),examen.getNotaMinima(),examen.getEnunciados(),examen.getRespuestaGuia(),examen.getObjetivo(),examen.getTitulo(),examen.getNivel(),examen.getPrerequisistos().getTitulo(),examen.getSugeridos().getTitulo(),examen.getResenias(), (float) examen.getRating(), (float) examen.getTiempoLimite(),examen.isCompletado());
-		crearActividad(examen , "EXAMEN");
+		crearActividad(examen , "EXAMENES");
+		this.listaActividades.add(examen);
 	}
 }

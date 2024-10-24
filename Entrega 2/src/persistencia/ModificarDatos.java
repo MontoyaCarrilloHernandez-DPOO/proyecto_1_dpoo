@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import persistencia.DBConnection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import learningPaths.PreguntaAbierta;
@@ -38,8 +39,11 @@ public class ModificarDatos {
 			pstmt.setString(2, actualLearningPath.titulo);
 			pstmt.setString(3, actualActividad.titulo);
 			pstmt.setString(4, usuario);
-			resultado = pstmt.executeQuery();
-			resultado.close();
+			int filasActualizadas = pstmt.executeUpdate();
+	        System.out.println(filasActualizadas + " filas actualizadas.");
+
+	        pstmt.close();
+	        con.close();
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -47,13 +51,42 @@ public class ModificarDatos {
 	}
 	
 	
-	public  void cambiarDatosProfesor(String usuario, Profesor profesor) {
+	public  void cambiarDatosProfesor(Profesor profesor) {
 		ResultSet resultado;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
+			
+			ArrayList<LearningPath> listaLPs = profesor.learningPaths;
+			ArrayList<Actividad> listaAct = profesor.actividades;
 	
-			String qu = "UPDATE PROFESORES SET *COMPLETAR* WHERE login = ?";
-			//TODO
+			String qu = "UPDATE PROFESORES SET lista_lps = ?, lista_actividades = ? WHERE login = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+			String listaIdLP = "";
+			String listaIdAct = "";
+			for (LearningPath lp : listaLPs) {
+				listaIdLP += lp.titulo + ",";
+			}
+			for (Actividad act : listaAct) {
+				listaIdAct += act.titulo + ",";
+			}
+			pstmt.setString(1, listaIdLP);
+			pstmt.setString(2, listaIdAct);
+			pstmt.setString(3, profesor.login);
+			
+			int filasActualizadas = pstmt.executeUpdate();
+	        System.out.println(filasActualizadas + " filas actualizadas.");
+	        
+	        Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from PROFESORES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");}
+
+	        pstmt.close();
+	        con.close();
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
