@@ -71,7 +71,7 @@ public class DBConnection {
 	}
 	
 	void crearTablaProceso(){
-		String NOMBRE_TABLA = "PROCESOS";
+		String NOMBRE_TABLA = "PROGRESOS";
 		try {
 			stmt = conn.createStatement();
 			DatabaseMetaData dbm = conn.getMetaData();

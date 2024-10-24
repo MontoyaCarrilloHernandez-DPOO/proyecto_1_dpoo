@@ -20,6 +20,7 @@ public class RecogerDatos {
 	public ArrayList<String> getContraseniaEstudiante(String usuario) {
 		ResultSet resultado;
 		ArrayList<String> resultados = new ArrayList<String>();
+		
 		String contrasenia = null;
 		String nombre = null;
 		String apellido = null;
@@ -57,10 +58,12 @@ public class RecogerDatos {
 	public ArrayList<String> getContraseniaProfesor(String usuario) {
 		ResultSet resultado;
 		ArrayList<String> resultados = new ArrayList<String>();
+		
 		String contrasenia = null;
 		String nombre = null;
 		String apellido = null;
 		String lista_lps = null;
+		String lista_act = null;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 	
@@ -73,6 +76,7 @@ public class RecogerDatos {
 				nombre = resultado.getString("nombre");
 				apellido = resultado.getString("apellido");
 				lista_lps = resultado.getString("lista_lps");
+				lista_act = resultado.getString("lista_actividades");
 			}
 			
 			resultado.close();
@@ -81,6 +85,7 @@ public class RecogerDatos {
 			resultados.add(nombre);
 			resultados.add(apellido);
 			resultados.add(lista_lps);
+			resultados.add(lista_act);
 			
 			} catch(SQLException e) {
 				e.printStackTrace();

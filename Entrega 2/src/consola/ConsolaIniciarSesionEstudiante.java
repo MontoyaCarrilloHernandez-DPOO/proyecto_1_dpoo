@@ -1,14 +1,12 @@
 package consola;
-import persistencia.Controlador;
-import persistencia.RecogerDatos;
+
 import usuarios.Estudiante;
 import learningPaths.LearningPath;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import Excepciones.LPException;
 import consola.ConsolaResumirLP;
+import persistencia.*;
 
 public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 	
@@ -16,6 +14,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 	
 	private Controlador sistema;
 	private Estudiante estudiante;
+	private ModificarDatos modificarDatos;
 	
 	public ConsolaIniciarSesionEstudiante (Controlador sistema) {
 		this.sistema= sistema;
@@ -43,6 +42,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     	} else {
     		System.out.println("Inicio de sesión correcto");
     		this.estudiante = new Estudiante(contrasenia, nombre, apellido, login);
+    		//TODO: Subir los datos actuales del estudiante de la base de datos a su propia clase
     		mostrarMenuEstudiante();
     		
     		
@@ -67,13 +67,13 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 				}
 			}
 			estudiante.enroll(miLP);
-			//TODO Directamente en estudiante, crear la persistencia para actualizar los datos del estudiante
+			modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.gethistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
         }
         else if( opcionSeleccionada == 2 )
         {
         	estudiante.unenroll();
-        	//TODO Directamente en estudiante, crear la persistencia para actualizar los datos del estudiante
-        	System.out.println( "Haz salido de este Learning Path con éxito" );
+        	modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.gethistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
+        	modificarDatos.eliminarProgreso(this.estudiante.progreso);
         	
         }
         else if( opcionSeleccionada == 3 )

@@ -6,6 +6,7 @@ import persistencia.Controlador;
 import persistencia.RecogerDatos;
 import usuarios.Profesor;
 import learningPaths.LearningPath;
+import learningPaths.*;
 public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 	
 	private final String[] opcionesMenuProfesor = new String[]{ "Crear un Learning Path", "Crear actividad", "Calificar estudiantes", "Salir" };
@@ -26,6 +27,7 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
     	String nombre = datosProfe.get(1);
     	String apellido = datosProfe.get(2);
     	String DBLearningPaths = datosProfe.get(3);
+    	String DBActividades = datosProfe.get(4);
     	
     	if (! contrasenia.equals(contraseniaEsperada)) {
     		int respuesta = pedirEntero( "Contrasena o login incorrecto. Pulsa 1 para volver a intentar o 2 para salir ");
@@ -39,7 +41,8 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
     		System.out.println("Inicio de sesión correcto");
     		
     		ArrayList<LearningPath> LearningPaths = datos.getLearningPathsDeString(DBLearningPaths);
-    		this.profesor = new Profesor(contrasenia, nombre, apellido, login,LearningPaths);
+    		ArrayList<Actividad> actividades = datos.getActividadesDeString(DBActividades);
+    		this.profesor = new Profesor(contrasenia, nombre, apellido, login,LearningPaths, actividades);
     		mostrarMenuProfesor();
     		
     	}

@@ -39,6 +39,8 @@ public class ModificarDatos {
 			pstmt.setString(2, actualLearningPath.titulo);
 			pstmt.setString(3, actualActividad.titulo);
 			pstmt.setString(4, usuario);
+			
+			
 			int filasActualizadas = pstmt.executeUpdate();
 	        System.out.println(filasActualizadas + " filas actualizadas.");
 
@@ -94,14 +96,31 @@ public class ModificarDatos {
 	}
 
 	
-	public void cambiarDatosLP(String cadena){
+	public void cambiarDatosLP(LearningPath lp){
 		
 		ResultSet resultado;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 	
-			String qu = "UPDATE LEARNING_PATHS SET *COMPLETAR* WHERE login = ?";
-			//TODO
+			String qu = "UPDATE LEARNING_PATHS SET Actividades = ?, Estudiantes = ? WHERE titulo = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+			String misAct = "";
+			String misEst = "";
+			for (Actividad act : lp.getActividades()) {
+				misAct+= act.titulo + ",";
+			}
+			
+			for (Estudiante est : lp.getEstudiantes()) {
+				misEst+= est.login + ",";
+			}
+			
+			pstmt.setString(1, misAct);
+			pstmt.setString(2, misEst);
+			pstmt.setString(3, lp.titulo);
+			
+			
+			int filasActualizadas = pstmt.executeUpdate();
+	        System.out.println(filasActualizadas + " filas actualizadas.");
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -109,18 +128,56 @@ public class ModificarDatos {
 	}
 		
 	
-public void cambiarDatosActividad(String cadena){
+public void cambiarDatosProgreso(Progreso progreso){
 	ResultSet resultado;
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
 
-		String qu = "UPDATE ACTIVIDADES SET *COMPLETAR* WHERE login = ?";
-		//TODO
+		String qu = "UPDATE PROGESOS SET learningPath = ?, actividades_completadas = ?, actividades_incompletas = ?, porcentaje = ? WHERE login = ?";
+		
+		
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		
+		String misActCompletas = "";
+		String misActIncompletas = "";
+		for (Actividad act : progreso.getActividadesCompletas()) {
+			misActCompletas+= act.titulo + ",";
+		}
+		
+		for (Actividad act : progreso.getActividadesIncompletas()) {
+			misActIncompletas+= act.titulo + ",";
+		}
+		
+		pstmt.setString(1, progreso.getEstudiante());
+		pstmt.setString(2, progreso.getLearningPath().titulo);
+		pstmt.setString(3, misActCompletas);
+		pstmt.setString(4, misActIncompletas);
+		pstmt.setFloat(5, (float) progreso.calcularProgreso());
+		
+		int filasActualizadas = pstmt.executeUpdate();
+        System.out.println(filasActualizadas + " filas actualizadas.");
 		
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 }
+
+public void eliminarProgreso(Progreso progreso){
+	ResultSet resultado;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+
+		String qu = "DELETE FROM PROGRESOS WHERE login = ?;";
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		pstmt.setString(1, progreso.getEstudiante());
+		int filasActualizadas = pstmt.executeUpdate();
+        System.out.println(filasActualizadas + " filas actualizadas.");
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+}
+
 
 	public ArrayList<String> stringToArrayList(String string){
 		ArrayList<String> arrayFinal = new ArrayList<String>();

@@ -54,7 +54,7 @@ public class Controlador {
 	
 	public Profesor crearProfesor(String nombre, String apellido, String login, String contrasenia) throws SQLException 
 	{
-		Profesor miProfesor = new Profesor(contrasenia, nombre, apellido, login, null);
+		Profesor miProfesor = new Profesor(contrasenia, nombre, apellido, login, null,null);
 		listaProfesores.add(miProfesor);
 		
 		/**

@@ -1,5 +1,6 @@
 package learningPaths;
 import learningPaths.Actividad;
+import persistencia.*;
 import learningPaths.LearningPath;
 import usuarios.Estudiante;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Progreso {
 	private LearningPath learningPath;
 	private ArrayList<Actividad> actividadesCompletadas;
 	private ArrayList<Actividad> actividadesIncompletas;
+	
 	
 	public Progreso(LearningPath learningPath, String login)
 	{

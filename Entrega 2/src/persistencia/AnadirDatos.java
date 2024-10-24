@@ -50,12 +50,13 @@ public class AnadirDatos {
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO PROFESORES (login, contrasenia, nombre, apellido, lista_lps) values (?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO PROFESORES values (?,?,?,?,?,?)");
 		ps.setString(1, login);
 		ps.setString(2, contrasenia);
 		ps.setString(3, nombre);
 		ps.setString(4, apellido);
 		ps.setString(5, "");
+		ps.setString(6, "");
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();

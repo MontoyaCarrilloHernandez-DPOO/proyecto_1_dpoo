@@ -12,10 +12,15 @@ public class Profesor extends Usuario{
 	public ArrayList<LearningPath> learningPaths;
 	public ArrayList<Actividad> actividades;
 	
-	public Profesor(String contrasenia, String nombre, String apellido, String login,ArrayList<LearningPath> learningPaths) {	
+	public Profesor(String contrasenia, String nombre, String apellido, String login,ArrayList<LearningPath> learningPaths,ArrayList<Actividad> actividades) {	
 		
 		super(contrasenia, nombre, apellido, login);
-		this.actividades = new ArrayList<Actividad>();
+		if (actividades==null){
+			this.actividades = new ArrayList<Actividad>();
+		}
+		else {
+			this.actividades = actividades;
+		}
 		this.learningPaths = learningPaths;
 
 		

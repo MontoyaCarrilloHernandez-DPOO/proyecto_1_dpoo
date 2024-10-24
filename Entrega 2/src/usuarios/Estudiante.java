@@ -10,16 +10,21 @@ import learningPaths.Progreso;
 
 public class Estudiante extends Usuario{
 	private ArrayList<LearningPath> historialLearningPaths;
-	private LearningPath actualLearningPath;
+	public LearningPath actualLearningPath;
 	public Actividad actualActividad;
-	protected HashMap<PreguntaAbierta, String> respuestas;
+	public HashMap<PreguntaAbierta, String> respuestas;
 	public Progreso progreso;
 	
 	public Estudiante(String contrasenia, String nombre, String apellido, String login)
 	{
 		super(contrasenia, nombre, apellido, login);
+		this.historialLearningPaths = new ArrayList<LearningPath>();
+		
 	}
 	
+	public ArrayList<LearningPath> gethistorialLearningPaths(){
+		return this.historialLearningPaths;
+	}
 	
 	public void ratear(int rating, Actividad actividad) {
 		actividad.ratear(rating);
