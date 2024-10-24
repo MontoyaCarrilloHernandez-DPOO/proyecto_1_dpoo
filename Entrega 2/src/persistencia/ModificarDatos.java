@@ -89,4 +89,13 @@ public void cambiarDatosActividad(String cadena){
 		}
 }
 
-}
+	public ArrayList<String> stringToArrayList(String string){
+		ArrayList<String> arrayFinal = new ArrayList<String>();
+		String[] arrayStrings = string.split(",");
+		for (String cadena:arrayStrings) {
+			arrayFinal.addLast(cadena);
+		}
+		return arrayFinal;
+	}
+	
+	}
