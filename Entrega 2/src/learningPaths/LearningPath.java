@@ -31,7 +31,7 @@ public class LearningPath {
 		this.estudiantes = estudiantes;
 	}
 	public String getTitulo() {
-		return titulo;
+		return this.titulo;
 	}
 	protected void setPropietario(String nombre) {
 		this.propietario=nombre;

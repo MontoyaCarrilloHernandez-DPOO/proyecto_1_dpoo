@@ -18,15 +18,15 @@ public class AnadirDatos {
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO ESTUDIANTES (login, contrasenia, nombre, apellido, historial_lp, lp_actual, actividad_actual) values (?,?,?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO ESTUDIANTES values (?,?,?,?,?,?,?,?)");
 		ps.setString(1, login);
 		ps.setString(2, contrasenia);
 		ps.setString(3, nombre);
 		ps.setString(4, apellido);
 		ps.setString(5, "");
-		ps.setString(6, "");
-		ps.setString(7, "");
-		ps.setString(8, login);
+		ps.setString(6, null);
+		ps.setString(7, null);
+		ps.setFloat(8, 0);
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
@@ -51,7 +51,7 @@ public class AnadirDatos {
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO PROGRESO values (?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO PROGRESOS values (?,?,?,?,?)");
 		ps.setString(1, login);
 		ps.setString(2, learningPath);
 		ps.setString(3, actCompletas);
@@ -60,7 +60,7 @@ public class AnadirDatos {
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
-		ResultSet resultSet = statement.executeQuery("Select * from PROFESORES");
+		ResultSet resultSet = statement.executeQuery("Select * from PROGRESOS");
 		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 		int columnCount = resultSetMetaData.getColumnCount();
 		for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
@@ -111,7 +111,7 @@ public class AnadirDatos {
 		for (Actividad act :  miLP.getActividades() ) {
 			actividadesString+= act + ",";
 		}
-		ps.setString(1, miLP.titulo);
+		ps.setString(1, miLP.getTitulo());
 		ps.setFloat(2,miLP.duracion);
 		ps.setString(3, miLP.descripcion);
 		ps.setString(4, miLP.propietario);
@@ -124,6 +124,7 @@ public class AnadirDatos {
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
+		
 		ResultSet resultSet = statement.executeQuery("Select * from LEARNING_PATHS");
 		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 		int columnCount = resultSetMetaData.getColumnCount();

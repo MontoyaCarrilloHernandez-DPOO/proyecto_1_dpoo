@@ -31,11 +31,9 @@ public class Profesor extends Usuario{
 		LearningPath lp = new LearningPath(this.nombre,titulo ,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades, null );
 		if (this.learningPaths == null) {
 			this.learningPaths = new ArrayList<LearningPath>();
+			
 		this.learningPaths.addLast(lp);
 		}
-		
-		AnadirDatos anadir = new AnadirDatos();
-		anadir.nuevoLearningPath(lp);
 	}
 	
 	

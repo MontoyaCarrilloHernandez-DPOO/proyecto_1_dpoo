@@ -524,10 +524,6 @@ try {
 			if (historial_lp != null || historial_lp != "") {
 				esteEstudiante.historialLearningPaths = getLearningPathsDeString(historial_lp);
 			}
-			//if (progreso != null || progreso != "") {esteEstudiante.progreso = getProgresoDeString(login);}
-			
-			
-			
 			
 			listaEs.add(esteEstudiante);
 		}

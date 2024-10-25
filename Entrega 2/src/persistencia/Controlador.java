@@ -28,7 +28,7 @@ public class Controlador {
 		this.listaLearningPaths = new ArrayList<>();
 		this.anadirDatos = new AnadirDatos();
 		this.listaActividades = new ArrayList<>();
-		this.listaActividades.addLast(new Actividad("",".",".",actividadVacia,actividadVacia,"",9925,5,false));
+		
 		
 	}
 	
@@ -39,11 +39,11 @@ public class Controlador {
 
 	public void subirDatos()
     {
-		this.recogerDatos.getLearningPaths();
-		this.recogerDatos.getActividades();
-		this.recogerDatos.getProgreso();
-		this.recogerDatos.getProfesores();
-		this.recogerDatos.getEstudiantes();
+		this.listaLearningPaths = this.recogerDatos.getLearningPaths();
+		this.listaActividades = this.recogerDatos.getActividades();
+		this.listaActividades.addLast(new Actividad(".",".",".",actividadVacia,actividadVacia,"",000,0,false));
+		this.listaProfesores = this.recogerDatos.getProfesores();
+		this.listaEstudiantes = this.recogerDatos.getEstudiantes();
 		
 	}
 	

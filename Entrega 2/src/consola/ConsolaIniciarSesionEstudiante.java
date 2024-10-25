@@ -47,16 +47,23 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		System.out.println("Inicio de sesión correcto");
     		
     		this.estudiante = new Estudiante(contrasenia, nombre, apellido, login);
+    		Actividad miActividad = null;
+    		LearningPath miLP = null;
+    		ArrayList<LearningPath> miHistorial = null;
     		
-    		Actividad miActividad = datos.getActividadDeString(actividad_actual);
-    		LearningPath miLP = datos.getLearningPathDeString(lp_actual);
-    		ArrayList<LearningPath> miHistorial = datos.getLearningPathsDeString(historial_lp);
+    		if (actividad_actual != null || actividad_actual != "") {
+    		 miActividad = datos.getActividadDeString(actividad_actual);}
+    		if (lp_actual != null || lp_actual != "") {
+    		 miLP = datos.getLearningPathDeString(lp_actual);}
+    		if (historial_lp != null || historial_lp != "") {
+    		miHistorial = datos.getLearningPathsDeString(historial_lp);}
+    		
     		Progreso miProgreso = datos.getProgresoDeString(this.estudiante.login);
     		
-    		//this.estudiante.actualActividad = miActividad;
-    		//this.estudiante.actualLearningPath = miLP;
-    		//this.estudiante.historialLearningPaths = miHistorial;
-    		//this.estudiante.progreso = miProgreso;
+    		this.estudiante.actualActividad = miActividad;
+    		this.estudiante.actualLearningPath = miLP;
+    		this.estudiante.historialLearningPaths = miHistorial;
+    		this.estudiante.progreso = miProgreso;
     		
     		this.sistema.listaEstudiantes.add(estudiante);
     		mostrarMenuEstudiante();
@@ -77,12 +84,13 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 			}
 			String titulo = pedirCadena("Escribe el titulo de alguno de los Learning Paths para unirte");
 			for (LearningPath lp: lpsDisponibles) {
-				if (lp.titulo.equals(titulo)) {
+				if (lp.titulo.toUpperCase().equals(titulo.toString().toUpperCase())) {
+					System.out.println(":)");
 					 miLP = lp;
 				}
 			}
+			System.out.println(miLP);
 			estudiante.enroll(miLP);
-			modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.gethistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
         }
         else if( opcionSeleccionada == 2 )
         {

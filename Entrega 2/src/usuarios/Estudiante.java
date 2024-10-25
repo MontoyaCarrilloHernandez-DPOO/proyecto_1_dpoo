@@ -31,7 +31,7 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void enroll(LearningPath learningPath) throws LPException {
-		if (actualLearningPath == null && !historialLearningPaths.contains(learningPath)) {
+		if (!historialLearningPaths.contains(learningPath)) {
 			this.actualLearningPath = learningPath;
 			this.progreso = new Progreso(learningPath, this.login);
 			this.historialLearningPaths.add(learningPath);
@@ -51,7 +51,6 @@ public class Estudiante extends Usuario{
 		this.actualActividad = null;
 		ModificarDatos modificar = new ModificarDatos();
 		modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
-		//TODO Implementar para que el cambie los datos en la DB
 	}
 	
 	public boolean verificarActividadEnLP(Actividad actividad) {

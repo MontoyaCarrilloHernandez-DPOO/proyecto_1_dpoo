@@ -59,8 +59,8 @@ public class DBConnection {
 						+ "apellido varchar(50), \n"
 						+ "historial_lp varchar(1000), \n"
 						+ "lp_actual varchar(50), \n"
-						+ "actividad_actual int, \n"
-						+ "progreso varchar(50) \n"
+						+ "actividad_actual varchar(50), \n"
+						+ "progreso float \n"
 						+ ")");
 				//preguntas y respuestas? ayuda 
 			}

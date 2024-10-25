@@ -36,7 +36,11 @@ public class ModificarDatos {
 			}
 			pstmt.setString(1, listaIdLP);
 			pstmt.setString(2, actualLearningPath.titulo);
-			pstmt.setString(3, actualActividad.titulo);
+			String miAct = ".";
+			if (!(actualActividad==null)) {
+				miAct = actualActividad.titulo;
+			}
+			pstmt.setString(3, miAct);
 			pstmt.setString(4, usuario);
 			
 			

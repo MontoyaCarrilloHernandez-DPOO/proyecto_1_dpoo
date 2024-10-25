@@ -274,10 +274,10 @@ public void mostrarOpcionesLP() throws SQLException{
 		
 		boolean salir = false;
 		while(!salir) {
-			
 			int opcionSeleccionada=mostrarMenu("Menu crear Learning Paths",opcionesMenuProfesorCreadorLP);
 			if(opcionSeleccionada == 1) {
 				ArrayList<Actividad> actividades = sistema.listaActividades;
+				
 				String titulo = pedirCadena("Ingresa el nombre del Learning Path (sin espacios)");
 				float duracion = (float) pedirNumero("Ingesa la duracion del Learning Path");
 				String descripcion = pedirCadena("Ingresa la descripcion del Learning Path");
@@ -290,7 +290,7 @@ public void mostrarOpcionesLP() throws SQLException{
 					System.out.println(i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
 					i+=1;
 				}
-				String actividadesLP = pedirCadena("Ingrese los titulos de las actividades separados por comas");
+				String actividadesLP = pedirCadena("Ingrese los titulos de las actividades separados por comas y sin espacios");
 				ArrayList<Actividad> Actividades = recogerDatos.getActividadesDeString(actividadesLP);
 				
 				LearningPath miLP = new LearningPath(profesor.login, titulo, duracion, dificultad, 5, descripcion, objetivo, metadatos, Actividades, null);
