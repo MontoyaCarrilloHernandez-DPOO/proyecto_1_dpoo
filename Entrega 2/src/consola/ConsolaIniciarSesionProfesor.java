@@ -40,9 +40,10 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
     	} else {
     		System.out.println("Inicio de sesión correcto");
     		
-    		ArrayList<LearningPath> LearningPaths = datos.getLearningPathsDeString(DBLearningPaths);
-    		ArrayList<Actividad> actividades = datos.getActividadesDeString(DBActividades);
-    		this.profesor = new Profesor(contrasenia, nombre, apellido, login,LearningPaths, actividades);
+    		//ArrayList<LearningPath> LearningPaths = datos.getLearningPathsDeString(DBLearningPaths);
+    		//ArrayList<Actividad> actividades = datos.getActividadesDeString(DBActividades);
+    		//this.profesor = new Profesor(contrasenia, nombre, apellido, login,LearningPaths, actividades);
+    		this.profesor = new Profesor(contrasenia, nombre, apellido, login,null, null);
     		mostrarMenuProfesor();
     		
     	}

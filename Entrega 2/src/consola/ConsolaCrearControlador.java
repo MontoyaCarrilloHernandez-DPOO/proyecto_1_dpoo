@@ -10,6 +10,7 @@ public class ConsolaCrearControlador extends ConsolaBasica{
 	{
 		Controlador miControlador = new Controlador();
 		miControlador.comprobarConexion();
+		miControlador.subirDatos();
 		return miControlador;
 	}
 

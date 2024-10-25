@@ -33,7 +33,6 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     	String historial_lp = datosEstudiante.get(3);
 		String lp_actual = datosEstudiante.get(4);
 		String actividad_actual = datosEstudiante.get(5);
-		String DBprogreso = datosEstudiante.get(6);
     	
     	
     	if (! contrasenia.equals(contraseniaEsperada)) {
@@ -49,10 +48,10 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		
     		this.estudiante = new Estudiante(contrasenia, nombre, apellido, login);
     		
-    		Actividad miActividad = null;
-    		LearningPath miLP = datos.getLearningPathsDeString(DBprogreso); //CAMBIAR ESTO!!!
-    		ArrayList<LearningPath> miHistorial = null;
-    		Progreso miProgreso = null;
+    		Actividad miActividad = datos.getActividadDeString(actividad_actual);
+    		LearningPath miLP = datos.getLearningPathDeString(lp_actual);
+    		ArrayList<LearningPath> miHistorial = datos.getLearningPathsDeString(historial_lp);
+    		Progreso miProgreso = datos.getProgresoDeString(this.estudiante.login);
     		
     		this.estudiante.actualActividad = miActividad;
     		this.estudiante.actualLearningPath = miLP;
@@ -60,11 +59,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		this.estudiante.progreso = miProgreso;
     		
     		this.sistema.listaEstudiantes.add(estudiante);
-    		
-    		//TODO mirar como incluir al estudiante al learning path y al profesor???
-    		//TODO: Subir los datos actuales del estudiante de la base de datos a su propia clase
     		mostrarMenuEstudiante();
-    		
     		
     	}
 	}

@@ -159,7 +159,6 @@ public class DBConnection {
 						+ "titulo varchar(50) primary key, \n"
 						+ "objetivo varchar(500), \n"
 						+ "nivel varchar(50), \n"
-						+ "duracion float, \n"
 						+ "prerequisito varchar(50), \n"
 						+ "sugerido varchar(50), \n"
 						+ "tiempoLimite float, \n"

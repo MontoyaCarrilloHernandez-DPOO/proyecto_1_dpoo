@@ -19,6 +19,7 @@ public class Controlador {
 	public Actividad actividadVacia = new Actividad("","ActividadVacia","basico",null,null,"",9925,5,false);
 	private AnadirDatos anadirDatos;
 	private ModificarDatos modificarDatos;
+	private RecogerDatos recogerDatos = new RecogerDatos();
 	
 	
 	public Controlador() {
@@ -36,6 +37,16 @@ public class Controlador {
 		DBConnection connectTest = new DBConnection();
     }
 
+	public void subirDatos()
+    {
+		//
+		//this.recogerDatos.getLearningPaths();
+		this.recogerDatos.getActividades();
+		this.recogerDatos.getProgreso();
+		this.recogerDatos.getProfesores();
+		//this.recogerDatos.getEstudiantes();
+		
+	}
 	
 	public Estudiante crearEstudiante(String nombre, String apellido, String login, String contrasenia) throws SQLException 
 	{ 
@@ -82,7 +93,7 @@ public class Controlador {
 	}
 	
 	public void crearActividad(Actividad act, String tipo) throws SQLException {
-		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado(), tipo, act.getTiempoLimite());
+		anadirDatos.nuevaActividad(act.getObjetivo(), act.getTitulo(), act.getNivel(), act.getPrerequisistos().getTitulo(),act.getSugeridos().getTitulo(), act.getResenias(),(float) act.getRating(), (float) act.getTiempoLimite(),act.isCompletado(), tipo);
 	}
 	
 	public void crearQuiz(Quiz quiz) throws SQLException {

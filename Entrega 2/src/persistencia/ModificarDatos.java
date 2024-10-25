@@ -25,7 +25,6 @@ public class ModificarDatos {
 	private static final String JDBC_URL =  "jdbc:derby:proyecto1";
 	
 	public void cambiarDatosEstudiante (String usuario,  ArrayList <LearningPath> historialLearningPaths, LearningPath actualLearningPath, Actividad actualActividad, HashMap<PreguntaAbierta, String> respuestas, Progreso progreso) {
-		ResultSet resultado;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 	
@@ -54,7 +53,6 @@ public class ModificarDatos {
 	
 	
 	public  void cambiarDatosProfesor(Profesor profesor) {
-		ResultSet resultado;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 			
@@ -65,9 +63,10 @@ public class ModificarDatos {
 			PreparedStatement pstmt = con.prepareStatement(qu);
 			String listaIdLP = "";
 			String listaIdAct = "";
+			if (listaLPs != null) {
 			for (LearningPath lp : listaLPs) {
 				listaIdLP += lp.titulo + ",";
-			}
+			}}
 			for (Actividad act : listaAct) {
 				listaIdAct += act.titulo + ",";
 			}
@@ -97,8 +96,6 @@ public class ModificarDatos {
 
 	
 	public void cambiarDatosLP(LearningPath lp){
-		
-		ResultSet resultado;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 	
@@ -129,7 +126,6 @@ public class ModificarDatos {
 		
 	
 public void cambiarDatosProgreso(Progreso progreso){
-	ResultSet resultado;
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
 
@@ -163,7 +159,6 @@ public void cambiarDatosProgreso(Progreso progreso){
 }
 
 public void eliminarProgreso(Progreso progreso){
-	ResultSet resultado;
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
 

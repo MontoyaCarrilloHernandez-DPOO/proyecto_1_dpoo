@@ -146,21 +146,20 @@ public class AnadirDatos {
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
-			PreparedStatement ps = con.prepareStatement("INSERT INTO EXAMENES (  titulo, objetivo,  nivel,  prerequisito,  sugerido,  resenias,  rating,  tiempoLimite,  notaMinima, notaObtenida,exitoso, completado, preguntas, respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO EXAMENES values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
 			ps.setString(4, prerequisistos);
 			ps.setString(5, sugeridos);
 			ps.setString(6,  resenias);
-			ps.setLong(7,  (long) rating);
-			ps.setLong(8,  (long) tiempoLimite);
-			ps.setLong(9,  (long) notaMinima);
-			ps.setLong(10,  (long) notaObtenida);
+			ps.setFloat(7,  rating);
+			ps.setFloat(8,  tiempoLimite);
+			ps.setFloat(9,  notaMinima);
+			ps.setFloat(10, notaObtenida);
 			ps.setBoolean(11,   exitoso);
 			ps.setBoolean(12,   completado);
 			ps.setString(13,  preguntas);
-			ps.setString(14, respuestaGuia);
 			ps.executeUpdate();
 			
 			Statement statement  = con.createStatement();
@@ -183,18 +182,18 @@ public class AnadirDatos {
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
-			PreparedStatement ps = con.prepareStatement("INSERT INTO QUIZES (   titulo, objetivo, nivel, prerequisitos, sugerido, resenias, rating, tiempoLimite, completado, notaMinima, notaObtenida, exitoso, preguntas) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO QUIZES values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
 			ps.setString(4, prerequisistos);
 			ps.setString(5, sugeridos);
 			ps.setString(6,  resenias);
-			ps.setLong(7,  (long) rating);
-			ps.setLong(8,  (long) tiempoLimite);
-			ps.setBoolean(9,   completado);
-			ps.setLong(10,  (long) notaMinima);
-			ps.setLong(11,  (long) notaObtenida);
+			ps.setFloat(7, rating);
+			ps.setFloat(8, tiempoLimite);
+			ps.setBoolean(9, completado);
+			ps.setFloat(10,  notaMinima);
+			ps.setFloat(11, notaObtenida);
 			ps.setBoolean(11,   exitoso);
 			ps.setString(13,  preguntas);
 			ps.executeUpdate();
@@ -335,22 +334,21 @@ public class AnadirDatos {
 			e.printStackTrace();
 		}
 	}
-	public void nuevaActividad( String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,String tipo, double duracion) throws SQLException
+	public void nuevaActividad( String objetivo,String titulo,String nivel,String prerequisistos,String sugeridos,String resenias,float rating,float tiempoLimite,boolean completado,String tipo) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
-			PreparedStatement ps = con.prepareStatement("INSERT INTO ACTIVIDADES values (?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps = con.prepareStatement("INSERT INTO ACTIVIDADES values (?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, titulo);
 			ps.setString(2, objetivo);
 			ps.setString(3, nivel);
-			ps.setFloat(4,  (float) duracion);
-			ps.setString(5, prerequisistos);
-			ps.setString(6, sugeridos);
-			ps.setString(7,  resenias);
-			ps.setFloat(8,  (float) rating);
-			ps.setFloat(9,  (float) tiempoLimite);
-			ps.setBoolean(10,   completado);
-			ps.setString(11,   tipo);
+			ps.setString(4, prerequisistos);
+			ps.setString(5, sugeridos);
+			ps.setFloat(6, (float) tiempoLimite);
+			ps.setFloat(7, (float) rating);
+			ps.setString(8, resenias);
+			ps.setBoolean(9, completado);
+			ps.setString(10,tipo);
 			ps.executeUpdate();
 			
 			Statement statement  = con.createStatement();

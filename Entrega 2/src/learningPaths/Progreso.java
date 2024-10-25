@@ -12,6 +12,13 @@ public class Progreso {
 	private ArrayList<Actividad> actividadesCompletadas;
 	private ArrayList<Actividad> actividadesIncompletas;
 	
+	public void setActividadesCompletadas(ArrayList<Actividad> actsCompletadas) {
+		this.actividadesCompletadas = actsCompletadas;
+	}
+	
+	public void setActividadesIncompletas(ArrayList<Actividad> actsIncompletas) {
+		this.actividadesIncompletas = actsIncompletas;
+	}
 	
 	public Progreso(LearningPath learningPath, String login)
 	{

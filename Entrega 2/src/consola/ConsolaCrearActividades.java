@@ -63,7 +63,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				Actividad miSugerido = null;
 				String resenias = "";
 				int rating = 5;
-				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float tiempoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				float notaMinima = (float) pedirNumero("Ingrese la nota minima para aprobar el quiz (recuerde que es de 0 a 5).");
 				float notaObtenida = 0;
 				
@@ -124,7 +124,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 				String resenias = "";
 				int rating = 5;
-				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float tiempoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				String tipo = pedirCadena("Ingrese el tipo del recurso");
 				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false,tipo);
 				profesor.actividades.add(miRecurso);
@@ -160,7 +160,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					
 				String resenias = "";
 				int rating = 5;
-				float timepoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float timepoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				boolean estado = false;
 				Tarea miTarea = new Tarea(false, estado, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, timepoLimite, rating, false);
 				profesor.actividades.add(miTarea);
@@ -196,7 +196,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 				String resenias = "";
 				int rating = 5;
-				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float tiempoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				boolean exitoso = false;
 				float notaObtenida = 0;
 				float notaMinima = (float) pedirNumero("Ingresa la nota mínima para aprobar");
@@ -246,7 +246,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 				String resenias = "";
 				int rating = 5;
-				float tiempoLimite = (float) pedirNumero("Ingrese la fecha limite con formato ddhh .");
+				float tiempoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				int cantidadPreguntas = pedirEntero("\n Cuantas preguntas tendra tu examen?");
 				ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
 				int j=1;
