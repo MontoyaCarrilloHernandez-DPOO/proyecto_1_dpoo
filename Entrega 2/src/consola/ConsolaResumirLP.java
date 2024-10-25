@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import persistencia.Controlador;
+import persistencia.RecogerDatos;
 import usuarios.Estudiante;
 
 
@@ -14,6 +15,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
 	private final String[] opcionesMenuEstudianteLP = new String[]{ "Continuar con tu actividad actual", "Reseniar tu actividad actual", "Ratear tu actividad actual","Volver al menú principal" };
 	private Controlador sistema;
 	private Estudiante miEstudiante;
+	private RecogerDatos losDatos= new RecogerDatos();
 	
 	public ConsolaResumirLP(Estudiante estudiante, Controlador sistema) {
 		this.miEstudiante = estudiante;
@@ -32,7 +34,8 @@ public class ConsolaResumirLP extends ConsolaBasica {
             if( opcionSeleccionada == 1 )
             {
             	// TODO Crear nueva funcion que muestre las atcividades y eso e imprimir y cambie el progreso
-            	if(miEstudiante.viendoActividad()) {
+            	
+            	if(!miEstudiante.actualLearningPath.equals(null)) {
             		LearningPath lp = miEstudiante.actualLearningPath;
             		ArrayList<Actividad> actividades = lp.getActividades();
             		int i = 1;
@@ -41,26 +44,24 @@ public class ConsolaResumirLP extends ConsolaBasica {
 						i+=1;
             		}
             		
-            		String actual = pedirCadena("Ingrese el titulo de la actividad que quiere empezar");
+            		int flag =pedirEntero("Si quiere salir escriba 1 de resto escriba 2");
+            		String actual = pedirCadena("Ingrese el titulo de la actividad que quiere empezar.");
+            		while (flag!=1) {
             		for (Actividad act : actividades) {
-						if (act.getTitulo().equals(actual)) {
+						if (act.getTitulo().equals(actual) && miEstudiante.verificarActividadEnLP(act)) {
 							miEstudiante.comenzarActividad(act);
-							String tipo = "";
-							if(tipo.equals("TAREA")) {
-								
-								
-							}else if (tipo.equals("QUIZ")) {
-								
-								
-							}else if (tipo.equals("EXAMEN")) {
-								
-								
-							}else if (tipo.equals("RECURSO")) {
-								
-								
-							}else if (tipo.equals("ENCUESTA")) {
-								
-								
+							Actividad actividad = losDatos.getActividadDeString(actual);
+							ArrayList<String> info = losDatos.getInfo(actividad);
+							for (String ele:info) {
+								System.out.println(ele);
+							}
+							String cadena = pedirCadena("Ingrese 1 cuando termine la tarea");
+							if (cadena.equals("1")) {
+								miEstudiante.terminarActividad();
+								flag =pedirEntero("Si quiere salir escriba 1 de resto escriba 2");
+                                mostrarOpciones();
+                                break;
+								}
 							}
 						}
 					}

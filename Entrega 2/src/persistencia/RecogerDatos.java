@@ -616,6 +616,57 @@ public void getProgreso(){
 			e.printStackTrace();
 		}
 }
+public ArrayList<String> getInfo(Actividad actividad) {
+	ArrayList<String> datos = new ArrayList<String>();	
+	ResultSet resultado;
+	ResultSet resultado2;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String qu2 = "SELECT TIPO FROM ACTIVIDADES WHERE TITULO=?";
+		PreparedStatement pstmt2 = con.prepareStatement(qu2);
+		pstmt2.setString(1, actividad.getTitulo());
+		resultado2 = pstmt2.executeQuery();
+		String tipo = resultado2.getString("TIPO");	
 
+		String qu = "SELECT * FROM ? WHERE TITULO =?";
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		
+        pstmt.setString(1, tipo);
+        pstmt.setString(2, actividad.getTitulo());
+		resultado = pstmt.executeQuery();
+		
+			while (resultado.next()) {
+				if(tipo.equals("TAREA")) {
+					
+					datos.add(resultado.getString("TITULO"));
+					datos.add(resultado.getString("OBJETIVO"));	
+					datos.add(resultado.getString("NIVEL"));
+					datos.add(resultado.getString("PREREQUISITO"));
+					datos.add(resultado.getString("SUGERIDO"));
+					datos.add( String.valueOf(resultado.getFloat("RATING")));
+					datos.add( String.valueOf(resultado.getFloat("TIEMPO_LIMITE")));
+					
+				}else if (tipo.equals("QUIZ")) {
+					
+					
+				}else if (tipo.equals("EXAMEN")) {
+					
+					
+				}else if (tipo.equals("RECURSO")) {
+					
+					
+				}else if (tipo.equals("ENCUESTA")) {
+					
+					
+				}
+			}
+			
+			resultado.close();
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	return null;
+}
 
 }

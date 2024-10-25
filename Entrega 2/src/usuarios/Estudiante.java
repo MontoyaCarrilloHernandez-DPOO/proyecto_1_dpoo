@@ -54,7 +54,7 @@ public class Estudiante extends Usuario{
 		//TODO Implementar para que el cambie los datos en la DB
 	}
 	
-	private boolean verificarActividadEnLP(Actividad actividad) {
+	public boolean verificarActividadEnLP(Actividad actividad) {
 		//false si no pertenece una actividad al lp al que esta inscrito el estudiante true si si
 		LearningPath lp = this.actualLearningPath;
 		if(lp.getActividades().contains(actividad)) {
@@ -72,7 +72,7 @@ public class Estudiante extends Usuario{
 		}
 	}
 	
-	protected void terminarActividad() {
+	public void terminarActividad() {
 		this.progreso.anadirCompletasQuitarIncompleta(actualActividad);
 		this.actualActividad = null;
 		
@@ -109,9 +109,9 @@ public class Estudiante extends Usuario{
 	
 	public boolean viendoActividad() {
 		if(this.actualActividad.equals(null)) {
-			return true;
-		}else {
 			return false;
+		}else {
+			return true;
 			}
 	}
 }
