@@ -63,7 +63,7 @@ public class Estudiante extends Usuario{
 		return false;
 	}
 	
-	protected void comenzarActividad(Actividad actividad) {
+	public void comenzarActividad(Actividad actividad) {
 		if(actividad.equals(null)&& verificarActividadEnLP(actividad)==true) {
 			this.actualActividad = actividad;
 			ModificarDatos modificar = new ModificarDatos();
