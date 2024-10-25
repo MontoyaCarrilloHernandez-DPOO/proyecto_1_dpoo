@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-
+import learningPaths.*;
 
 
 public class AnadirDatos {
@@ -74,20 +74,24 @@ public class AnadirDatos {
 			e.printStackTrace();
 		}
 	}
-	public void nuevoLearningPath(String titulo, String descripcion, String objetivos, String propietario, String metadatos, float dificultad, float duracion, float rating, String actividades) throws SQLException
+	public void nuevoLearningPath(LearningPath miLP) throws SQLException
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO LEARNING_PATHS (titulo, descripcion, objetivos, propietario, metadatos, dificultad, duracion, rating, estudiantes, actividades) values (?,?,?,?,?,?,?,?,?,?)");
-		ps.setString(1, titulo);
-		ps.setString(2, descripcion);
-		ps.setString(3, objetivos);
-		ps.setString(4, propietario);
-		ps.setString(5, metadatos);
-		ps.setLong(6,  (long) dificultad);
-		ps.setLong(7,  (long) duracion);
-		ps.setLong(8,  (long) rating);
-		ps.setString(9, actividades);
+		PreparedStatement ps = con.prepareStatement("INSERT INTO LEARNING_PATHS values (?,?,?,?,?,?,?,?,?,?)");
+		String actividadesString = "";
+		for (Actividad act :  miLP.getActividades() ) {
+			actividadesString+= act + ",";
+		}
+		ps.setString(1, miLP.titulo);
+		ps.setFloat(2,miLP.duracion);
+		ps.setString(3, miLP.descripcion);
+		ps.setString(4, miLP.propietario);
+		ps.setString(5, miLP.objetivo);
+		ps.setFloat(6,  miLP.dificultad);
+		ps.setFloat(7,  miLP.rating);
+		ps.setString(8, miLP.metadatos);
+		ps.setString(9, actividadesString);
 		ps.setString(10, "");
 		ps.executeUpdate();
 		
@@ -194,7 +198,7 @@ public class AnadirDatos {
 			ps.setBoolean(9, completado);
 			ps.setFloat(10,  notaMinima);
 			ps.setFloat(11, notaObtenida);
-			ps.setBoolean(11,   exitoso);
+			ps.setBoolean(12,  exitoso);
 			ps.setString(13,  preguntas);
 			ps.executeUpdate();
 			

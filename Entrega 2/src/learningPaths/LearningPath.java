@@ -8,16 +8,16 @@ import usuarios.Estudiante;
 public class LearningPath {
 	public String titulo;
 	public String propietario;
-	public double duracion;
-	public double dificultad;
-	public double rating;
+	public float duracion;
+	public float dificultad;
+	public float rating;
 	public String descripcion;
 	public String objetivo;
 	public String metadatos;
 	protected ArrayList<Actividad> actividades;
 	protected ArrayList<Estudiante> estudiantes;
 	
-	public LearningPath(String propietario, String titulo, double duracion, double dificultad, double rating, String descripcion,
+	public LearningPath(String propietario, String titulo, float duracion, float dificultad, float rating, String descripcion,
 			String objetivo, String metadatos, ArrayList<Actividad> actividades, ArrayList<Estudiante> estudiantes) {
 		this.titulo = titulo;
 		this.propietario = propietario;
@@ -42,22 +42,22 @@ public class LearningPath {
 	protected void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public double getDuracion() {
+	public float getDuracion() {
 		return duracion;
 	}
-	private void setDuracion(double duracion) {
+	private void setDuracion(float duracion) {
 		this.duracion = duracion;
 	}
-	public double getDificultad() {
+	public float getDificultad() {
 		return dificultad;
 	}
-	private void setDificultad(double dificultad) {
+	private void setDificultad(float dificultad) {
 		this.dificultad = dificultad;
 	}
-	public double getRating() {
+	public float getRating() {
 		return rating;
 	}
-	private void setRating(double rating) {
+	private void setRating(float rating) {
 		this.rating = rating;
 	}
 	public String getDescripcion() {

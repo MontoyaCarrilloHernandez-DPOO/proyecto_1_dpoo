@@ -76,17 +76,15 @@ public class Controlador {
 		
 		return miProfesor;
 	}
-	public LearningPath crearLearningPath() throws SQLException 
+	public LearningPath crearLearningPath(LearningPath miLP) throws SQLException 
 	{ 
-		//TODO
-		LearningPath miLP = new LearningPath(null, null, 0, 0, 0, null, null, null, listaActividades, listaEstudiantes);
 		listaLearningPaths.add(miLP);
 		
 		/**
 		 * Acá ponemos en la base de datos
 		*/
 		
-		anadirDatos.nuevoLearningPath(null, null, null, null, null, 0, 0, 0, null);
+		anadirDatos.nuevoLearningPath(miLP);
 		
 		return miLP;
 
@@ -98,8 +96,8 @@ public class Controlador {
 	
 	public void crearQuiz(Quiz quiz) throws SQLException {
 		anadirDatos.nuevoQuiz(quiz.getObjetivo(), quiz.getTitulo(), quiz.getNivel(), quiz.getPrerequisistos().getTitulo(), quiz.getSugeridos().getTitulo(), quiz.getResenias(), (float) quiz.getRating(), (float) quiz.getTiempoLimite(), quiz.isCompletado(), quiz.getNotaMinima(), quiz.getNotaObtenida(), false, quiz.getEnunciadoPreguntas());
-		this.listaActividades.add(quiz);
 		crearActividad(quiz , "QUIZES");
+		this.listaActividades.add(quiz);
 	}
 	public void crearRecurso(Recurso recurso) throws SQLException {
 		anadirDatos.nuevoRecurso(recurso.getObjetivo(),recurso.getTitulo(), recurso.getNivel(), recurso.getPrerequisistos().getTitulo(),recurso.getSugeridos().getTitulo(),recurso.getResenias(),(float) recurso.getRating(),(float) recurso.getTiempoLimite(),false, recurso.getTipo());

@@ -6,6 +6,8 @@ import usuarios.Profesor;
 import learningPaths.*;
 import persistencia.Controlador;
 import persistencia.ModificarDatos;
+import persistencia.RecogerDatos;
+import consola.*;
 
 
 public class ConsolaCrearActividades extends ConsolaBasica {
@@ -15,16 +17,20 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 	private ModificarDatos modificarDatos;
 	private Profesor profesor;
 	private Controlador sistema;
+	private RecogerDatos recogerDatos = new RecogerDatos();
+	private ConsolaIniciarSesionProfesor consolaProfe;
 	
 	public ConsolaCrearActividades(Controlador sistema, Profesor profe) {
 		this.sistema = sistema;
 		this.profesor = profe;
 		this.modificarDatos = new ModificarDatos();
+		this.consolaProfe =  new ConsolaIniciarSesionProfesor(this.sistema);
 	}
 	public void mostrarOpcionesActividad() throws SQLException{
 		
 		boolean salir = false;
 		ArrayList<Actividad> actividades = sistema.listaActividades;
+		
 		while(!salir) {
 			int opcionSeleccionada=mostrarMenu("Menu crear actividades.",opcionesMenuProfesorCreador);
 			//Quiz 
@@ -33,10 +39,6 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				String objetivo = pedirCadena("Ingrese el objetivo del quiz");
 				String nivel = pedirCadena("Ingrese el nivel del quiz");
 				System.out.println("A continuacion se presentan las actividades disponibles");
-				if (actividades == null) {
-					System.out.println("No hay actividades disponibles. Esta actividad no tendrá prerequisitos ni actividades sugeridas");
-				}
-				else {
 					int i = 1;
 					for (Actividad act : actividades) {
 						System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
@@ -55,12 +57,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 						if (sugerido.equals(act.titulo)) {
 							miSugerido = act;
 						}
-					}
-					
-				}
-				
-				Actividad miPrerequisito = null;
-				Actividad miSugerido = null;
+					}			
 				String resenias = "";
 				int rating = 5;
 				float tiempoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
@@ -95,7 +92,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 			}
 			//Recurso 
-			if(opcionSeleccionada == 2) {
+			else if(opcionSeleccionada == 2) {
 				String titulo = pedirCadena("Ingrese el titulo del recurso (sin espacios)");
 				String objetivo = pedirCadena("Ingrese el objetivo del recurso");
 				String nivel = pedirCadena("Ingrese el nivel del recurso");
@@ -133,7 +130,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 			}
 			//Tarea 
-			if(opcionSeleccionada == 3) {
+			else if(opcionSeleccionada == 3) {
 				String titulo = pedirCadena("Ingrese el titulo de la tarea (sin espacios)");
 				String objetivo = pedirCadena("Ingrese el objetivo de la tarea");
 				String nivel = pedirCadena("Ingrese el nivel de la tarea");
@@ -168,7 +165,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}//Examen 
-			if(opcionSeleccionada == 4) {
+			else if(opcionSeleccionada == 4) {
 				String titulo = pedirCadena("Ingrese el titulo del examen (sin espacios)");
 				String objetivo = pedirCadena("Ingrese el objetivo del examen");
 				String nivel = pedirCadena("Ingrese el nivel del examen");
@@ -219,7 +216,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				
 			}
 			//Encuesta 
-			if(opcionSeleccionada == 5) {
+			else if(opcionSeleccionada == 5) {
 				String titulo = pedirCadena("Ingrese el titulo de la encuesta (sin espacios)");
 				String objetivo = pedirCadena("Ingrese el objetivo de la encuesta");
 				String nivel = pedirCadena("Ingrese el nivel de la encuesta");
@@ -270,7 +267,6 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				salir = true;
 				
 			}
-			mostrarOpcionesActividad();
 		}
 	}
 	
@@ -278,14 +274,33 @@ public void mostrarOpcionesLP() throws SQLException{
 		
 		boolean salir = false;
 		while(!salir) {
+			
 			int opcionSeleccionada=mostrarMenu("Menu crear Learning Paths",opcionesMenuProfesorCreadorLP);
-			//Crear de 0
 			if(opcionSeleccionada == 1) {
-				//TODO
-								
+				ArrayList<Actividad> actividades = sistema.listaActividades;
+				String titulo = pedirCadena("Ingresa el nombre del Learning Path (sin espacios)");
+				float duracion = (float) pedirNumero("Ingesa la duracion del Learning Path");
+				String descripcion = pedirCadena("Ingresa la descripcion del Learning Path");
+				String objetivo = pedirCadena("Ingresa el objetivo del Learning Path");
+				float dificultad = (float) pedirNumero("Ingresa la dificultad del Learning Path");
+				String metadatos = pedirCadena("Ingresa los metadatos del Learning Path");
+				System.out.println("\n A cotinuacion se presentan las actividades disponibles");
+				int i = 1;
+				for (Actividad act : actividades) {
+					System.out.println(i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+					i+=1;
+				}
+				String actividadesLP = pedirCadena("Ingrese los titulos de las actividades separados por comas");
+				ArrayList<Actividad> Actividades = recogerDatos.getActividadesDeString(actividadesLP);
+				
+				LearningPath miLP = new LearningPath(profesor.login, titulo, duracion, dificultad, 5, descripcion, objetivo, metadatos, Actividades, null);
+				sistema.crearLearningPath(miLP);
+				profesor.crearLearningPath(Actividades, titulo, descripcion, objetivo, metadatos, duracion, dificultad,5);
+				
+				
 			}
 			//Duplicar
-			if(opcionSeleccionada == 2) {
+			else if(opcionSeleccionada == 2) {
 				LearningPath miLP = null;
 				ArrayList<LearningPath> lpsDisponibles = sistema.listaLearningPaths;
 				ArrayList<String> opcionesLps = new ArrayList<String>();
@@ -304,14 +319,13 @@ public void mostrarOpcionesLP() throws SQLException{
 					}
 				}
 				this.profesor.duplicarLP(miLP);
-				//TODO implementar con DB
+				sistema.crearLearningPath(miLP);
 								
 			}
 			else if(opcionSeleccionada == 3) {
 				salir = true;
 				
 			}
-			mostrarOpcionesLP();
 		}
 	}
 	

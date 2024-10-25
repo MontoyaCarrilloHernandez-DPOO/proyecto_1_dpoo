@@ -187,7 +187,6 @@ public ArrayList<Actividad> getActividadesDeString(String cadena){
 					titulo = resultado.getString("titulo");
 					objetivo = resultado.getString("objetivo");
 					nivel = resultado.getString("nivel");
-	
 					prerequisito = resultado.getString("prerequisito");
 					sugerido = resultado.getString("sugerido");
 					tiempoLimite = resultado.getFloat("tiempoLimite");
@@ -195,15 +194,12 @@ public ArrayList<Actividad> getActividadesDeString(String cadena){
 					lista_resenias = resultado.getString("lista_resenias");
 					completado = resultado.getBoolean("completado");
 					tipo = resultado.getString("tipo");
-					
 					if (prerequisito != null || prerequisito != ".") {
 						elPrerequisito = getActividadDeString(prerequisito);
 					}
 					if (sugerido != null || sugerido != ".") {
 						elSugerido = getActividadDeString(sugerido);
 					}
-					
-					
 				}
 				resultado.close();
 				Actividad estaAct = new Actividad(objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);

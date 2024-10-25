@@ -28,7 +28,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
             int opcionSeleccionada = mostrarMenu( "Menú de Progreso", opcionesMenuEstudianteLP );
             if( opcionSeleccionada == 1 )
             {
-                //Crear nueva funcion que muestre las atcividades y eso e imprimir
+                // TODO Crear nueva funcion que muestre las atcividades y eso e imprimir y cambie el progreso
             }
             else if( opcionSeleccionada == 2 )
             {

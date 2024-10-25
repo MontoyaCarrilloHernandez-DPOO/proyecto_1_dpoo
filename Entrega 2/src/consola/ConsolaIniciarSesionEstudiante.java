@@ -53,10 +53,10 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		ArrayList<LearningPath> miHistorial = datos.getLearningPathsDeString(historial_lp);
     		Progreso miProgreso = datos.getProgresoDeString(this.estudiante.login);
     		
-    		this.estudiante.actualActividad = miActividad;
-    		this.estudiante.actualLearningPath = miLP;
-    		this.estudiante.historialLearningPaths = miHistorial;
-    		this.estudiante.progreso = miProgreso;
+    		//this.estudiante.actualActividad = miActividad;
+    		//this.estudiante.actualLearningPath = miLP;
+    		//this.estudiante.historialLearningPaths = miHistorial;
+    		//this.estudiante.progreso = miProgreso;
     		
     		this.sistema.listaEstudiantes.add(estudiante);
     		mostrarMenuEstudiante();
