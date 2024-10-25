@@ -515,10 +515,19 @@ try {
 			 progreso = resultado.getFloat("progreso");
 			
 			Estudiante esteEstudiante = new Estudiante(contrasenia, nombre, apellido, login);
-			esteEstudiante.actualLearningPath = getLearningPathDeString(lp_actual);
-			esteEstudiante.actualActividad = getActividadDeString(actividad_actual);
-			esteEstudiante.historialLearningPaths = getLearningPathsDeString(historial_lp);
-			esteEstudiante.progreso = getProgresoDeString(login);
+			if (lp_actual != null || lp_actual != "") {
+				esteEstudiante.actualLearningPath = getLearningPathDeString(lp_actual);
+			}
+			if (actividad_actual != null || actividad_actual != "") {
+				esteEstudiante.actualActividad = getActividadDeString(actividad_actual);
+			}
+			if (historial_lp != null || historial_lp != "") {
+				esteEstudiante.historialLearningPaths = getLearningPathsDeString(historial_lp);
+			}
+			//if (progreso != null || progreso != "") {esteEstudiante.progreso = getProgresoDeString(login);}
+			
+			
+			
 			
 			listaEs.add(esteEstudiante);
 		}
