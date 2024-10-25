@@ -25,7 +25,8 @@ public class AnadirDatos {
 		ps.setString(4, apellido);
 		ps.setString(5, "");
 		ps.setString(6, "");
-		ps.setInt(7, 0);
+		ps.setString(7, "");
+		ps.setString(8, login);
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
@@ -41,6 +42,33 @@ public class AnadirDatos {
 		
 		
 		System.out.println("\nEstudiante creado con éxito. Inicia sesión para poder unirte a un Learning Path.");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void nuevoProgreso(String login, String learningPath, String actCompletas, String actIncompleta, float proceso) throws SQLException
+	{
+		try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		PreparedStatement ps = con.prepareStatement("INSERT INTO PROGRESO values (?,?,?,?,?)");
+		ps.setString(1, login);
+		ps.setString(2, learningPath);
+		ps.setString(3, actCompletas);
+		ps.setString(4, actIncompleta);
+		ps.setFloat(5, proceso);
+		ps.executeUpdate();
+		
+		Statement statement  = con.createStatement();
+		ResultSet resultSet = statement.executeQuery("Select * from PROFESORES");
+		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+		int columnCount = resultSetMetaData.getColumnCount();
+		for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+		while (resultSet.next()) {
+			System.out.println("");
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+		}
+		
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}

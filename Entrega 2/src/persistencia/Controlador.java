@@ -39,12 +39,11 @@ public class Controlador {
 
 	public void subirDatos()
     {
-		//
-		//this.recogerDatos.getLearningPaths();
+		this.recogerDatos.getLearningPaths();
 		this.recogerDatos.getActividades();
 		this.recogerDatos.getProgreso();
 		this.recogerDatos.getProfesores();
-		//this.recogerDatos.getEstudiantes();
+		this.recogerDatos.getEstudiantes();
 		
 	}
 	
@@ -58,6 +57,7 @@ public class Controlador {
 		*/
 		
 		anadirDatos.nuevoEstudiante(nombre, apellido, login, contrasenia);
+		anadirDatos.nuevoProgreso(login, "", "", "", 0);
 		
 		return miEstudiante;
 		
