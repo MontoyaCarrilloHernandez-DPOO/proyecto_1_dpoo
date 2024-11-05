@@ -106,16 +106,20 @@ public class Actividad {
 		this.rating = 5;
 	}
 	
-	protected void advertenciaPrerequisitos(Actividad actividadPR, Estudiante estudiante) throws PRExceptions {
+	protected boolean advertenciaPrerequisitos(Actividad actividadPR, Estudiante estudiante) throws PRExceptions {
 		int flag = 0;
 		for (Actividad actividadV:estudiante.progreso.getActividadesCompletas()) {
 			if(actividadV.equals(actividadPR)) {
 				flag +=1;
+				break;
 			}
 		}
 		if(flag==1) {
-		}else {
+			return true;
+		}
+		else {
 			System.out.println("Cuidado no cumple los prerequisitos para ver la actividad, puede verla pero bajo su riesgo.");
+			return false;
 		}
 	}
 	public void ratear(double rating) {
