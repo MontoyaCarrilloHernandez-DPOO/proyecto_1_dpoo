@@ -122,8 +122,9 @@ public class Actividad {
 			return false;
 		}
 	}
+	
 	public void ratear(double rating) {
-		this.rating = (this.rating + rating)/2;
+		this.rating = (this.rating + rating)/1.2;
 	}
 }
 
