@@ -18,8 +18,10 @@ public class Actividad {
 	public boolean completado;
 	
 	
-	public Actividad(String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
-			String resenias, float tiempoLimite, double rating, boolean completado) {
+	public Actividad(String objetivo,String titulo, String nivel, 
+			Actividad prerequisistos, Actividad sugeridos,
+			String resenias, float tiempoLimite, double rating,
+			boolean completado) {
 		this.objetivo = objetivo;
 		this.nivel = nivel;
 		this.prerequisistos = prerequisistos;
