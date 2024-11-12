@@ -527,7 +527,7 @@ try {
 		String qu = "SELECT * FROM ESTUDIANTES";
 		PreparedStatement pstmt = con.prepareStatement(qu);
 		resultado = pstmt.executeQuery();
-		if (resultado.next()) {
+		while (resultado.next()) {
 			login = resultado.getString("login");
 			contrasenia = resultado.getString("contrasenia");
 			nombre = resultado.getString("nombre");
@@ -640,6 +640,26 @@ public Progreso getProgreso(String login){
 		}
 	return miProgreso;
 }
+
+public String getTipo(Actividad actividad) {	
+	ResultSet resultado;
+	String tipo = null;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String qu2 = "SELECT TIPO FROM ACTIVIDADES WHERE TITULO=?";
+		PreparedStatement pstmt2 = con.prepareStatement(qu2);
+		pstmt2.setString(1, actividad.getTitulo());
+		resultado = pstmt2.executeQuery();
+		tipo = resultado.getString("TIPO");	
+			
+			resultado.close();
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	return tipo;
+}
+
 public ArrayList<String> getInfo(Actividad actividad) {
 	ArrayList<String> datos = new ArrayList<String>();	
 	ResultSet resultado;
@@ -690,7 +710,7 @@ public ArrayList<String> getInfo(Actividad actividad) {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-	return null;
+	return datos;
 }
 
 }
