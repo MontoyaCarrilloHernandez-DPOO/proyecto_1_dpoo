@@ -15,7 +15,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 	
 	private Controlador sistema;
 	private Estudiante estudiante;
-	private ModificarDatos modificarDatos;
+	private ModificarDatos modificarDatos = new ModificarDatos();
 	
 	public ConsolaIniciarSesionEstudiante (Controlador sistema) {
 		this.sistema= sistema;
@@ -75,6 +75,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuEstudiante );
 		if( opcionSeleccionada == 1 )
         {
+			
 			LearningPath miLP = null;
 			ArrayList<LearningPath> lpsDisponibles = sistema.listaLearningPaths;
 			ArrayList<String> opcionesLps = new ArrayList<String>();
@@ -89,8 +90,9 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 					 miLP = lp;
 				}
 			}
-			System.out.println(miLP);
+			
 			estudiante.enroll(miLP);
+			
         }
         else if( opcionSeleccionada == 2 )
         {

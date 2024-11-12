@@ -22,31 +22,30 @@ public class ConsolaResumirLP extends ConsolaBasica {
 		this.sistema = sistema;
 	}
 	
-	
 	public void mostrarOpciones() throws SQLException
     {
         boolean regresar = false;
-
         while( !regresar )
         {
-
             int opcionSeleccionada = mostrarMenu( "Menú de Progreso", opcionesMenuEstudianteLP );
             if( opcionSeleccionada == 1 )
             {
             	// TODO Crear nueva funcion que muestre las atcividades y eso e imprimir y cambie el progreso
             	
             	if(!miEstudiante.actualLearningPath.equals(null)) {
+            		
             		LearningPath lp = miEstudiante.actualLearningPath;
-            		ArrayList<Actividad> actividades = lp.getActividades();
+            		
+            		ArrayList<Actividad> actividades = miEstudiante.progreso.getActividadesIncompletas();
+            		       		
             		int i = 1;
             		for(Actividad act : actividades) {
             			System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
 						i+=1;
             		}
             		
-            		int flag =pedirEntero("Si quiere salir escriba 1 de resto escriba 2");
-            		String actual = pedirCadena("Ingrese el titulo de la actividad que quiere empezar.");
-            		while (flag!=1) {
+            		String actual = pedirCadena("Ingresa el titulo de la actividad que quieres empezar");
+            		
             		for (Actividad act : actividades) {
 						if (act.getTitulo().equals(actual) && miEstudiante.verificarActividadEnLP(act)) {
 							miEstudiante.comenzarActividad(act);
@@ -54,19 +53,19 @@ public class ConsolaResumirLP extends ConsolaBasica {
 							ArrayList<String> info = losDatos.getInfo(actividad);
 							for (String ele:info) {
 								System.out.println(ele);
-							}
+								
+								
+							Actividad estaActividad = act;
 							String cadena = pedirCadena("Ingrese 1 cuando termine la tarea");
 							if (cadena.equals("1")) {
 								miEstudiante.terminarActividad();
-								flag =pedirEntero("Si quiere salir escriba 1 de resto escriba 2");
-                                mostrarOpciones();
-                                break;
-								}
+							}
 							}
 						}
 					}
-            	}else {
-            		System.out.println("Empieza un Lp o una nueva activiad para continuar.");
+            	}
+            	else {
+            		System.out.println("Inscribete a un LP para comenzar");
             	}
             }
             else if( opcionSeleccionada == 2 )
@@ -83,7 +82,11 @@ public class ConsolaResumirLP extends ConsolaBasica {
             {
                 regresar = true;
             }
-            mostrarOpciones();
+            
+            if (!regresar) {
+            	mostrarOpciones();
+            }
+            
         }
 
     }

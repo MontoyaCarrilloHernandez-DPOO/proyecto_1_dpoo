@@ -35,7 +35,12 @@ public class ModificarDatos {
 				listaIdLP += lp.titulo + ",";
 			}
 			pstmt.setString(1, listaIdLP);
-			pstmt.setString(2, actualLearningPath.titulo);
+			
+			String miActLP = ".";
+			if (!(actualLearningPath==null)) {
+				miActLP = actualLearningPath.titulo;
+			}
+			pstmt.setString(2, miActLP);
 			String miAct = ".";
 			if (!(actualActividad==null)) {
 				miAct = actualActividad.titulo;
@@ -133,26 +138,31 @@ public void cambiarDatosProgreso(Progreso progreso){
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
 
-		String qu = "UPDATE PROGESOS SET learningPath = ?, actividades_completadas = ?, actividades_incompletas = ?, porcentaje = ? WHERE login = ?";
+		String qu = "UPDATE PROGRESOS SET learningPath = ?, actividades_completadas = ?, actividades_incompletas = ?, porcentaje = ? WHERE login = ?";
 		
 		
 		PreparedStatement pstmt = con.prepareStatement(qu);
 		
 		String misActCompletas = "";
 		String misActIncompletas = "";
+		if (progreso.getActividadesCompletas() != null) {
 		for (Actividad act : progreso.getActividadesCompletas()) {
 			misActCompletas+= act.titulo + ",";
 		}
+		}
 		
+		if (progreso.getActividadesIncompletas() != null) {
 		for (Actividad act : progreso.getActividadesIncompletas()) {
 			misActIncompletas+= act.titulo + ",";
 		}
+		}
 		
-		pstmt.setString(1, progreso.getEstudiante());
-		pstmt.setString(2, progreso.getLearningPath().titulo);
-		pstmt.setString(3, misActCompletas);
-		pstmt.setString(4, misActIncompletas);
-		pstmt.setFloat(5, (float) progreso.calcularProgreso());
+		pstmt.setString(1, progreso.getLearningPath().titulo);
+		pstmt.setString(2, misActCompletas);
+		pstmt.setString(3, misActIncompletas);
+		pstmt.setFloat(4, (float) progreso.calcularProgreso());
+		pstmt.setString(5, progreso.getEstudiante());
+		
 		
 		int filasActualizadas = pstmt.executeUpdate();
         System.out.println(filasActualizadas + " filas actualizadas.");
@@ -166,7 +176,7 @@ public void eliminarProgreso(Progreso progreso){
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
 
-		String qu = "DELETE FROM PROGRESOS WHERE login = ?;";
+		String qu = "DELETE FROM PROGRESOS WHERE login = ?";
 		PreparedStatement pstmt = con.prepareStatement(qu);
 		pstmt.setString(1, progreso.getEstudiante());
 		int filasActualizadas = pstmt.executeUpdate();
