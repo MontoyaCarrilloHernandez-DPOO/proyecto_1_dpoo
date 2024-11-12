@@ -35,7 +35,6 @@ public class ConsolaResumirLP extends ConsolaBasica {
             	if(!miEstudiante.actualLearningPath.equals(null)) {
             		
             		LearningPath lp = miEstudiante.actualLearningPath;
-            
             		ArrayList<Actividad> actividades = miEstudiante.progreso.getActividadesIncompletas();
             		//Las actividades estan saliendo nulas :(       		
             		int i = 1;

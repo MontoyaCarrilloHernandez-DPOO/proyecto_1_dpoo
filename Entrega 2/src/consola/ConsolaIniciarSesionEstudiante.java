@@ -45,7 +45,12 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		}
     	} else {
     		System.out.println("Inicio de sesión correcto");
-    		
+    		for (Estudiante estu : sistema.listaEstudiantes) {
+    			if (estu.login.equals(login)) {
+    				this.estudiante = estu;
+    			}
+    		}
+    		/**
     		this.estudiante = new Estudiante(contrasenia, nombre, apellido, login);
     		Actividad miActividad = null;
     		LearningPath miLP = null;
@@ -66,6 +71,8 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		this.estudiante.progreso = miProgreso;
     		
     		this.sistema.listaEstudiantes.add(estudiante);
+    		**/
+    		
     		mostrarMenuEstudiante();
     		
     	}

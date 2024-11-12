@@ -548,6 +548,10 @@ try {
 				esteEstudiante.historialLearningPaths = getLearningPathsDeString(historial_lp);
 			}
 			
+			if (progreso != 0) {
+				esteEstudiante.progreso = getProgreso(login);
+			}
+			
 			listaEs.add(esteEstudiante);
 		}
 		
@@ -602,7 +606,7 @@ return listaProf;
 }
 
 
-public void getProgreso(){
+public Progreso getProgreso(String login){
 	Progreso miProgreso = null;
 	ResultSet resultado;
 	try {
@@ -610,11 +614,11 @@ public void getProgreso(){
 		String learningPath = null;
 		String actividades_completadas = null;
 		String actividades_incompletas = null;
-		String login;
 		float porcentaje = 0;
 			
-			String qu = "SELECT * FROM PROGRESOS";
+			String qu = "SELECT * FROM PROGRESOS WHERE login = ?";
 			PreparedStatement pstmt = con.prepareStatement(qu);
+			pstmt.setString(1, login);
 			resultado = pstmt.executeQuery();
 			while (resultado.next()) {
 				login =resultado.getString("login");
@@ -634,6 +638,7 @@ public void getProgreso(){
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	return miProgreso;
 }
 public ArrayList<String> getInfo(Actividad actividad) {
 	ArrayList<String> datos = new ArrayList<String>();	
