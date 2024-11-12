@@ -36,9 +36,9 @@ public class Estudiante extends Usuario{
 			this.progreso = new Progreso(learningPath, this.login);
 			this.historialLearningPaths.add(learningPath);
 			this.actualActividad = null;
-			
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
+			modificar.cambiarDatosProgreso(progreso);
 		}
 		else {
 			throw new LPException();
@@ -51,6 +51,7 @@ public class Estudiante extends Usuario{
 		this.actualActividad = null;
 		ModificarDatos modificar = new ModificarDatos();
 		modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
+		
 	}
 	
 	public boolean verificarActividadEnLP(Actividad actividad) {

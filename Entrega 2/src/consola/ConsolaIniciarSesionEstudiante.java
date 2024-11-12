@@ -15,7 +15,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 	
 	private Controlador sistema;
 	private Estudiante estudiante;
-	private ModificarDatos modificarDatos;
+	private ModificarDatos modificarDatos = new ModificarDatos();
 	
 	public ConsolaIniciarSesionEstudiante (Controlador sistema) {
 		this.sistema= sistema;
@@ -45,7 +45,12 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		}
     	} else {
     		System.out.println("Inicio de sesión correcto");
-    		
+    		for (Estudiante estu : sistema.listaEstudiantes) {
+    			if (estu.login.equals(login)) {
+    				this.estudiante = estu;
+    			}
+    		}
+    		/**
     		this.estudiante = new Estudiante(contrasenia, nombre, apellido, login);
     		Actividad miActividad = null;
     		LearningPath miLP = null;
@@ -66,6 +71,8 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
     		this.estudiante.progreso = miProgreso;
     		
     		this.sistema.listaEstudiantes.add(estudiante);
+    		**/
+    		
     		mostrarMenuEstudiante();
     		
     	}
@@ -75,6 +82,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 		int opcionSeleccionada = mostrarMenu( "Menú de Estudiante", opcionesMenuEstudiante );
 		if( opcionSeleccionada == 1 )
         {
+			
 			LearningPath miLP = null;
 			ArrayList<LearningPath> lpsDisponibles = sistema.listaLearningPaths;
 			ArrayList<String> opcionesLps = new ArrayList<String>();
@@ -89,14 +97,16 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 					 miLP = lp;
 				}
 			}
-			System.out.println(miLP);
+			
 			estudiante.enroll(miLP);
+			
         }
         else if( opcionSeleccionada == 2 )
         {
         	estudiante.unenroll();
+        	Progreso prog = new Progreso(null, estudiante.login);
         	modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.gethistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
-        	modificarDatos.eliminarProgreso(this.estudiante.progreso);
+        	modificarDatos.cambiarDatosProgreso(prog);
         	
         }
         else if( opcionSeleccionada == 3 )

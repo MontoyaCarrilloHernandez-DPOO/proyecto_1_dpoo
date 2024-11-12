@@ -22,53 +22,69 @@ public class ConsolaResumirLP extends ConsolaBasica {
 		this.sistema = sistema;
 	}
 	
-	
 	public void mostrarOpciones() throws SQLException
     {
         boolean regresar = false;
-
         while( !regresar )
         {
-
             int opcionSeleccionada = mostrarMenu( "Menú de Progreso", opcionesMenuEstudianteLP );
+            
             if( opcionSeleccionada == 1 )
             {
             	// TODO Crear nueva funcion que muestre las atcividades y eso e imprimir y cambie el progreso
             	
             	if(!miEstudiante.actualLearningPath.equals(null)) {
+            		
             		LearningPath lp = miEstudiante.actualLearningPath;
-            		ArrayList<Actividad> actividades = lp.getActividades();
+            		ArrayList<Actividad> actividades = miEstudiante.progreso.getActividadesIncompletas();
+            		
+            		//Las actividades estan saliendo nulas :(       		
             		int i = 1;
             		for(Actividad act : actividades) {
-            			System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+            			System.out.println("\n"+i+". Titulo: "+act.getTitulo()+" - Objetivo: "+act.getObjetivo() + "\n");
 						i+=1;
             		}
             		
-            		int flag =pedirEntero("Si quiere salir escriba 1 de resto escriba 2");
-            		String actual = pedirCadena("Ingrese el titulo de la actividad que quiere empezar.");
-            		while (flag!=1) {
+            		String actual = pedirCadena("Ingresa el titulo de la actividad que quieres empezar");
+            		
             		for (Actividad act : actividades) {
 						if (act.getTitulo().equals(actual) && miEstudiante.verificarActividadEnLP(act)) {
 							miEstudiante.comenzarActividad(act);
 							Actividad actividad = losDatos.getActividadDeString(actual);
-							ArrayList<String> info = losDatos.getInfo(actividad);
-							for (String ele:info) {
-								System.out.println(ele);
+							String tipo = losDatos.getTipo(actividad);
+							System.out.println("Esta actividad es de tipo "+ tipo);
+							
+							Actividad estaActividad = act;
+							
+							if(tipo.equals("TAREA")) {
+
+								
+							}else if (tipo.equals("QUIZ")) {
+								
+								
+							}else if (tipo.equals("EXAMEN")) {
+								
+								
+							}else if (tipo.equals("RECURSO")) {
+								
+								
+							}else if (tipo.equals("ENCUESTA")) {
+								
+								
 							}
-							String cadena = pedirCadena("Ingrese 1 cuando termine la tarea");
+							
+							//modificiar
+							String cadena = pedirCadena("Ingresa 1 cuando termines la actividad");
 							if (cadena.equals("1")) {
 								miEstudiante.terminarActividad();
-								flag =pedirEntero("Si quiere salir escriba 1 de resto escriba 2");
-                                mostrarOpciones();
-                                break;
-								}
+							}
 							}
 						}
 					}
-            	}else {
-            		System.out.println("Empieza un Lp o una nueva activiad para continuar.");
+            	else {
+            		System.out.println("Inscribete a un LP para comenzar");
             	}
-            }
+    		}
             else if( opcionSeleccionada == 2 )
             {
             	String resenia = pedirCadena("Ingresa tu resenia");
@@ -83,7 +99,11 @@ public class ConsolaResumirLP extends ConsolaBasica {
             {
                 regresar = true;
             }
-            mostrarOpciones();
+            
+            if (!regresar) {
+            	mostrarOpciones();
+            }
+            
         }
 
     }

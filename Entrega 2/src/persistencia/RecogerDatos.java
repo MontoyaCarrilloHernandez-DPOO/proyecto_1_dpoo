@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import persistencia.DBConnection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import learningPaths.LearningPath;
 import learningPaths.Progreso;
@@ -55,6 +56,18 @@ public class RecogerDatos {
 			resultados.add(historial_lp);
 			resultados.add(lp_actual);
 			resultados.add(actividad_actual);
+			
+			
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from ESTUDIANTES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -274,6 +287,16 @@ public Progreso getProgresoDeString(String cadena){
 			miProgreso.setActividadesCompletadas(getActividadesDeString(actividades_completadas));
 			miProgreso.setActividadesIncompletas(getActividadesDeString(actividades_incompletas));
 		
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from PROGRESOS");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -504,7 +527,7 @@ try {
 		String qu = "SELECT * FROM ESTUDIANTES";
 		PreparedStatement pstmt = con.prepareStatement(qu);
 		resultado = pstmt.executeQuery();
-		if (resultado.next()) {
+		while (resultado.next()) {
 			login = resultado.getString("login");
 			contrasenia = resultado.getString("contrasenia");
 			nombre = resultado.getString("nombre");
@@ -523,6 +546,10 @@ try {
 			}
 			if (historial_lp != null || historial_lp != "") {
 				esteEstudiante.historialLearningPaths = getLearningPathsDeString(historial_lp);
+			}
+			
+			if (progreso != 0) {
+				esteEstudiante.progreso = getProgreso(login);
 			}
 			
 			listaEs.add(esteEstudiante);
@@ -579,7 +606,7 @@ return listaProf;
 }
 
 
-public void getProgreso(){
+public Progreso getProgreso(String login){
 	Progreso miProgreso = null;
 	ResultSet resultado;
 	try {
@@ -587,11 +614,11 @@ public void getProgreso(){
 		String learningPath = null;
 		String actividades_completadas = null;
 		String actividades_incompletas = null;
-		String login;
 		float porcentaje = 0;
 			
-			String qu = "SELECT * FROM PROGRESOS";
+			String qu = "SELECT * FROM PROGRESOS WHERE login = ?";
 			PreparedStatement pstmt = con.prepareStatement(qu);
+			pstmt.setString(1, login);
 			resultado = pstmt.executeQuery();
 			while (resultado.next()) {
 				login =resultado.getString("login");
@@ -611,7 +638,28 @@ public void getProgreso(){
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	return miProgreso;
 }
+
+public String getTipo(Actividad actividad) {	
+	ResultSet resultado;
+	String tipo = null;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String qu2 = "SELECT TIPO FROM ACTIVIDADES WHERE TITULO=?";
+		PreparedStatement pstmt2 = con.prepareStatement(qu2);
+		pstmt2.setString(1, actividad.getTitulo());
+		resultado = pstmt2.executeQuery();
+		tipo = resultado.getString("TIPO");	
+			
+			resultado.close();
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	return tipo;
+}
+
 public ArrayList<String> getInfo(Actividad actividad) {
 	ArrayList<String> datos = new ArrayList<String>();	
 	ResultSet resultado;
@@ -662,7 +710,7 @@ public ArrayList<String> getInfo(Actividad actividad) {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-	return null;
+	return datos;
 }
 
 }

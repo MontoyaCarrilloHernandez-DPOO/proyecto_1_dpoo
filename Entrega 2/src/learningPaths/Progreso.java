@@ -23,15 +23,16 @@ public class Progreso {
 	public Progreso(LearningPath learningPath, String login)
 	{
 		this.learningPath = learningPath;
+		if (learningPath!=null) {
+			this.actividadesIncompletas = learningPath.getActividades();
+		}
+		else {
+			this.actividadesIncompletas = null;
+		}
+		this.actividadesCompletadas = null ;
 		this.estudiante = login;
 	}
 	
-	public void setNewLearningPath(LearningPath learningPath)
-	{
-		this.learningPath = learningPath;
-		this.actividadesIncompletas = learningPath.getActividades();
-		this.actividadesCompletadas = null ;
-	}
 	
 	public void anadirCompletasQuitarIncompleta(Actividad actividad)
 	{
@@ -41,22 +42,32 @@ public class Progreso {
 	
 	public LearningPath getLearningPath()
 	{
-		return this.learningPath;
+		return learningPath;
 	}
 	
 	public ArrayList<Actividad> getActividadesCompletas()
 	{
-		return this.actividadesCompletadas;
+		return actividadesCompletadas;
 	}
 	
 	public ArrayList<Actividad> getActividadesIncompletas()
 	{
-		return this.actividadesIncompletas;
+		return actividadesIncompletas;
 	}
 	
 	public double calcularProgreso()
 	{
-		double progreso = this.actividadesCompletadas.size()/this.learningPath.actividades.size();
+		double progreso;
+		if (actividadesCompletadas == null) {
+			progreso = 0;
+		}
+		else if (actividadesIncompletas == null) {
+			progreso = 1;
+		}
+		else{
+			progreso = actividadesCompletadas.size()/learningPath.actividades.size();
+			}
+		
 		return progreso*100;
 	}
 

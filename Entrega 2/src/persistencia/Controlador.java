@@ -39,11 +39,15 @@ public class Controlador {
 
 	public void subirDatos()
     {
-		this.listaLearningPaths = this.recogerDatos.getLearningPaths();
-		this.listaActividades = this.recogerDatos.getActividades();
-		this.listaActividades.addLast(new Actividad(".",".",".",actividadVacia,actividadVacia,"",000,0,false));
-		this.listaProfesores = this.recogerDatos.getProfesores();
-		this.listaEstudiantes = this.recogerDatos.getEstudiantes();
+		listaLearningPaths = recogerDatos.getLearningPaths();
+		
+		listaActividades = recogerDatos.getActividades();
+		
+		listaActividades.addLast(new Actividad(".",".",".",actividadVacia,actividadVacia,"",000,0,false));
+		listaProfesores = recogerDatos.getProfesores();
+		
+		listaEstudiantes = recogerDatos.getEstudiantes();
+		
 		
 	}
 	
