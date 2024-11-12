@@ -40,7 +40,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
             		       		
             		int i = 1;
             		for(Actividad act : actividades) {
-            			System.out.println("\n"+i+". Titulo: "+act.titulo+" - Objetivo: "+act.objetivo + "\n");
+            			System.out.println("\n"+i+". Titulo: "+act.getTitulo()+" - Objetivo: "+act.getObjetivo() + "\n");
 						i+=1;
             		}
             		

@@ -97,8 +97,9 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
         else if( opcionSeleccionada == 2 )
         {
         	estudiante.unenroll();
+        	Progreso prog = new Progreso(null, estudiante.login);
         	modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.gethistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
-        	modificarDatos.eliminarProgreso(this.estudiante.progreso);
+        	modificarDatos.cambiarDatosProgreso(prog);
         	
         }
         else if( opcionSeleccionada == 3 )

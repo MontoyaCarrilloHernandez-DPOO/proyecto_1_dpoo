@@ -156,8 +156,12 @@ public void cambiarDatosProgreso(Progreso progreso){
 			misActIncompletas+= act.titulo + ",";
 		}
 		}
+		String lpTitulo = null;
 		
-		pstmt.setString(1, progreso.getLearningPath().titulo);
+		if (progreso.getLearningPath() != null) {
+			lpTitulo=progreso.getLearningPath().titulo;
+		}
+		pstmt.setString(1, lpTitulo);
 		pstmt.setString(2, misActCompletas);
 		pstmt.setString(3, misActIncompletas);
 		pstmt.setFloat(4, (float) progreso.calcularProgreso());

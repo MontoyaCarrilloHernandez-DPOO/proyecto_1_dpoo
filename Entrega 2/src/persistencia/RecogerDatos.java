@@ -5,6 +5,7 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import persistencia.DBConnection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import learningPaths.LearningPath;
 import learningPaths.Progreso;
@@ -55,6 +56,18 @@ public class RecogerDatos {
 			resultados.add(historial_lp);
 			resultados.add(lp_actual);
 			resultados.add(actividad_actual);
+			
+			
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from ESTUDIANTES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -274,6 +287,16 @@ public Progreso getProgresoDeString(String cadena){
 			miProgreso.setActividadesCompletadas(getActividadesDeString(actividades_completadas));
 			miProgreso.setActividadesIncompletas(getActividadesDeString(actividades_incompletas));
 		
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from PROGRESOS");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}

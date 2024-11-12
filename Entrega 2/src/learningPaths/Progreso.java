@@ -23,7 +23,12 @@ public class Progreso {
 	public Progreso(LearningPath learningPath, String login)
 	{
 		this.learningPath = learningPath;
-		this.actividadesIncompletas = learningPath.getActividades();
+		if (learningPath!=null) {
+			this.actividadesIncompletas = learningPath.getActividades();
+		}
+		else {
+			this.actividadesIncompletas = null;
+		}
 		this.actividadesCompletadas = null ;
 		this.estudiante = login;
 	}
@@ -37,17 +42,17 @@ public class Progreso {
 	
 	public LearningPath getLearningPath()
 	{
-		return this.learningPath;
+		return learningPath;
 	}
 	
 	public ArrayList<Actividad> getActividadesCompletas()
 	{
-		return this.actividadesCompletadas;
+		return actividadesCompletadas;
 	}
 	
 	public ArrayList<Actividad> getActividadesIncompletas()
 	{
-		return this.actividadesIncompletas;
+		return actividadesIncompletas;
 	}
 	
 	public double calcularProgreso()
