@@ -105,7 +105,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
         {
         	estudiante.unenroll();
         	Progreso prog = new Progreso(null, estudiante.login);
-        	modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.gethistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
+        	modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.getHistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
         	modificarDatos.cambiarDatosProgreso(prog);
         	
         }

@@ -363,6 +363,31 @@ public class DBConnection {
 		}
 	}
 	
+	void crearTablaPregunta(){
+		String NOMBRE_TABLA = "PREGUNTAS_CERRADAS";
+		try {
+			stmt = conn.createStatement();
+			DatabaseMetaData dbm = conn.getMetaData();
+			ResultSet tables = dbm.getTables(null,  null,  NOMBRE_TABLA.toUpperCase(), null);
+			if (tables.next()) {
+				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
+			} else {
+				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
+						+ "id int GENERATED ALWAYS AS IDENTITY primary key, \n"
+						+ "justificacion varchar(500), \n"
+						+ "enunciado varchar(500), \n"
+						+ "opcionA varchar(500), \n"
+						+ "opcionB varchar(500), \n"
+						+ "opcionC varchar(500), \n"
+						+ "opcionD varchar(500) \n"
+						+ ")");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+		}
+	}
+	
 }
 
 	

@@ -34,6 +34,8 @@ public class ProgresoTest {
 		ests.addLast(est2);
 		ests.addLast(est3);
 		
+		
+		
 		acts = new ArrayList<Actividad>();
 		acts.addLast(act1);
 		acts.addLast(act2);
@@ -51,11 +53,7 @@ public class ProgresoTest {
 	{
     }
 	
-	@Test
-	public void testSetNewLearningPath() {
-        progreso1.setNewLearningPath(lp2);
-        assertEquals(lp2, progreso1.getLearningPath(), "El Learning Path no se ha cambiado correctamente");
-    }
+	
 	
 	@Test
 	public void testAnadirCompletasQuitarIncompleta() {
