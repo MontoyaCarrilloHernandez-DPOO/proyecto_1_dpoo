@@ -22,10 +22,26 @@ public class Estudiante extends Usuario{
 		
 	}
 	
-	public ArrayList<LearningPath> gethistorialLearningPaths(){
+	public ArrayList<LearningPath> getHistorialLearningPaths(){
 		return this.historialLearningPaths;
 	}
 	
+	public Actividad getActualActividad() {
+		return actualActividad;
+	}
+
+	public LearningPath getActualLearningPath() {
+		return actualLearningPath;
+	}
+	
+	public Progreso getProgreso() {
+		return progreso;
+	}
+
+	public HashMap<PreguntaAbierta, String> getRespuestas() {
+		return respuestas;
+	}
+
 	public void ratear(int rating, Actividad actividad) {
 		actividad.ratear(rating);
 	}
@@ -64,7 +80,7 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void comenzarActividad(Actividad actividad) {
-		if(actividad.equals(null)&& verificarActividadEnLP(actividad)==true) {
+		if(actualActividad.equals(null)&& verificarActividadEnLP(actividad)==true) {
 			this.actualActividad = actividad;
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
@@ -76,11 +92,6 @@ public class Estudiante extends Usuario{
 		this.progreso.anadirCompletasQuitarIncompleta(actualActividad);
 		this.actualActividad = null;
 		
-	}
-	
-	public double getProgreso() {
-		double miProgreso = progreso.calcularProgreso();
-		return miProgreso;
 	}
 	
 	public void responder(String respuesta, PreguntaAbierta pregunta) {

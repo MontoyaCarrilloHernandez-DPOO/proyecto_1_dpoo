@@ -39,7 +39,7 @@ public abstract class Usuario {
 		this.login = login;
 	}
 
-	private String getContrasenia() {
+	public String getContrasenia() {
 		return contrasenia;
 	}
 

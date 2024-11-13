@@ -126,7 +126,7 @@ public class Actividad {
 	}
 	
 	public void ratear(double rating) {
-		this.rating = (this.rating + rating)/1.2;
+		this.rating = (this.rating + rating)/2;
 	}
 }
 
