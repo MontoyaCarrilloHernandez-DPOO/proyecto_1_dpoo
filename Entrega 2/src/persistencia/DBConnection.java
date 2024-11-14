@@ -112,7 +112,7 @@ public class DBConnection {
 						+ "apellido varchar(50), \n"
 						+ "lista_lps varchar(1000), \n"
 						+ "lista_actividades varchar(1000), \n"
-						+ "lista_estudiantes varchar(1000), \n"
+						+ "lista_estudiantes varchar(1000) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {

@@ -88,15 +88,15 @@ public class ModificarDatos {
 			String listaIdAct = "";
 			String listaIdEstu = "";
 			
-			if (listaLPs != null) {
+			if (listaLPs != null || !(listaLPs.isEmpty())) {
 			for (LearningPath lp : listaLPs) {
 				listaIdLP += lp.titulo + ",";
 				listaEstu.addAll(profesor.getEstudiantesAsociados(lp));
 			}}
-			if (listaAct != null) {
+			
 			for (Actividad act : listaAct) {
 				listaIdAct += act.titulo + ",";
-			}}
+			}
 			
 			if (!(listaEstu.isEmpty())){
 				for (Estudiante es : listaEstu) {

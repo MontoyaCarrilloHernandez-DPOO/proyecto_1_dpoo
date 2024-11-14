@@ -505,6 +505,65 @@ public ArrayList<PreguntaAbierta> getPreguntasAbiertasDeString(String preguntasS
 	
 }
 
+public String getIdStringPreguntaAbierta(ArrayList<PreguntaAbierta> preguntas) {
+	String idPreguntas = "";
+	ResultSet resultado;
+	
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		
+		
+		for (PreguntaAbierta pregunta : preguntas) {
+			int miID = 0;
+			String qu = "SELECT * FROM PREGUNTAS_ABIERTAS WHERE enunciado = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setString(1, pregunta.enunciado);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				miID= resultado.getInt("id");
+			}
+			idPreguntas += miID;
+			
+			resultado.close();
+		}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return idPreguntas;
+	
+}
+
+public String getIdStringPreguntaCerrada(ArrayList<PreguntaCerrada> preguntas) {
+	String idPreguntas = "";
+	ResultSet resultado;
+	
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		
+		
+		for (PreguntaCerrada pregunta : preguntas) {
+			int miID = 0;
+			String qu = "SELECT * FROM PREGUNTAS_CERRADAS WHERE enunciado = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setString(1, pregunta.enunciado);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				miID= resultado.getInt("id");
+			}
+			idPreguntas += miID;
+			
+			resultado.close();
+		}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return idPreguntas;
+}
+
 public Actividad getActividadDeString(String cadena){
 	
 	ResultSet resultado;
@@ -882,7 +941,7 @@ public HashMap<Integer, String> getRespuestas(String login) {
 		String respuesta = null;
 		boolean correcto = false;
 		
-		String qu = "SELECT TIPO FROM RESPUESTAS_PREGUNTAS WHERE login=?";
+		String qu = "SELECT * FROM RESPUESTAS_PREGUNTAS WHERE login=?";
 		PreparedStatement pstmt = con.prepareStatement(qu);
 		pstmt.setString(1, login);
 		resultado = pstmt.executeQuery();

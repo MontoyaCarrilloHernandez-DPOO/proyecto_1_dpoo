@@ -34,7 +34,7 @@ public class Encuesta extends Actividad {
 	}
 
 
-	private ArrayList<PreguntaAbierta> getPreguntas() {
+	public ArrayList<PreguntaAbierta> getPreguntas() {
 		return preguntas;
 	}
 

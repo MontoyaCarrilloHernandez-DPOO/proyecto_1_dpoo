@@ -18,7 +18,7 @@ public class AnadirDatos {
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO ESTUDIANTES values (?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO ESTUDIANTES values (?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, login);
 		ps.setString(2, contrasenia);
 		ps.setString(3, nombre);
@@ -79,7 +79,7 @@ public class AnadirDatos {
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO PROFESORES values (?,?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO PROFESORES values (?,?,?,?,?,?,?)");
 		ps.setString(1, login);
 		ps.setString(2, contrasenia);
 		ps.setString(3, nombre);

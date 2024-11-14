@@ -94,6 +94,7 @@ public class Controlador {
 	}
 	
 	public void crearQuiz(Quiz quiz) throws SQLException {
+		recogerDatos.getIdStringPreguntaCerrada(quiz.getPreguntas());
 		anadirDatos.nuevoQuiz(quiz.getObjetivo(), quiz.getTitulo(), quiz.getNivel(), quiz.getPrerequisistos().getTitulo(), quiz.getSugeridos().getTitulo(), quiz.getResenias(), (float) quiz.getRating(), (float) quiz.getTiempoLimite(), quiz.isCompletado(), quiz.getNotaMinima(), quiz.getNotaObtenida(), false, quiz.getEnunciadoPreguntas());
 		crearActividad(quiz , "QUIZES");
 		this.listaActividades.add(quiz);
@@ -109,14 +110,25 @@ public class Controlador {
 		this.listaActividades.add(tarea);
 	}
 	public void crearEncuesta(Encuesta encuesta) throws SQLException {
+		recogerDatos.getIdStringPreguntaAbierta(encuesta.getPreguntas());
 		anadirDatos.nuevaEncuesta(encuesta.getObjetivo(),encuesta.getTitulo(),encuesta.getNivel(),encuesta.getPrerequisistos().getTitulo(),encuesta.getSugeridos().getTitulo(),encuesta.getResenias(),(float) encuesta.getRating(),(float) encuesta.getTiempoLimite(),encuesta.isCompletado(),encuesta.isEnviado(), encuesta.getEnunciados(), encuesta.getRespuestasGuias());
 		crearActividad(encuesta , "ENCUESTAS");
 		this.listaActividades.add(encuesta);
 	}
 
 	public void crearExamen(Examen examen) throws SQLException {
+		recogerDatos.getIdStringPreguntaAbierta(examen.getPreguntas());
 		anadirDatos.nuevoExamen(examen.exitoso,examen.getNotaObtenida(),examen.getNotaMinima(),examen.getEnunciados(),examen.getRespuestaGuia(),examen.getObjetivo(),examen.getTitulo(),examen.getNivel(),examen.getPrerequisistos().getTitulo(),examen.getSugeridos().getTitulo(),examen.getResenias(), (float) examen.getRating(), (float) examen.getTiempoLimite(),examen.isCompletado());
 		crearActividad(examen , "EXAMENES");
 		this.listaActividades.add(examen);
+	}
+	
+	public void crearPreguntaCerrada(PreguntaCerrada pregunta) throws SQLException {
+		anadirDatos.nuevaPreguntaCerrada(pregunta.respuestaCorrecta, pregunta.justificacion, pregunta.enunciado, pregunta.opcionA, pregunta.opcionB, pregunta.opcionC, pregunta.opcionD);
+	}
+	
+	public void crearPreguntaAbierta(PreguntaAbierta pregunta) throws SQLException {
+		anadirDatos.nuevaPreguntaAbierta(pregunta.respuestaGuia, pregunta.enunciado);
+		
 	}
 }

@@ -81,6 +81,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					
 					PreguntaCerrada nuevaPregunta = crearPreguntaCerrada(respuestaCorrecta, justificacion, enunciado,opcionA,
 							opcionB, opcionC, opcionD);
+					sistema.crearPreguntaCerrada(nuevaPregunta);
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
@@ -206,6 +207,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					String enunciado = pedirCadena("Ingresa el enunciado de la pregunta");
 					String respuestaGuia = pedirCadena("Ingresa la respuesta guia para calificar");
 					PreguntaAbierta nuevaPregunta = crearPreguntaAbierta(enunciado, respuestaGuia);
+					sistema.crearPreguntaAbierta(nuevaPregunta);
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
@@ -252,6 +254,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					String enunciado = pedirCadena("Ingresa el enunciado de la pregunta");
 					String respuestaGuia = pedirCadena("Ingresa la respuesta guia para calificar");
 					PreguntaAbierta nuevaPregunta = crearPreguntaAbierta(enunciado, respuestaGuia);
+					sistema.crearPreguntaAbierta(nuevaPregunta);
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
