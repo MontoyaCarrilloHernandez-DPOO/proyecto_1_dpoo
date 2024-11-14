@@ -1,12 +1,21 @@
-package usuarios;
+package pruebas;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import learningPaths.PreguntaAbierta;
 import learningPaths.Progreso;
+import usuarios.Estudiante;
+import usuarios.Profesor;
 
 public class ProfesorTest {
 	
@@ -67,7 +76,7 @@ public class ProfesorTest {
     }
 	
 	@Test
-	public void testCrearLearningPath() {
+	public void testCrearLearningPath() throws SQLException {
 		profesor.crearLearningPath(acts, "Eda BST", "Curso de BST", "Aprender de grafos", "Creado el 30 de octubre", (float) 1.0, 3, 1);
         assertEquals(lps, profesor.getLearningPaths(), "No se creo un LP correctamente");
     }

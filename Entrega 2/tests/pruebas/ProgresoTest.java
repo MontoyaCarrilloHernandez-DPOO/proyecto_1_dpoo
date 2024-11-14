@@ -15,6 +15,8 @@ public class ProgresoTest {
 	private Actividad act1;
 	private Actividad act2;
 	private Actividad act3;
+	private Actividad act_sugerida;
+	private Actividad act_prerrequisito;
 	private ArrayList<Actividad> acts;
 	private Estudiante est1;
 	private Estudiante est2;
@@ -34,6 +36,11 @@ public class ProgresoTest {
 		ests.addLast(est2);
 		ests.addLast(est3);
 		
+		act_sugerida = new Actividad("TI en las org","TI","Bajo",null,null,"muy buena",5,3.2,false);
+		act_prerrequisito = new Actividad("Aprender IP","IP","Bajo",null,null,"muy buena",5,3.2,false);
+		act1 = new Actividad("Aprender EDA","EDA Act", "Medio", act_prerrequisito, act_sugerida, "Muy buena", 5, 3.2, false);
+		act2 = new Actividad("Aprender Dpoo","EDA Act", "Medio", act_prerrequisito, act_sugerida, "Muy buena", 5, 3.2, false);
+		act3 = new Actividad("Aprender Ip","EDA Act", "Medio", act_prerrequisito, act_sugerida, "Muy buena", 5, 3.2, false);
 		
 		
 		acts = new ArrayList<Actividad>();

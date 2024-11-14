@@ -1,12 +1,24 @@
-package usuarios;
+package pruebas;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
+import Excepciones.LPException;
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import learningPaths.PreguntaAbierta;
 import learningPaths.Progreso;
+import usuarios.Estudiante;
 
 public class EstudianteTest {
 
@@ -85,7 +97,12 @@ public class EstudianteTest {
 	
 	@Test
 	public void testEnroll() {
-		est1.enroll(lp1);
+		try {
+			est1.enroll(lp1);
+		} catch (LPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(lp1, est1.getActualLearningPath(), "El Learning Path actual no es correcto");
 		assertEquals(progreso1, est1.getProgreso(), "El progreso actual no es correcto");
 		assertNotNull(est1.getHistorialLearningPaths(), "El historial de LPs no deberia ser vacio");
@@ -102,13 +119,23 @@ public class EstudianteTest {
 	
 	@Test
 	public void testVerificarActividadEnLP() {
-		est1.enroll(lp1);
+		try {
+			est1.enroll(lp1);
+		} catch (LPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertTrue("La actividad deberia estar en el LP", est1.verificarActividadEnLP(act1));
 	}
 	
 	@Test
 	public void testComenzarActividad() {
-		est1.enroll(lp1);
+		try {
+			est1.enroll(lp1);
+		} catch (LPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		est1.comenzarActividad(act1);
 		assertEquals(act1, est1.getActualActividad(), "La actividad actual no es correcto");
 	}
@@ -126,7 +153,12 @@ public class EstudianteTest {
 	
 	@Test
 	public void testViendoActividad() {
-		est1.enroll(lp1);
+		try {
+			est1.enroll(lp1);
+		} catch (LPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		est1.comenzarActividad(act1);
 		assertTrue("El estudiante deberia estar viendo una actividad", est1.viendoActividad());
 	}

@@ -1,6 +1,13 @@
-package usuarios;
+package pruebas;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import learningPaths.Actividad;
+import usuarios.Usuario;
 
 public class UsuarioTest {
 	
@@ -9,8 +16,9 @@ public class UsuarioTest {
 	
 	@BeforeEach
     public void setUp() {
+		
 		usuario = new Usuario("contrasenia", "nicolas", "hernandez", "login");
-		act1 = new Actividad("Aprender EDA","EDA Act", "Medio", act_prerrequisito, act_sugerida, "Muy buena", 5, 3.2, false);
+		act1 = new Actividad("Aprender EDA", "EDA Act", "Medio", null, null, "Muy buena", 5, 3.2, false);
 	}
 	
 	@AfterEach

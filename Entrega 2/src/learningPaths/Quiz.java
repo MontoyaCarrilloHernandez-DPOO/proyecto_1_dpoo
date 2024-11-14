@@ -42,7 +42,7 @@ public class Quiz extends Actividad{
 		return exitoso;
 	}
 
-	private ArrayList<PreguntaCerrada> getPreguntas() {
+	public ArrayList<PreguntaCerrada> getPreguntas() {
 		return preguntas;
 	}
 
