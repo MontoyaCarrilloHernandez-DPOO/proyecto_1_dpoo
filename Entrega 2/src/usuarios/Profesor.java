@@ -64,4 +64,9 @@ public class Profesor extends Usuario{
 		return lp.getEstudiantes();
 	}
 	
+	public void anadirActs(Actividad act) {
+		this.actividades.add(act);
+	}
+	
+	
 }

@@ -85,11 +85,10 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
-				
 				Quiz miQuiz= new Quiz(notaMinima, notaObtenida, false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
-				profesor.actividades.add(miQuiz);
+				profesor.anadirActs(miQuiz);
 				sistema.crearQuiz(miQuiz);
-				modificarDatos.cambiarDatosProfesor(profesor);
+				modificarDatos.cambiarDatosProfesor(this.profesor);
 				
 			}
 			//Recurso 

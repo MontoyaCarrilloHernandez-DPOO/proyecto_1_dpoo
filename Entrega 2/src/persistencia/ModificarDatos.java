@@ -94,8 +94,8 @@ public class ModificarDatos {
 				listaEstu.addAll(profesor.getEstudiantesAsociados(lp));
 			}}
 			
-			for (Actividad act : listaAct) {
-				listaIdAct += act.titulo + ",";
+			for (Actividad actividad : listaAct) {
+				listaIdAct += actividad.titulo + ",";
 			}
 			
 			if (!(listaEstu.isEmpty())){

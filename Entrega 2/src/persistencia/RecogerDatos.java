@@ -522,7 +522,7 @@ public String getIdStringPreguntaAbierta(ArrayList<PreguntaAbierta> preguntas) {
 			if (resultado.next()) {
 				miID= resultado.getInt("id");
 			}
-			idPreguntas += miID;
+			idPreguntas += miID + ",";
 			
 			resultado.close();
 		}
@@ -552,7 +552,7 @@ public String getIdStringPreguntaCerrada(ArrayList<PreguntaCerrada> preguntas) {
 			if (resultado.next()) {
 				miID= resultado.getInt("id");
 			}
-			idPreguntas += miID;
+			idPreguntas += miID + ",";
 			
 			resultado.close();
 		}

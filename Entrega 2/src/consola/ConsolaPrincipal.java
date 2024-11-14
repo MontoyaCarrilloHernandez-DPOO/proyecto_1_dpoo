@@ -3,7 +3,10 @@ package consola;
 import java.sql.SQLException;
 
 import Excepciones.LPException;
+import learningPaths.Actividad;
 import persistencia.Controlador;
+import usuarios.Estudiante;
+import usuarios.Profesor;
 
 public class ConsolaPrincipal extends ConsolaBasica
 {
@@ -18,6 +21,23 @@ public class ConsolaPrincipal extends ConsolaBasica
         {
         	ConsolaCrearControlador consolaControlador = new ConsolaCrearControlador( );
         	sistema = consolaControlador.crear( );
+        	if (!(sistema.listaEstudiantes.isEmpty())){
+        		for (Estudiante e : sistema.listaEstudiantes) {
+        			System.out.println(e.login);
+        		}
+        	}
+        	
+        	if (!(sistema.listaProfesores.isEmpty())){
+        		for (Profesor p : sistema.listaProfesores) {
+        			System.out.println(p.login);
+        		}
+        	}
+        	
+        	if (!(sistema.listaActividades.isEmpty())){
+        		for (Actividad a : sistema.listaActividades) {
+        			System.out.println(a.titulo);
+        		}
+        	}
         	
         }
         else if( opcionSeleccionada == 2 )

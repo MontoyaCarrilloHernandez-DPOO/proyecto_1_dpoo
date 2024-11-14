@@ -197,9 +197,7 @@ public class DBConnection {
 						+ "tiempoLimite float, \n"
 						+ "completado boolean, \n"
 						+ "enviado boolean, \n"
-						+ "preguntas varchar(50), \n"
-						+ "enunciado varchar(50), \n"
-						+ "respuestaGuia varchar(50) \n"
+						+ "preguntas varchar(50) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -331,7 +329,7 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int GENERATED ALWAYS AS IDENTITY primary key, \n"
+						+ "id int primary key GENERATED ALWAYS AS IDENTITY(Start with 1, Increment by 1), \n"
 						+ "enunciado varchar(500), \n"
 						+ "respuestaGuia varchar(500) \n"
 						+ ")");

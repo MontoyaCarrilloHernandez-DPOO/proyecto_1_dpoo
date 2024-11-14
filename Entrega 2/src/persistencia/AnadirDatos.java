@@ -142,11 +142,11 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevaEncuesta(  String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias,  float rating, float tiempoLimite, boolean completado, boolean enviado,String preguntas,String respuestaGuia) throws SQLException
+	public void nuevaEncuesta(  String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias,  float rating, float tiempoLimite, boolean completado, boolean enviado,String preguntas) throws SQLException
 	{
 		try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		PreparedStatement ps = con.prepareStatement("INSERT INTO ENCUESTAS (titulo, objetivo,  nivel,  prerequisito,  sugerido,  resenias,  rating,  tiempoLimite,   completado,  enviado, preguntas,  respuestaGuia) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+		PreparedStatement ps = con.prepareStatement("INSERT INTO ENCUESTAS values (?,?,?,?,?,?,?,?,?,?,?)");
 		ps.setString(1, titulo);
 		ps.setString(2, objetivo);
 		ps.setString(3, nivel);
@@ -157,8 +157,7 @@ public class AnadirDatos {
 		ps.setLong(8,  (long) tiempoLimite);
 		ps.setBoolean(9,   completado);
 		ps.setBoolean(10,   enviado);
-		ps.setString(11,  preguntas);// no se si se deja asi o no, depronto solo se debe cambiar por un "" y ya.
-		ps.setString(12, respuestaGuia);
+		ps.setString(11, preguntas);
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
@@ -177,7 +176,7 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevoExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String respuestaGuia, String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias, float rating, float tiempoLimite, boolean completado) throws SQLException
+	public void nuevoExamen(  boolean exitoso, float notaObtenida, float notaMinima, String preguntas, String objetivo, String titulo, String nivel, String prerequisistos, String sugeridos, String resenias, float rating, float tiempoLimite, boolean completado) throws SQLException
 	{
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
