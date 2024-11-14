@@ -24,9 +24,10 @@ public class AnadirDatos {
 		ps.setString(3, nombre);
 		ps.setString(4, apellido);
 		ps.setString(5, "");
-		ps.setString(6, null);
-		ps.setString(7, null);
+		ps.setString(6, "");
+		ps.setString(7, "");
 		ps.setFloat(8, 0);
+		ps.setString(9, "");
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
@@ -85,6 +86,7 @@ public class AnadirDatos {
 		ps.setString(4, apellido);
 		ps.setString(5, "");
 		ps.setString(6, "");
+		ps.setString(7, "");
 		ps.executeUpdate();
 		
 		Statement statement  = con.createStatement();
@@ -395,6 +397,34 @@ public class AnadirDatos {
 			}
 			
 			System.out.println("\n Actividad cerrada creada con éxito.");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void nuevaRespuesta( String login,String actividad, String pregunta, String respuesta) throws SQLException
+	{
+		try {
+			Connection con = DriverManager.getConnection(JDBC_URL);
+			PreparedStatement ps = con.prepareStatement("INSERT INTO RESPUESTAS_PREGUNTAS (login, actividad, pregunta, respuesta, correcto) values (?,?,?,?,?)");
+			ps.setString(1, login);
+			ps.setString(2, actividad);
+			ps.setString(3, pregunta);
+			ps.setString(4, respuesta);
+			ps.setBoolean(5, false);
+			ps.executeUpdate();
+			
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from RESPUESTAS_PREGUNTAS");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
+			System.out.println("\n Respuesta creada con éxito. Espera a que el profesor corrija. ");
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}

@@ -52,13 +52,14 @@ public class Profesor extends Usuario{
 	}
 	public void calificar(LearningPath lp, PreguntaAbierta pregunta) {
 		if(lp.getPropietario().equals(this.nombre)) {
-			//TODO: implementar, no se pudo implementar porque soy un chimpance que no programo actividad como abstracta y no puedo acceder al tipo de actividad, recordar pensar la proxima vez
+			//TODO: implementar, no se pudo implementar
 			
 		}
 	}
 	public void duplicarLP(LearningPath lp) throws SQLException {
 		crearLearningPath(lp.getActividades(),lp.getTitulo()+"."+this.nombre,lp.getDescripcion(),lp.getObjetivo(),lp.getMetadatos(),lp.getDuracion(),lp.getDificultad(),lp.getRating());	
 	}
+	
 	public ArrayList<Estudiante> getEstudiantesAsociados(LearningPath lp){
 		return lp.getEstudiantes();
 	}

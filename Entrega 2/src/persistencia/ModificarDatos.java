@@ -24,11 +24,11 @@ public class ModificarDatos {
 	
 	private static final String JDBC_URL =  "jdbc:derby:proyecto1";
 	
-	public void cambiarDatosEstudiante (String usuario,  ArrayList <LearningPath> historialLearningPaths, LearningPath actualLearningPath, Actividad actualActividad, HashMap<PreguntaAbierta, String> respuestas, Progreso progreso) {
+	public void cambiarDatosEstudiante (String usuario,  ArrayList <LearningPath> historialLearningPaths, LearningPath actualLearningPath, Actividad actualActividad, HashMap<Integer, String> respuestas, Progreso progreso) {
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 	
-			String qu = "UPDATE ESTUDIANTES SET historial_lp = ?, lp_actual = ?, actividad_actual = ? WHERE login = ?";
+			String qu = "UPDATE ESTUDIANTES SET historial_lp = ?, lp_actual = ?, actividad_actual = ?, respuestas = ?, progreso = ? WHERE login = ?";
 			PreparedStatement pstmt = con.prepareStatement(qu);
 			String listaIdLP = "";
 			for (LearningPath lp : historialLearningPaths) {
@@ -46,7 +46,20 @@ public class ModificarDatos {
 				miAct = actualActividad.titulo;
 			}
 			pstmt.setString(3, miAct);
-			pstmt.setString(4, usuario);
+			
+			String misRtas = "";
+			if (!(respuestas.isEmpty())) {
+				for (String rta : respuestas.values()) {
+					misRtas += rta + ",";
+				}
+			}
+			pstmt.setString(4, misRtas);
+			
+			if (progreso!= null) {
+				float miNumero = (float) (progreso.calcularProgreso());
+				pstmt.setFloat(5, miNumero);
+			}
+			pstmt.setString(6, usuario);
 			
 			
 			int filasActualizadas = pstmt.executeUpdate();
@@ -67,21 +80,34 @@ public class ModificarDatos {
 			
 			ArrayList<LearningPath> listaLPs = profesor.learningPaths;
 			ArrayList<Actividad> listaAct = profesor.actividades;
+			ArrayList<Estudiante> listaEstu = new ArrayList<Estudiante>();
 	
-			String qu = "UPDATE PROFESORES SET lista_lps = ?, lista_actividades = ? WHERE login = ?";
+			String qu = "UPDATE PROFESORES SET lista_lps = ?, lista_actividades = ?, lista_estudiantes = ? WHERE login = ?";
 			PreparedStatement pstmt = con.prepareStatement(qu);
 			String listaIdLP = "";
 			String listaIdAct = "";
+			String listaIdEstu = "";
+			
 			if (listaLPs != null) {
 			for (LearningPath lp : listaLPs) {
 				listaIdLP += lp.titulo + ",";
+				listaEstu.addAll(profesor.getEstudiantesAsociados(lp));
 			}}
+			if (listaAct != null) {
 			for (Actividad act : listaAct) {
 				listaIdAct += act.titulo + ",";
+			}}
+			
+			if (!(listaEstu.isEmpty())){
+				for (Estudiante es : listaEstu) {
+				listaIdEstu+= es.login+",";
+				}
 			}
+			
 			pstmt.setString(1, listaIdLP);
 			pstmt.setString(2, listaIdAct);
-			pstmt.setString(3, profesor.login);
+			pstmt.setString(3, listaIdEstu);
+			pstmt.setString(4, profesor.login);
 			
 			int filasActualizadas = pstmt.executeUpdate();
 	        System.out.println(filasActualizadas + " filas actualizadas.");

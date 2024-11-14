@@ -12,7 +12,7 @@ public class Estudiante extends Usuario{
 	public ArrayList<LearningPath> historialLearningPaths;
 	public LearningPath actualLearningPath;
 	public Actividad actualActividad;
-	public HashMap<PreguntaAbierta, String> respuestas;
+	public HashMap<Integer, String> respuestas; // la llave es un entero que es la llave primaria en la base de datos
 	public Progreso progreso;
 	
 	public Estudiante(String contrasenia, String nombre, String apellido, String login)
@@ -38,7 +38,7 @@ public class Estudiante extends Usuario{
 		return progreso;
 	}
 
-	public HashMap<PreguntaAbierta, String> getRespuestas() {
+	public HashMap<Integer, String> getRespuestas() {
 		return respuestas;
 	}
 
@@ -52,9 +52,13 @@ public class Estudiante extends Usuario{
 			this.progreso = new Progreso(learningPath, this.login);
 			this.historialLearningPaths.add(learningPath);
 			this.actualActividad = null;
+			
+			learningPath.anadirEstudiantes(this);
+			
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
 			modificar.cambiarDatosProgreso(progreso);
+			
 		}
 		else {
 			throw new LPException();
@@ -62,9 +66,10 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void unenroll() {
-		this.actualLearningPath = null;
-		this.progreso = null;
-		this.actualActividad = null;
+		actualLearningPath.quitarEstudiantes(this);
+		actualLearningPath = null;
+		progreso = null;
+		actualActividad = null;
 		ModificarDatos modificar = new ModificarDatos();
 		modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
 		
@@ -94,13 +99,12 @@ public class Estudiante extends Usuario{
 		
 	}
 	
-	public void responder(String respuesta, PreguntaAbierta pregunta) {
-		respuestas.put(pregunta, respuesta);
+	public void responder(String respuesta, int indice) {
+		respuestas.put(indice, respuesta); //CUANDO SE IMPLEMENTE ESTO, SE DEBE VERIFICAR QUE QUEDE EL ID QUE QUEREMOS
 	}
 	
 	public void marcarCompletado(ArrayList<String> respuestasAc, ArrayList<PreguntaAbierta> preguntas, Actividad actividad) {
 		//Las actividades que le entren a esta funcion deben de ser de tipo examen o encuesta.
-		//Que es estooo :((((((((((((
 		if(respuestasAc.size()!=preguntas.size()) {
 			if(respuestasAc.size()<preguntas.size()) {
 				System.out.println("Hay mas preguntas que respuestas, responda todas las preguntas");				
@@ -108,14 +112,16 @@ public class Estudiante extends Usuario{
 				System.out.println("Hay mas respuestas que preguntas");				
 			}
 		}
+		/*
 		else {
 		for (int i=0; i< respuestasAc.size();i++) {
 			respuestas.put(preguntas.get(i), respuestasAc.get(i));
 		}
 		actividad.setCompletado();
+		*/
+		
 		//TODO Implementar para que el cambie los datos en la DB
 		System.out.println("Actividad marcada como completada con exito");				
-	}
 	}
 	
 	public boolean viendoActividad() {

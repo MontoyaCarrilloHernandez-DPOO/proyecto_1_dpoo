@@ -159,7 +159,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				int rating = 5;
 				float timepoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				boolean estado = false;
-				Tarea miTarea = new Tarea(false, estado, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, timepoLimite, rating, false);
+				Tarea miTarea = new Tarea(estado, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, timepoLimite, rating, false);
 				profesor.actividades.add(miTarea);
 				sistema.crearTarea(miTarea);
 				modificarDatos.cambiarDatosProfesor(profesor);

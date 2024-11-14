@@ -56,19 +56,19 @@ public class ConsolaResumirLP extends ConsolaBasica {
 							
 							Actividad estaActividad = act;
 							
-							if(tipo.equals("TAREA")) {
+							if(tipo.equals("TAREAS")) {
 
 								
-							}else if (tipo.equals("QUIZ")) {
+							}else if (tipo.equals("QUIZES")) {
 								
 								
-							}else if (tipo.equals("EXAMEN")) {
+							}else if (tipo.equals("EXAMENES")) {
 								
 								
-							}else if (tipo.equals("RECURSO")) {
+							}else if (tipo.equals("RECURSOS")) {
 								
 								
-							}else if (tipo.equals("ENCUESTA")) {
+							}else if (tipo.equals("ENCUESTAS")) {
 								
 								
 							}

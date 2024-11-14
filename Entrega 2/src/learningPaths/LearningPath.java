@@ -90,4 +90,10 @@ public class LearningPath {
 	private void setEstudiantes(ArrayList<Estudiante> estudiantes) {
 		this.estudiantes = estudiantes;
 	}
+	public void anadirEstudiantes(Estudiante estu) {
+		estudiantes.add(estu);
+	}
+	public void quitarEstudiantes(Estudiante estu) {
+		estudiantes.remove(estu);
+	}
 }

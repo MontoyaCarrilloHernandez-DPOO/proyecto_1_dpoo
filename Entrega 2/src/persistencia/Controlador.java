@@ -40,15 +40,10 @@ public class Controlador {
 	public void subirDatos()
     {
 		listaLearningPaths = recogerDatos.getLearningPaths();
-		
 		listaActividades = recogerDatos.getActividades();
-		
 		listaActividades.addLast(new Actividad(".",".",".",actividadVacia,actividadVacia,"",000,0,false));
 		listaProfesores = recogerDatos.getProfesores();
-		
-		listaEstudiantes = recogerDatos.getEstudiantes();
-		
-		
+		listaEstudiantes = recogerDatos.getEstudiantes();	
 	}
 	
 	public Estudiante crearEstudiante(String nombre, String apellido, String login, String contrasenia) throws SQLException 
