@@ -48,10 +48,12 @@ public class ModificarDatos {
 			pstmt.setString(3, miAct);
 			
 			String misRtas = "";
+			if (respuestas != null) {
 			if (!(respuestas.isEmpty())) {
 				for (String rta : respuestas.values()) {
 					misRtas += rta + ",";
 				}
+			}
 			}
 			pstmt.setString(4, misRtas);
 			
@@ -64,10 +66,21 @@ public class ModificarDatos {
 			
 			int filasActualizadas = pstmt.executeUpdate();
 	        System.out.println(filasActualizadas + " filas actualizadas.");
-
-	        pstmt.close();
-	        con.close();
+	        
+	        
+	        Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from ESTUDIANTES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
 			
+			 pstmt.close();
+		     con.close();
+		        
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}
@@ -88,7 +101,7 @@ public class ModificarDatos {
 			String listaIdAct = "";
 			String listaIdEstu = "";
 			
-			if (listaLPs != null || !(listaLPs.isEmpty())) {
+			if (listaLPs != null) {
 			for (LearningPath lp : listaLPs) {
 				listaIdLP += lp.titulo + ",";
 				listaEstu.addAll(profesor.getEstudiantesAsociados(lp));
@@ -109,9 +122,10 @@ public class ModificarDatos {
 			pstmt.setString(3, listaIdEstu);
 			pstmt.setString(4, profesor.login);
 			
+			System.out.println("\n");
 			int filasActualizadas = pstmt.executeUpdate();
 	        System.out.println(filasActualizadas + " filas actualizadas.");
-	        
+	        System.out.println("\n");
 	        Statement statement  = con.createStatement();
 			ResultSet resultSet = statement.executeQuery("Select * from PROFESORES");
 			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
@@ -150,9 +164,19 @@ public class ModificarDatos {
 			pstmt.setString(2, misEst);
 			pstmt.setString(3, lp.titulo);
 			
-			
+			System.out.println("\n");
 			int filasActualizadas = pstmt.executeUpdate();
 	        System.out.println(filasActualizadas + " filas actualizadas.");
+	        System.out.println("\n");
+	        Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from LEARNING_PATHS");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -193,9 +217,19 @@ public void cambiarDatosProgreso(Progreso progreso){
 		pstmt.setFloat(4, (float) progreso.calcularProgreso());
 		pstmt.setString(5, progreso.getEstudiante());
 		
-		
+		System.out.println("\n");
 		int filasActualizadas = pstmt.executeUpdate();
         System.out.println(filasActualizadas + " filas actualizadas.");
+        System.out.println("\n");
+        Statement statement  = con.createStatement();
+		ResultSet resultSet = statement.executeQuery("Select * from PROGRESOS");
+		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+		int columnCount = resultSetMetaData.getColumnCount();
+		for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+		while (resultSet.next()) {
+			System.out.println("");
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+		}
 		
 		} catch(SQLException e) {
 			e.printStackTrace();

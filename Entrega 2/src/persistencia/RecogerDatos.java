@@ -228,7 +228,7 @@ public ArrayList<Actividad> getActividadesDeString(String cadena){
 						resultado1 = pstmt1.executeQuery();
 						boolean estado = false;
 						if (resultado1.next()) {
-							estado = resultado.getBoolean("estado");
+							estado = resultado1.getBoolean("estado");
 						}
 						
 						estaAct = new Tarea(estado, objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
@@ -790,7 +790,7 @@ public ArrayList<Actividad> getActividades(){
 					resultado1 = pstmt1.executeQuery();
 					boolean estado = false;
 					if (resultado1.next()) {
-						estado = resultado.getBoolean("estado");
+						estado = resultado1.getBoolean("estado");
 					}
 					
 					estaAct = new Tarea(estado, objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);

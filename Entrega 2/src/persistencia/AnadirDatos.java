@@ -111,7 +111,7 @@ public class AnadirDatos {
 		PreparedStatement ps = con.prepareStatement("INSERT INTO LEARNING_PATHS values (?,?,?,?,?,?,?,?,?,?)");
 		String actividadesString = "";
 		for (Actividad act :  miLP.getActividades() ) {
-			actividadesString+= act + ",";
+			actividadesString+= act.getTitulo() + ",";
 		}
 		ps.setString(1, miLP.getTitulo());
 		ps.setFloat(2,miLP.duracion);

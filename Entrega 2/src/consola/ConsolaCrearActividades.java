@@ -86,9 +86,9 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					j+=1;
 				}
 				Quiz miQuiz= new Quiz(notaMinima, notaObtenida, false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
-				profesor.anadirActs(miQuiz);
+				profesor.actividades.add(miQuiz);
 				sistema.crearQuiz(miQuiz);
-				modificarDatos.cambiarDatosProfesor(this.profesor);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
 			//Recurso 
@@ -298,6 +298,7 @@ public void mostrarOpcionesLP() throws SQLException{
 				LearningPath miLP = new LearningPath(profesor.login, titulo, duracion, dificultad, 5, descripcion, objetivo, metadatos, Actividades, null);
 				sistema.crearLearningPath(miLP);
 				profesor.crearLearningPath(Actividades, titulo, descripcion, objetivo, metadatos, duracion, dificultad,5);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 				
 			}
@@ -322,6 +323,7 @@ public void mostrarOpcionesLP() throws SQLException{
 				}
 				this.profesor.duplicarLP(miLP);
 				sistema.crearLearningPath(miLP);
+				modificarDatos.cambiarDatosProfesor(profesor);
 								
 			}
 			else if(opcionSeleccionada == 3) {
