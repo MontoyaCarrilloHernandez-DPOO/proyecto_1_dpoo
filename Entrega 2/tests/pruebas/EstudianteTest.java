@@ -65,7 +65,7 @@ public class EstudianteTest {
 		
 		respuestas = new HashMap<PreguntaAbierta, String>();
 		pregunta = new PreguntaAbierta("respuesta guia", "enunciado");
-		respuestas.put(pregunta, "respuesta");
+		respuestas.put(1, "respuesta");
 		
     }
 	
@@ -99,14 +99,14 @@ public class EstudianteTest {
 	public void testEnroll() {
 		try {
 			est1.enroll(lp1);
+			assertEquals(lp1, est1.getActualLearningPath(), "El Learning Path actual no es correcto");
+			assertEquals(progreso1, est1.getProgreso(), "El progreso actual no es correcto");
+			assertNotNull(est1.getHistorialLearningPaths(), "El historial de LPs no deberia ser vacio");
+			assertNull(est1.getActualActividad(), "La actividad actual deberia ser vacia");
 		} catch (LPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertEquals(lp1, est1.getActualLearningPath(), "El Learning Path actual no es correcto");
-		assertEquals(progreso1, est1.getProgreso(), "El progreso actual no es correcto");
-		assertNotNull(est1.getHistorialLearningPaths(), "El historial de LPs no deberia ser vacio");
-		assertNull(est1.getActualActividad(), "La actividad actual deberia ser vacia");
 	}
 	
 	@Test
