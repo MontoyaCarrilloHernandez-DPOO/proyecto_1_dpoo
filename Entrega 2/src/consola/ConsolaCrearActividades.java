@@ -298,6 +298,7 @@ public void mostrarOpcionesLP() throws SQLException{
 				LearningPath miLP = new LearningPath(profesor.login, titulo, duracion, dificultad, 5, descripcion, objetivo, metadatos, Actividades, null);
 				sistema.crearLearningPath(miLP);
 				profesor.crearLearningPath(Actividades, titulo, descripcion, objetivo, metadatos, duracion, dificultad,5);
+				
 				modificarDatos.cambiarDatosProfesor(profesor);
 				
 				

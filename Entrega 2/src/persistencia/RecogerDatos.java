@@ -114,6 +114,16 @@ public class RecogerDatos {
 			resultados.add(lista_act);
 			resultados.add(lista_estudiantes);
 			
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from PROFESORES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
+			
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}

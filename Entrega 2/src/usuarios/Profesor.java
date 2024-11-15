@@ -33,10 +33,13 @@ public class Profesor extends Usuario{
 	
 	//Importante: al crear un learning path, este no debería preocuparse por no tener una lista de estudiantes asociada. Ellos luego se meten y no hay problema :)
 	public void crearLearningPath(ArrayList<Actividad> actividades,String titulo,String descripcion,String objetivo, String metadatos,float duracion,float dificultad,float rating) throws SQLException {
+		
 		LearningPath lp = new LearningPath(this.nombre,titulo ,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades, null );
+		
 		if (this.learningPaths == null) {
 			this.learningPaths = new ArrayList<LearningPath>();
 		}
+		
 		this.learningPaths.addLast(lp);
 		
 	}

@@ -31,6 +31,7 @@ public class ModificarDatos {
 			String qu = "UPDATE ESTUDIANTES SET historial_lp = ?, lp_actual = ?, actividad_actual = ?, respuestas = ?, progreso = ? WHERE login = ?";
 			PreparedStatement pstmt = con.prepareStatement(qu);
 			String listaIdLP = "";
+			
 			for (LearningPath lp : historialLearningPaths) {
 				listaIdLP += lp.titulo + ",";
 			}
@@ -41,11 +42,13 @@ public class ModificarDatos {
 				miActLP = actualLearningPath.titulo;
 			}
 			pstmt.setString(2, miActLP);
+			;
 			String miAct = ".";
 			if (!(actualActividad==null)) {
 				miAct = actualActividad.titulo;
 			}
 			pstmt.setString(3, miAct);
+			
 			
 			String misRtas = "";
 			if (respuestas != null) {
@@ -57,11 +60,14 @@ public class ModificarDatos {
 			}
 			pstmt.setString(4, misRtas);
 			
+			float miNumero = 0;
 			if (progreso!= null) {
-				float miNumero = (float) (progreso.calcularProgreso());
-				pstmt.setFloat(5, miNumero);
+				miNumero = (float) (progreso.calcularProgreso());
+				
 			}
+			pstmt.setFloat(5, miNumero);
 			pstmt.setString(6, usuario);
+			
 			
 			
 			int filasActualizadas = pstmt.executeUpdate();
@@ -103,8 +109,14 @@ public class ModificarDatos {
 			
 			if (listaLPs != null) {
 			for (LearningPath lp : listaLPs) {
-				listaIdLP += lp.titulo + ",";
-				listaEstu.addAll(profesor.getEstudiantesAsociados(lp));
+				listaIdLP += lp.getTitulo() + ",";
+				ArrayList<Estudiante> lEstud = profesor.getEstudiantesAsociados(lp);
+				if(!( lEstud== null))
+				{
+					for(Estudiante e : lEstud) {
+						listaEstu.add(e);
+					}
+				}
 			}}
 			
 			for (Actividad actividad : listaAct) {
@@ -193,8 +205,10 @@ public void cambiarDatosProgreso(Progreso progreso){
 		
 		PreparedStatement pstmt = con.prepareStatement(qu);
 		
+	
 		String misActCompletas = "";
 		String misActIncompletas = "";
+		
 		if (progreso.getActividadesCompletas() != null) {
 		for (Actividad act : progreso.getActividadesCompletas()) {
 			misActCompletas+= act.titulo + ",";
@@ -206,6 +220,7 @@ public void cambiarDatosProgreso(Progreso progreso){
 			misActIncompletas+= act.titulo + ",";
 		}
 		}
+		
 		String lpTitulo = null;
 		
 		if (progreso.getLearningPath() != null) {
@@ -216,6 +231,7 @@ public void cambiarDatosProgreso(Progreso progreso){
 		pstmt.setString(3, misActIncompletas);
 		pstmt.setFloat(4, (float) progreso.calcularProgreso());
 		pstmt.setString(5, progreso.getEstudiante());
+		
 		
 		System.out.println("\n");
 		int filasActualizadas = pstmt.executeUpdate();

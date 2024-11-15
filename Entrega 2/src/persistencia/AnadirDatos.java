@@ -42,7 +42,7 @@ public class AnadirDatos {
 		
 		
 		
-		System.out.println("\nEstudiante creado con éxito. Inicia sesión para poder unirte a un Learning Path.");
+		System.out.println("\nEstudiante creado con éxito. Sal, inicializa el sistema e inicia sesión para poder unirte a un Learning Path.");
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +99,7 @@ public class AnadirDatos {
 			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
 		}
 		
-		System.out.println("\n Profesor creado con éxito. Inicia sesión para poder crear Learning Paths, actividades, etc.");
+		System.out.println("\n Profesor creado con éxito. Sal, inicia el sistema, e inicia sesión para poder crear Learning Paths, actividades, etc.");
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}

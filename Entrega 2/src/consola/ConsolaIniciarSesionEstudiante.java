@@ -100,6 +100,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 			}
 			
 			estudiante.enroll(miLP);
+			
 			modificarDatos.cambiarDatosLP(miLP);
 			ArrayList<Profesor> misprof = sistema.listaProfesores;
 			Profesor miProfLP = null;
@@ -114,12 +115,14 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
         else if( opcionSeleccionada == 2 )
         {
         	LearningPath lpActual = estudiante.actualLearningPath;
+        	lpActual.quitarEstudiantes(estudiante);
+        	modificarDatos.cambiarDatosLP(lpActual);
+        	
         	estudiante.unenroll();
+        	
         	Progreso prog = new Progreso(null, estudiante.login);
-        	modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.getHistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
         	modificarDatos.cambiarDatosProgreso(prog);
-        
-			modificarDatos.cambiarDatosLP(lpActual);
+			
 			
 			ArrayList<Profesor> misprof = sistema.listaProfesores;
 			Profesor miProfLP = null;

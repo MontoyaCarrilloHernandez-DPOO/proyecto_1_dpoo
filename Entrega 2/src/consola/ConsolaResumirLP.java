@@ -66,7 +66,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
 							
 							if(tipo.equals("TAREAS")) {
 								Tarea miTarea = (Tarea) estaActividad;
-								int confirmacion = pedirEntero("Ingresa 1 para enviar tu tarea y que su estado cambie");
+								  
 								//seguir modificando
 								
 								

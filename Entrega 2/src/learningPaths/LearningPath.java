@@ -28,7 +28,7 @@ public class LearningPath {
 		this.objetivo = objetivo;
 		this.metadatos = metadatos;
 		this.actividades = actividades;
-		this.estudiantes = estudiantes;
+		this.estudiantes = new ArrayList<Estudiante>();;
 	}
 	public String getTitulo() {
 		return this.titulo;

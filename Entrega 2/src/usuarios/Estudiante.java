@@ -19,6 +19,7 @@ public class Estudiante extends Usuario{
 	{
 		super(contrasenia, nombre, apellido, login);
 		this.historialLearningPaths = new ArrayList<LearningPath>();
+		this.respuestas = new HashMap<Integer, String>();
 		
 	}
 	
@@ -52,6 +53,7 @@ public class Estudiante extends Usuario{
 			this.progreso = new Progreso(learningPath, this.login);
 			this.historialLearningPaths.add(learningPath);
 			this.actualActividad = null;
+			this.respuestas = new HashMap<Integer, String>();
 			
 			learningPath.anadirEstudiantes(this);
 			
@@ -66,10 +68,11 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void unenroll() {
-		actualLearningPath.quitarEstudiantes(this);
+		
 		actualLearningPath = null;
 		progreso = null;
 		actualActividad = null;
+		respuestas = null;
 		ModificarDatos modificar = new ModificarDatos();
 		modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
 		
