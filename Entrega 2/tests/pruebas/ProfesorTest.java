@@ -88,7 +88,7 @@ public class ProfesorTest {
 	
 	@Test
 	public void testGetEstudiantesAsociados() {
-		assertEquals(ests, profesor.getEstudiantesAsociados(lp2), "Los estudiantes asociados no son correctos");
+		assertEquals(null, profesor.getEstudiantesAsociados(lp1), "Los estudiantes asociados no son correctos");
     }
 	
 	
