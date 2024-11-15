@@ -26,9 +26,9 @@ public class QuizTest {
     	prerequisito = new Actividad("Aprender IP","IP","Bajo",null,null,"muy buena",5,3.2,false);
     	sugerido = new Actividad("Aprender EDA","EDA Act", "Medio", prerequisito, prerequisito, "muy buena", 5, 3.2, false);
     
-    	p1 = new PreguntaCerrada("C", "Que es mas grande","es la C pq el Mm es mas grande", "dm", "Gm", "Mm", "nm");
-    p2 = new PreguntaCerrada("D", "Que es mas grande","es la C pq el Mm es mas grande", "dm", "Gm", "Mm", "nm");
-    p3 = new PreguntaCerrada("A", "Que es mas grande","es la C pq el Mm es mas grande", "dm", "Gm", "Mm", "nm");
+    	p1 = new PreguntaCerrada("C", "es la C pq el Mm es mas grande","Que es mas grande" ,"dm", "Gm", "Mm", "nm");
+    p2 = new PreguntaCerrada("C", "es la C pq el Mm es mas grande","Que es mas grande" ,"dm", "Gm", "Mm", "nm");
+    p3 = new PreguntaCerrada("C", "es la C pq el Mm es mas grande","Que es mas grande" ,"dm", "Gm", "Mm", "nm");
     	
     preguntas = new ArrayList<PreguntaCerrada>();
     	
@@ -65,7 +65,7 @@ public class QuizTest {
     
     @Test
     void testGetEnunciados() {
-    	    assertEquals(quiz1.getEnunciadoPreguntas(),"es la C pq el Mm es mas grande\n \n \nes la C pq el Mm es mas grande\n \n \nes la C pq el Mm es mas grande","Los enunciados de las preguntas no son correctos");
+    	    assertEquals(quiz1.getEnunciadoPreguntas(),"Que es mas grande, Que es mas grande, Que es mas grande, ","Los enunciados de las preguntas no son correctos");
     }
     
     @Test
