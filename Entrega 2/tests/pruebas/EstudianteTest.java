@@ -34,7 +34,7 @@ public class EstudianteTest {
 	private ArrayList<Estudiante> ests;
 	private Progreso progreso1;
 	private ArrayList<LearningPath> historialLearningPaths;
-	private HashMap<PreguntaAbierta, String> respuestas;
+	private HashMap<Integer, String> respuestas;
 	private PreguntaAbierta pregunta;
 	
 	@BeforeEach
@@ -63,7 +63,7 @@ public class EstudianteTest {
 		progreso1 = new Progreso(lp1,"alirob");
 		historialLearningPaths = new ArrayList<LearningPath>();
 		
-		respuestas = new HashMap<PreguntaAbierta, String>();
+		respuestas = new HashMap<Integer, String>();
 		pregunta = new PreguntaAbierta("respuesta guia", "enunciado");
 		respuestas.put(1, "respuesta");
 		
@@ -96,19 +96,16 @@ public class EstudianteTest {
 	}
 	
 	@Test
-	public void testEnroll() {
-		try {
-			est1.enroll(lp1);
-			assertEquals(lp1, est1.getActualLearningPath(), "El Learning Path actual no es correcto");
-			assertEquals(progreso1, est1.getProgreso(), "El progreso actual no es correcto");
-			assertNotNull(est1.getHistorialLearningPaths(), "El historial de LPs no deberia ser vacio");
-			assertNull(est1.getActualActividad(), "La actividad actual deberia ser vacia");
-		} catch (LPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void testEnroll() throws LPException {
+		
+		est1.enroll(lp1);
+		assertEquals(lp1, est1.getActualLearningPath(), "El Learning Path actual no es correcto");
+		assertEquals(progreso1, est1.getProgreso(), "El progreso actual no es correcto");
+		assertNotNull(est1.getHistorialLearningPaths(), "El historial de LPs no deberia ser vacio");
+		assertNull(est1.getActualActividad(), "La actividad actual deberia ser vacia");
+		
 	}
-	
+	 
 	@Test
 	public void testUnenroll() {
 		est1.unenroll();

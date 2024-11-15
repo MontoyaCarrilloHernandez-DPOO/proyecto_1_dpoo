@@ -62,11 +62,8 @@ public class Profesor extends Usuario{
 		}
 		return null;
 	}
-	public void calificar(LearningPath lp, PreguntaAbierta pregunta) {
-		if(lp.getPropietario().equals(this.nombre)) {
-			//TODO: implementar, no se pudo implementar
-			
-		}
+	public void calificar() {
+		
 	}
 	public void duplicarLP(LearningPath lp) throws SQLException {
 		crearLearningPath(lp.getActividades(),lp.getTitulo()+"."+this.nombre,lp.getDescripcion(),lp.getObjetivo(),lp.getMetadatos(),lp.getDuracion(),lp.getDificultad(),lp.getRating());	
