@@ -519,10 +519,38 @@ public ArrayList<PreguntaAbierta> getPreguntasAbiertasDeString(String preguntasS
 	
 }
 
-public ArrayList<PreguntaAbierta> getRespuestasAbiertasDeID(Integer idPregunta) {
+public PreguntaAbierta getPreguntaAbiertasDeID(Integer idPregunta) {
 	ArrayList<PreguntaAbierta> misPreguntas = new ArrayList<PreguntaAbierta>();
 	ResultSet resultado;
-	return misPreguntas;
+	ResultSet resultado1;
+	PreguntaAbierta miPreguntaAbierta = null;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+			String miPregunta = null;
+			String qu = "SELECT * FROM RESPUESTAS_PREGUNTAS WHERE id = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setInt(1, idPregunta);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				miPregunta= resultado.getString("pregunta");
+			}
+			resultado.close();
+			
+			String respuestaGuia=null;
+			String qu1 = "SELECT * FROM PREGUNTAS_ABIERTAS WHERE enunciado = ?";
+			PreparedStatement pstmt1 = con.prepareStatement(qu);
+		    pstmt.setString(1, miPregunta);
+			resultado1 = pstmt1.executeQuery();
+			if (resultado1.next()) {
+				respuestaGuia= resultado1.getString("respuestaGuia");
+			}
+			resultado1.close();
+			miPreguntaAbierta = new PreguntaAbierta(miPregunta, respuestaGuia);
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	return miPreguntaAbierta;
 }
 
 public String getIdStringPreguntaAbierta(ArrayList<PreguntaAbierta> preguntas) {

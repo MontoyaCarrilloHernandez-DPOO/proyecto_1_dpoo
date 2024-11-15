@@ -8,6 +8,7 @@ import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import learningPaths.PreguntaAbierta;
 import persistencia.AnadirDatos;
+import persistencia.RecogerDatos;
 
 public class Profesor extends Usuario{
 	public ArrayList<LearningPath> learningPaths;
@@ -66,8 +67,15 @@ public class Profesor extends Usuario{
 	
 	public void calificar(Estudiante estudiante) {
 		HashMap<Integer,String> respuestas = estudiante.getRespuestas();
+		
 		for (Integer id:respuestas.keySet()) {
-			
+			RecogerDatos datos = new RecogerDatos();
+			PreguntaAbierta miPreg = datos.getPreguntaAbiertasDeID(id);
+			System.out.println("La pregunta era " + miPreg.enunciado);
+			System.out.println("La respuesta guía es " + miPreg.respuestaGuia);
+			System.out.println("La respuesta del estudiante es " + respuestas.get(id));
+			//Ahora el profesor la califica, dice si sí o no y sigue. Se debe modificar el progreso. Mirar si primero pued
+			//calificar actividades antes de estudiantes.
 		}
 		}
 		
