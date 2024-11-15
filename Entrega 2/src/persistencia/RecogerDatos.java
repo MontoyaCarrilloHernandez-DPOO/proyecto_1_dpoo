@@ -1080,7 +1080,6 @@ public ArrayList<String> getInfo(Actividad actividad) {
 		
 			while (resultado.next()) {
 				if(tipo.equals("TAREAS")) {
-					
 					datos.add(resultado.getString("TITULO"));
 					datos.add(resultado.getString("OBJETIVO"));	
 					datos.add(resultado.getString("NIVEL"));
@@ -1090,6 +1089,14 @@ public ArrayList<String> getInfo(Actividad actividad) {
 					datos.add( String.valueOf(resultado.getFloat("TIEMPO_LIMITE")));
 					
 				}else if (tipo.equals("QUIZES")) {
+					datos.add(resultado.getString("TITULO"));
+					datos.add(resultado.getString("OBJETIVO"));	
+					datos.add(resultado.getString("NIVEL"));
+					datos.add(resultado.getString("PREREQUISITO"));
+					datos.add(resultado.getString("SUGERIDO"));
+					datos.add( String.valueOf(resultado.getFloat("RATING")));
+					datos.add( String.valueOf(resultado.getFloat("TIEMPO_LIMITE")));
+					//datos.add(resultado.getFloat("NOTAMINIMA"));
 					
 					
 				}else if (tipo.equals("EXAMENES")) {
