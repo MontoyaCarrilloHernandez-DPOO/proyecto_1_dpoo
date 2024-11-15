@@ -7,12 +7,12 @@ import persistencia.DBConnection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
-import learningPaths.LearningPath;
-import learningPaths.Progreso;
-import learningPaths.Actividad;
+import java.util.HashMap;
+
 import usuarios.Estudiante;
 import java.sql.PreparedStatement;
 import usuarios.Profesor;
+import learningPaths.*;
 
 public class RecogerDatos {
 	
@@ -29,6 +29,7 @@ public class RecogerDatos {
 		String lp_actual = null;
 		String actividad_actual = null;
 		String progreso = null;
+		String respuestas = null;
 		
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
@@ -45,7 +46,7 @@ public class RecogerDatos {
 				lp_actual = resultado.getString("lp_actual");
 				actividad_actual = resultado.getString("actividad_actual");
 				progreso = resultado.getString("progreso");
-			
+				respuestas = resultado.getString("respuestas");
 			}
 			
 			resultado.close();
@@ -56,6 +57,7 @@ public class RecogerDatos {
 			resultados.add(historial_lp);
 			resultados.add(lp_actual);
 			resultados.add(actividad_actual);
+			resultados.add(respuestas);
 			
 			
 			Statement statement  = con.createStatement();
@@ -86,6 +88,7 @@ public class RecogerDatos {
 		String apellido = null;
 		String lista_lps = null;
 		String lista_act = null;
+		String lista_estudiantes= null;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 	
@@ -99,6 +102,7 @@ public class RecogerDatos {
 				apellido = resultado.getString("apellido");
 				lista_lps = resultado.getString("lista_lps");
 				lista_act = resultado.getString("lista_actividades");
+				lista_estudiantes = resultado.getString("lista_estudiantes");
 			}
 			
 			resultado.close();
@@ -108,6 +112,17 @@ public class RecogerDatos {
 			resultados.add(apellido);
 			resultados.add(lista_lps);
 			resultados.add(lista_act);
+			resultados.add(lista_estudiantes);
+			
+			Statement statement  = con.createStatement();
+			ResultSet resultSet = statement.executeQuery("Select * from PROFESORES");
+			ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+			while (resultSet.next()) {
+				System.out.println("");
+				for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+			}
 			
 			} catch(SQLException e) {
 				e.printStackTrace();
@@ -125,6 +140,7 @@ public class RecogerDatos {
 			String[] lpArray = cadena.split(",");
 			
 			for ( String titulo : lpArray) {
+				LearningPath esteLP = null;
 				String qu = "SELECT * FROM LEARNING_PATHS WHERE titulo = ?";
 				ArrayList<Actividad> arrayActividades = new ArrayList<Actividad>(); 
 				ArrayList<Estudiante> arrayEstudiantes = new ArrayList<Estudiante>(); 
@@ -154,11 +170,13 @@ public class RecogerDatos {
 					
 					arrayActividades = getActividadesDeString(actividades); 
 					arrayEstudiantes = getEstudiantesDeString(estudiantes); 
+					
+					esteLP = new LearningPath(propietario, titulo, duracion, dificultad, rating, descripcion, objetivo, metadatos, arrayActividades, arrayEstudiantes);
 				}
 				
 				resultado.close();
-				LearningPath esteLP = new LearningPath(propietario, titulo, duracion, dificultad, rating, descripcion, objetivo, metadatos, arrayActividades, arrayEstudiantes);
-				listaLP.add(esteLP);
+				if (esteLP!=null) {
+				listaLP.add(esteLP);}
 			}
 			
 			} catch(SQLException e) {
@@ -172,12 +190,16 @@ public ArrayList<Actividad> getActividadesDeString(String cadena){
 		
 		ArrayList<Actividad> listaAct = new ArrayList<Actividad>();
 		ResultSet resultado;
+		ResultSet resultado1;
+		
+		
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 			String[] actArray = cadena.split(",");
 			System.out.println(actArray);
 			
 			for ( String id : actArray) {
+				Actividad estaAct = null;
 				String qu = "SELECT * FROM ACTIVIDADES WHERE titulo = ?";
 				String titulo = null;
 				String objetivo = null;
@@ -213,10 +235,81 @@ public ArrayList<Actividad> getActividadesDeString(String cadena){
 					if (sugerido != null || sugerido != ".") {
 						elSugerido = getActividadDeString(sugerido);
 					}
+					
+					if (tipo.equals("TAREAS")) {
+						PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM TAREAS");
+						resultado1 = pstmt1.executeQuery();
+						boolean estado = false;
+						if (resultado1.next()) {
+							estado = resultado1.getBoolean("estado");
+						}
+						
+						estaAct = new Tarea(estado, objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
+						
+					}else if (tipo.equals("QUIZES")) {
+						PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM QUIZES");
+						resultado1 = pstmt1.executeQuery();
+						float notaMinima = 0;
+						float notaObtenida = 0;
+						boolean exitoso = false;
+						ArrayList<PreguntaCerrada> preguntas = new ArrayList<PreguntaCerrada>();
+						String preguntasString;
+						if (resultado1.next()) {
+							notaMinima = resultado1.getFloat("notaMinima");
+							notaObtenida = resultado1.getFloat("notaObtenida");
+							exitoso = resultado1.getBoolean("exitoso");
+							preguntasString = resultado1.getString("preguntas");
+							preguntas = getPreguntasCerradasDeString(preguntasString);
+						}
+						estaAct = new Quiz(notaMinima, notaObtenida, exitoso, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+						
+					}else if (tipo.equals("EXAMENES")) {
+						PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM EXAMENES");
+						resultado1 = pstmt1.executeQuery();
+						float notaMinima = 0;
+						float notaObtenida = 0;
+						boolean exitoso = false;
+						ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+						
+						String preguntasString;
+						if (resultado1.next()) {
+							notaMinima = resultado1.getFloat("notaMinima");
+							notaObtenida = resultado1.getFloat("notaObtenida");
+							exitoso = resultado1.getBoolean("exitoso");
+							preguntasString = resultado1.getString("preguntas");
+							preguntas = getPreguntasAbiertasDeString(preguntasString);
+							
+						estaAct = new Examen(false , exitoso, notaObtenida, notaMinima, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+						}
+					}else if (tipo.equals("RECURSOS")) {
+						PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM RECURSOS");
+						resultado1 = pstmt1.executeQuery();
+						String tipoRecurso = null;
+						if (resultado1.next()) {
+							tipoRecurso = resultado1.getString("tipo");
+						}
+						estaAct = new Recurso(objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado, tipoRecurso);
+						
+					}else if (tipo.equals("ENCUESTAS")) {
+						PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM ENCUESTAS");
+						resultado1 = pstmt1.executeQuery();
+						boolean enviado = false;
+						ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+						String preguntasString;
+						if (resultado1.next()) {
+							enviado = resultado1.getBoolean("completado");
+							preguntasString = resultado1.getString("preguntas");
+							preguntas = getPreguntasAbiertasDeString(preguntasString);
+						}
+						
+						estaAct = new Encuesta( enviado, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+						
+					}
+					
 				}
 				resultado.close();
-				Actividad estaAct = new Actividad(objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
-				listaAct.add(estaAct);
+				if (estaAct != null) {
+				listaAct.add(estaAct);}
 			}
 			
 			} catch(SQLException e) {
@@ -350,10 +443,146 @@ public LearningPath getLearningPathDeString(String cadena){
 	return miLP;
 }
 
+public ArrayList<PreguntaCerrada> getPreguntasCerradasDeString(String preguntasString) {
+	ArrayList<PreguntaCerrada> misPreguntas = new ArrayList<PreguntaCerrada>();
+	ResultSet resultado;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String[] pregArray = preguntasString.split(",");
+		
+		for (String pregunta : pregArray) {
+			String respuestaCorrecta = null;
+			String justificacion= null;
+			String enunciado= null;
+			String opcionA= null;
+			String opcionB= null;
+			String opcionC= null;
+			String opcionD= null;
+			
+			String qu = "SELECT * FROM PREGUNTAS_CERRADAS WHERE id = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setInt(1, Integer.valueOf(pregunta));
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				respuestaCorrecta = resultado.getString("respuestaCorrecta");
+				justificacion= resultado.getString("justificacion");
+				enunciado= resultado.getString("enunciado");
+				opcionA= resultado.getString("opcionA");
+				opcionB= resultado.getString("opcionB");
+				opcionC= resultado.getString("opcionC");
+				opcionD= resultado.getString("opcionD");
+			}
+			
+			resultado.close();
+			PreguntaCerrada miPregunta = new PreguntaCerrada(respuestaCorrecta, justificacion, enunciado, opcionA, opcionB, opcionC, opcionD);
+			misPreguntas.add(miPregunta);
+		}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return misPreguntas;
+	
+}
+
+public ArrayList<PreguntaAbierta> getPreguntasAbiertasDeString(String preguntasString) {
+	ArrayList<PreguntaAbierta> misPreguntas = new ArrayList<PreguntaAbierta>();
+	ResultSet resultado;
+	
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String[] pregArray = preguntasString.split(",");
+		
+		for (String pregunta : pregArray) {
+			String enunciado= null;
+			String respuestaGuia= null;
+			
+			String qu = "SELECT * FROM PREGUNTAS_ABIERTAS WHERE id = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setInt(1, Integer.valueOf(pregunta));
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				enunciado= resultado.getString("enunciado");
+				respuestaGuia= resultado.getString("respuestaGuia");
+			}
+			resultado.close();
+			PreguntaAbierta miPregunta = new PreguntaAbierta(respuestaGuia, enunciado);
+			misPreguntas.add(miPregunta);
+		}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return misPreguntas;
+	
+}
+
+public String getIdStringPreguntaAbierta(ArrayList<PreguntaAbierta> preguntas) {
+	String idPreguntas = "";
+	ResultSet resultado;
+	
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		
+		
+		for (PreguntaAbierta pregunta : preguntas) {
+			int miID = 0;
+			String qu = "SELECT * FROM PREGUNTAS_ABIERTAS WHERE enunciado = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setString(1, pregunta.enunciado);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				miID= resultado.getInt("id");
+			}
+			idPreguntas += miID + ",";
+			
+			resultado.close();
+		}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return idPreguntas;
+	
+}
+
+public String getIdStringPreguntaCerrada(ArrayList<PreguntaCerrada> preguntas) {
+	String idPreguntas = "";
+	ResultSet resultado;
+	
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		
+		
+		for (PreguntaCerrada pregunta : preguntas) {
+			int miID = 0;
+			String qu = "SELECT * FROM PREGUNTAS_CERRADAS WHERE enunciado = ?";
+			PreparedStatement pstmt = con.prepareStatement(qu);
+		    pstmt.setString(1, pregunta.enunciado);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				miID= resultado.getInt("id");
+			}
+			idPreguntas += miID + ",";
+			
+			resultado.close();
+		}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	
+	return idPreguntas;
+}
+
 public Actividad getActividadDeString(String cadena){
 	
 	ResultSet resultado;
-	Actividad miAct = null;
+	ResultSet resultado1;
+	Actividad estaAct = null;
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
 			String qu = "SELECT * FROM ACTIVIDADES WHERE titulo = ?";
@@ -392,16 +621,86 @@ public Actividad getActividadDeString(String cadena){
 				if (sugerido != null || sugerido != ".") {
 					elSugerido = getActividadDeString(sugerido);
 				}
+				
+				
+				if (tipo.equals("TAREAS")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM TAREAS");
+					resultado1 = pstmt1.executeQuery();
+					boolean estado = false;
+					if (resultado1.next()) {
+						estado = resultado.getBoolean("estado");
+					}
+					
+					estaAct = new Tarea(estado, objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					
+				}else if (tipo.equals("QUIZES")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM QUIZES");
+					resultado1 = pstmt1.executeQuery();
+					float notaMinima = 0;
+					float notaObtenida = 0;
+					boolean exitoso = false;
+					ArrayList<PreguntaCerrada> preguntas = new ArrayList<PreguntaCerrada>();
+					String preguntasString;
+					if (resultado1.next()) {
+						notaMinima = resultado1.getFloat("notaMinima");
+						notaObtenida = resultado1.getFloat("notaObtenida");
+						exitoso = resultado1.getBoolean("exitoso");
+						preguntasString = resultado1.getString("preguntas");
+						preguntas = getPreguntasCerradasDeString(preguntasString);
+					}
+					estaAct = new Quiz(notaMinima, notaObtenida, exitoso, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					
+				}else if (tipo.equals("EXAMENES")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM EXAMENES");
+					resultado1 = pstmt1.executeQuery();
+					float notaMinima = 0;
+					float notaObtenida = 0;
+					boolean exitoso = false;
+					ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+					
+					String preguntasString;
+					if (resultado1.next()) {
+						notaMinima = resultado1.getFloat("notaMinima");
+						notaObtenida = resultado1.getFloat("notaObtenida");
+						exitoso = resultado1.getBoolean("exitoso");
+						preguntasString = resultado1.getString("preguntas");
+						preguntas = getPreguntasAbiertasDeString(preguntasString);
+						
+					estaAct = new Examen(false , exitoso, notaObtenida, notaMinima, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					}
+				}else if (tipo.equals("RECURSOS")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM RECURSOS");
+					resultado1 = pstmt1.executeQuery();
+					String tipoRecurso = null;
+					if (resultado1.next()) {
+						tipoRecurso = resultado1.getString("tipo");
+					}
+					estaAct = new Recurso(objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado, tipoRecurso);
+					
+				}else if (tipo.equals("ENCUESTAS")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM ENCUESTAS");
+					resultado1 = pstmt1.executeQuery();
+					boolean enviado = false;
+					ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+					String preguntasString;
+					if (resultado1.next()) {
+						enviado = resultado1.getBoolean("completado");
+						preguntasString = resultado1.getString("preguntas");
+						preguntas = getPreguntasAbiertasDeString(preguntasString);
+					}
+					
+					estaAct = new Encuesta( enviado, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					
+				}
 			}
 			resultado.close();
-			miAct = new Actividad(objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
 
 		
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 	
-	return miAct;
+	return estaAct;
 }
 
 // PARA SUBIR DATOS EN GENERAL
@@ -460,6 +759,7 @@ public ArrayList<Actividad> getActividades(){
 	
 	ArrayList<Actividad> listaAct = new ArrayList<Actividad>();
 	ResultSet resultado;
+	ResultSet resultado1;
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
 			String qu = "SELECT * FROM ACTIVIDADES";
@@ -497,7 +797,78 @@ public ArrayList<Actividad> getActividades(){
 					elSugerido = getActividadDeString(sugerido);
 				}
 				
-				Actividad estaAct = new Actividad(objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
+				Actividad estaAct = null;
+				
+				if (tipo.equals("TAREAS")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM TAREAS");
+					resultado1 = pstmt1.executeQuery();
+					boolean estado = false;
+					if (resultado1.next()) {
+						estado = resultado1.getBoolean("estado");
+					}
+					
+					estaAct = new Tarea(estado, objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					
+				}else if (tipo.equals("QUIZES")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM QUIZES");
+					resultado1 = pstmt1.executeQuery();
+					float notaMinima = 0;
+					float notaObtenida = 0;
+					boolean exitoso = false;
+					ArrayList<PreguntaCerrada> preguntas = new ArrayList<PreguntaCerrada>();
+					String preguntasString;
+					if (resultado1.next()) {
+						notaMinima = resultado1.getFloat("notaMinima");
+						notaObtenida = resultado1.getFloat("notaObtenida");
+						exitoso = resultado1.getBoolean("exitoso");
+						preguntasString = resultado1.getString("preguntas");
+						preguntas = getPreguntasCerradasDeString(preguntasString);
+					}
+					estaAct = new Quiz(notaMinima, notaObtenida, exitoso, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					
+				}else if (tipo.equals("EXAMENES")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM EXAMENES");
+					resultado1 = pstmt1.executeQuery();
+					float notaMinima = 0;
+					float notaObtenida = 0;
+					boolean exitoso = false;
+					ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+					
+					String preguntasString;
+					if (resultado1.next()) {
+						notaMinima = resultado1.getFloat("notaMinima");
+						notaObtenida = resultado1.getFloat("notaObtenida");
+						exitoso = resultado1.getBoolean("exitoso");
+						preguntasString = resultado1.getString("preguntas");
+						preguntas = getPreguntasAbiertasDeString(preguntasString);
+						
+					estaAct = new Examen(false , exitoso, notaObtenida, notaMinima, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					}
+				}else if (tipo.equals("RECURSOS")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM RECURSOS");
+					resultado1 = pstmt1.executeQuery();
+					String tipoRecurso = null;
+					if (resultado1.next()) {
+						tipoRecurso = resultado1.getString("tipo");
+					}
+					estaAct = new Recurso(objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado, tipoRecurso);
+					
+				}else if (tipo.equals("ENCUESTAS")) {
+					PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM ENCUESTAS");
+					resultado1 = pstmt1.executeQuery();
+					boolean enviado = false;
+					ArrayList<PreguntaAbierta> preguntas = new ArrayList<PreguntaAbierta>();
+					String preguntasString;
+					if (resultado1.next()) {
+						enviado = resultado1.getBoolean("completado");
+						preguntasString = resultado1.getString("preguntas");
+						preguntas = getPreguntasAbiertasDeString(preguntasString);
+					}
+					
+					estaAct = new Encuesta( enviado, preguntas, objetivo, titulo, nivel, elPrerequisito, elSugerido, lista_resenias, tiempoLimite, rating, completado);
+					
+				}
+				
 				listaAct.add(estaAct);
 			}
 			resultado.close();
@@ -508,6 +879,7 @@ public ArrayList<Actividad> getActividades(){
 	
 	return listaAct;
 }
+
 
 public ArrayList<Estudiante> getEstudiantes(){
 
@@ -523,6 +895,7 @@ try {
 		String lp_actual = null;
 		String actividad_actual = null;
 		float progreso = 0;
+		String respuestas = null;
 		
 		String qu = "SELECT * FROM ESTUDIANTES";
 		PreparedStatement pstmt = con.prepareStatement(qu);
@@ -536,6 +909,7 @@ try {
 			 lp_actual = resultado.getString("lp_actual");
 			 actividad_actual = resultado.getString("actividad_actual");
 			 progreso = resultado.getFloat("progreso");
+			 respuestas = resultado.getString("respuestas");
 			
 			Estudiante esteEstudiante = new Estudiante(contrasenia, nombre, apellido, login);
 			if (lp_actual != null || lp_actual != "") {
@@ -552,6 +926,10 @@ try {
 				esteEstudiante.progreso = getProgreso(login);
 			}
 			
+			if (respuestas != null || respuestas != "") {
+				esteEstudiante.respuestas = getRespuestas(login);
+			}
+			
 			listaEs.add(esteEstudiante);
 		}
 		
@@ -565,6 +943,40 @@ try {
 return listaEs;
 }
 
+public HashMap<Integer, String> getRespuestas(String login) {	
+	ResultSet resultado;
+	HashMap<Integer, String> respuestas = new HashMap<Integer, String>();
+	
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		int id = 0;
+		String actividad = null;
+		String pregunta = null;
+		String respuesta = null;
+		boolean correcto = false;
+		
+		String qu = "SELECT * FROM RESPUESTAS_PREGUNTAS WHERE login=?";
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		pstmt.setString(1, login);
+		resultado = pstmt.executeQuery();
+		while (resultado.next()) {
+			id = resultado.getInt("id");
+			actividad = resultado.getString("actividad");
+			pregunta = resultado.getString("pregunta");
+			respuesta = resultado.getString("respuesta");
+			correcto = resultado.getBoolean("correcto");
+			respuestas.put(id, respuesta);
+		}
+			
+			resultado.close();
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+	return respuestas;
+}
+
+
 public ArrayList<Profesor> getProfesores(){
 
 ArrayList<Profesor> listaProf = new ArrayList<Profesor>();
@@ -577,7 +989,6 @@ try {
 		String apellido = null;
 		String lista_lps = null;
 		String lista_actividades = null;
-
 		
 		String qu = "SELECT * FROM PROFESORES";
 		PreparedStatement pstmt = con.prepareStatement(qu);
@@ -589,8 +1000,12 @@ try {
 			apellido = resultado.getString("apellido");
 			lista_lps = resultado.getString("lista_lps");
 			lista_actividades = resultado.getString("lista_actividades");
+			
+			
 			ArrayList<Actividad> arrayActs = getActividadesDeString(lista_actividades);
 			ArrayList<LearningPath> arrayLps = getLearningPathsDeString(lista_lps);
+			
+			
 			Profesor esteProfe = new Profesor(contrasenia, nombre, apellido, login, arrayLps, arrayActs);
 			listaProf.add(esteProfe);
 		}
@@ -680,8 +1095,7 @@ public ArrayList<String> getInfo(Actividad actividad) {
 		resultado = pstmt.executeQuery();
 		
 			while (resultado.next()) {
-				if(tipo.equals("TAREA")) {
-					
+				if(tipo.equals("TAREAS")) {
 					datos.add(resultado.getString("TITULO"));
 					datos.add(resultado.getString("OBJETIVO"));	
 					datos.add(resultado.getString("NIVEL"));
@@ -690,16 +1104,24 @@ public ArrayList<String> getInfo(Actividad actividad) {
 					datos.add( String.valueOf(resultado.getFloat("RATING")));
 					datos.add( String.valueOf(resultado.getFloat("TIEMPO_LIMITE")));
 					
-				}else if (tipo.equals("QUIZ")) {
+				}else if (tipo.equals("QUIZES")) {
+					datos.add(resultado.getString("TITULO"));
+					datos.add(resultado.getString("OBJETIVO"));	
+					datos.add(resultado.getString("NIVEL"));
+					datos.add(resultado.getString("PREREQUISITO"));
+					datos.add(resultado.getString("SUGERIDO"));
+					datos.add( String.valueOf(resultado.getFloat("RATING")));
+					datos.add( String.valueOf(resultado.getFloat("TIEMPO_LIMITE")));
+					//datos.add(resultado.getFloat("NOTAMINIMA"));
 					
 					
-				}else if (tipo.equals("EXAMEN")) {
+				}else if (tipo.equals("EXAMENES")) {
 					
 					
-				}else if (tipo.equals("RECURSO")) {
+				}else if (tipo.equals("RECURSOS")) {
 					
 					
-				}else if (tipo.equals("ENCUESTA")) {
+				}else if (tipo.equals("ENCUESTAS")) {
 					
 					
 				}

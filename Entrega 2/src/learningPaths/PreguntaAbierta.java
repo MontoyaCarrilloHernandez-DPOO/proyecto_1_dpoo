@@ -1,7 +1,7 @@
 package learningPaths;
 
 public class PreguntaAbierta {
-	private String respuestaGuia;
+	public String respuestaGuia;
 	public String enunciado;
 	
 	public PreguntaAbierta(String respuestaGuia, String eneunciado) {

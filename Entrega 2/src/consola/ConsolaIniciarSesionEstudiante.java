@@ -1,6 +1,7 @@
 package consola;
 
 import usuarios.Estudiante;
+import usuarios.Profesor;
 import learningPaths.LearningPath;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -100,13 +101,37 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 			
 			estudiante.enroll(miLP);
 			
+			modificarDatos.cambiarDatosLP(miLP);
+			ArrayList<Profesor> misprof = sistema.listaProfesores;
+			Profesor miProfLP = null;
+			for (Profesor p : misprof) {
+				if (p.login.equals(miLP.propietario)) {
+					miProfLP = p;
+				}
+			}
+			modificarDatos.cambiarDatosProfesor(miProfLP);
+			
         }
         else if( opcionSeleccionada == 2 )
         {
+        	LearningPath lpActual = estudiante.actualLearningPath;
+        	lpActual.quitarEstudiantes(estudiante);
+        	modificarDatos.cambiarDatosLP(lpActual);
+        	
         	estudiante.unenroll();
+        	
         	Progreso prog = new Progreso(null, estudiante.login);
-        	modificarDatos.cambiarDatosEstudiante(this.estudiante.login, this.estudiante.getHistorialLearningPaths(), this.estudiante.actualLearningPath, this.estudiante.actualActividad, this.estudiante.respuestas, this.estudiante.progreso);
         	modificarDatos.cambiarDatosProgreso(prog);
+			
+			
+			ArrayList<Profesor> misprof = sistema.listaProfesores;
+			Profesor miProfLP = null;
+			for (Profesor p : misprof) {
+				if (p.login.equals(lpActual.propietario)) {
+					miProfLP = p;
+				}
+			}
+			modificarDatos.cambiarDatosProfesor(miProfLP);
         	
         }
         else if( opcionSeleccionada == 3 )

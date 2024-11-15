@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import consola.ConsolaCrearActividades;
 import persistencia.Controlador;
 import persistencia.RecogerDatos;
+import usuarios.Estudiante;
 import usuarios.Profesor;
 import learningPaths.LearningPath;
 import learningPaths.*;
@@ -40,9 +41,17 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
     	} else {
     		System.out.println("Inicio de sesión correcto");
     		
+    		for (Profesor prof : sistema.listaProfesores) {
+    			if (prof.login.equals(login)) {
+    				this.profesor = prof;
+    			}
+    		}
+    		/**
     		ArrayList<LearningPath> LearningPaths = datos.getLearningPathsDeString(DBLearningPaths);
     		ArrayList<Actividad> actividades = datos.getActividadesDeString(DBActividades);
     		this.profesor = new Profesor(contrasenia, nombre, apellido, login,LearningPaths, actividades);
+    		**/
+    		
     		mostrarMenuProfesor();
     		
     	}

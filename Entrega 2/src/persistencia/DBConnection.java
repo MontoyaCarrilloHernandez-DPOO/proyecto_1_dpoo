@@ -30,6 +30,7 @@ public class DBConnection {
 		crearTablaPreguntaAbierta();
 		crearTablaPreguntaCerrada();
 		crearTablaProceso();
+		crearTablaPreguntaRespuesta();
 		
 	}
 	
@@ -60,9 +61,10 @@ public class DBConnection {
 						+ "historial_lp varchar(1000), \n"
 						+ "lp_actual varchar(50), \n"
 						+ "actividad_actual varchar(50), \n"
-						+ "progreso float \n"
+						+ "progreso float, \n"
+						+ "respuestas varchar(100) \n"
 						+ ")");
-				//preguntas y respuestas? ayuda 
+				
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -109,7 +111,8 @@ public class DBConnection {
 						+ "nombre varchar(50), \n"
 						+ "apellido varchar(50), \n"
 						+ "lista_lps varchar(1000), \n"
-						+ "lista_actividades varchar(1000) \n"
+						+ "lista_actividades varchar(1000), \n"
+						+ "lista_estudiantes varchar(1000) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -194,9 +197,7 @@ public class DBConnection {
 						+ "tiempoLimite float, \n"
 						+ "completado boolean, \n"
 						+ "enviado boolean, \n"
-						+ "preguntas varchar(50), \n"
-						+ "enunciado varchar(50), \n"
-						+ "respuestaGuia varchar(50) \n"
+						+ "preguntas varchar(50) \n"
 						+ ")");
 			}
 		} catch (SQLException e) {
@@ -328,7 +329,7 @@ public class DBConnection {
 				System.out.println("La tabla " + NOMBRE_TABLA + " ya existe. Todo listo");
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
-						+ "id int GENERATED ALWAYS AS IDENTITY primary key, \n"
+						+ "id int primary key GENERATED ALWAYS AS IDENTITY(Start with 1, Increment by 1), \n"
 						+ "enunciado varchar(500), \n"
 						+ "respuestaGuia varchar(500) \n"
 						+ ")");
@@ -349,6 +350,7 @@ public class DBConnection {
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
 						+ "id int GENERATED ALWAYS AS IDENTITY primary key, \n"
+						+ "respuestaCorrecta varchar(500), \n"
 						+ "justificacion varchar(500), \n"
 						+ "enunciado varchar(500), \n"
 						+ "opcionA varchar(500), \n"
@@ -363,8 +365,8 @@ public class DBConnection {
 		}
 	}
 	
-	void crearTablaPregunta(){
-		String NOMBRE_TABLA = "PREGUNTAS_CERRADAS";
+	void crearTablaPreguntaRespuesta(){
+		String NOMBRE_TABLA = "RESPUESTAS_PREGUNTAS";
 		try {
 			stmt = conn.createStatement();
 			DatabaseMetaData dbm = conn.getMetaData();
@@ -374,12 +376,11 @@ public class DBConnection {
 			} else {
 				stmt.execute("CREATE TABLE " + NOMBRE_TABLA + " ("
 						+ "id int GENERATED ALWAYS AS IDENTITY primary key, \n"
-						+ "justificacion varchar(500), \n"
-						+ "enunciado varchar(500), \n"
-						+ "opcionA varchar(500), \n"
-						+ "opcionB varchar(500), \n"
-						+ "opcionC varchar(500), \n"
-						+ "opcionD varchar(500) \n"
+						+ "login varchar(500), \n"
+						+ "actividad varchar(500), \n"
+						+ "pregunta varchar(500), \n"
+						+ "respuesta varchar(500), \n"
+						+ "correcto boolean \n"
 						+ ")");
 			}
 		} catch (SQLException e) {

@@ -1,13 +1,20 @@
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Fri Nov 15 08:25:13 COT 2024:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-0193-2fff-ca55-00000e75d7c8 
 on database directory C:\Users\samue\OneDrive\Universidad\Tercer semestre\DPOO\Proyecto 1\proyecto_1_dpoo\Entrega 2\Proyecto1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4cb2c100 
 Loaded from file:/C:/Users/samue/OneDrive/Universidad/Tercer%20semestre/DPOO/Proyecto%201/proyecto_1_dpoo/Entrega%202/src/lib/derby.jar
+=======
+Fri Nov 15 07:49:14 COT 2024:
+ Iniciando instancia a816c00e-0193-2fde-daf5-000010e02850 de Derby, versión The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): 
+en el directorio de base de datos C:\Users\LENOVO\OneDrive - Universidad de los andes\Documentos\GitHub\proyecto_1_dpoo\Entrega 2\proyecto1 con el cargador de clases jdk.internal.loader.ClassLoaders$AppClassLoader@68837a77
+Cargado desde file:/C:/Users/LENOVO/OneDrive%20-%20Universidad%20de%20los%20andes/Documentos/GitHub/proyecto_1_dpoo/Entrega%202/src/lib/derby.jar
+>>>>>>> 0adc19b3a965a2c0a94e47a0b4eace5b4824a47e
 java.vendor=Eclipse Adoptium
 java.runtime.version=22.0.2+9
-user.dir=C:\Users\samue\OneDrive\Universidad\Tercer semestre\DPOO\Proyecto 1\proyecto_1_dpoo\Entrega 2
+user.dir=C:\Users\LENOVO\OneDrive - Universidad de los andes\Documentos\GitHub\proyecto_1_dpoo\Entrega 2
 os.name=Windows 11
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
+Cargador de clases de base de datos iniciado - derby.database.classpath=''

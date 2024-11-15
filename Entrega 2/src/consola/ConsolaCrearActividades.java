@@ -81,12 +81,13 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					
 					PreguntaCerrada nuevaPregunta = crearPreguntaCerrada(respuestaCorrecta, justificacion, enunciado,opcionA,
 							opcionB, opcionC, opcionD);
+					sistema.crearPreguntaCerrada(nuevaPregunta);
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
-				
 				Quiz miQuiz= new Quiz(notaMinima, notaObtenida, false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
-				profesor.actividades.add(miQuiz);
+				
+				profesor.anadirActs(miQuiz);
 				sistema.crearQuiz(miQuiz);
 				modificarDatos.cambiarDatosProfesor(profesor);
 				
@@ -123,9 +124,10 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				int rating = 5;
 				float tiempoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				String tipo = pedirCadena("Ingrese el tipo del recurso");
+				
 				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false,tipo);
-				profesor.actividades.add(miRecurso);
 				sistema.crearRecurso(miRecurso);
+				profesor.actividades.add(miRecurso);	
 				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
@@ -159,7 +161,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				int rating = 5;
 				float timepoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				boolean estado = false;
-				Tarea miTarea = new Tarea(false, estado, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, timepoLimite, rating, false);
+				Tarea miTarea = new Tarea(estado, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, timepoLimite, rating, false);
 				profesor.actividades.add(miTarea);
 				sistema.crearTarea(miTarea);
 				modificarDatos.cambiarDatosProfesor(profesor);
@@ -206,6 +208,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					String enunciado = pedirCadena("Ingresa el enunciado de la pregunta");
 					String respuestaGuia = pedirCadena("Ingresa la respuesta guia para calificar");
 					PreguntaAbierta nuevaPregunta = crearPreguntaAbierta(enunciado, respuestaGuia);
+					sistema.crearPreguntaAbierta(nuevaPregunta);
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
@@ -252,6 +255,7 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					String enunciado = pedirCadena("Ingresa el enunciado de la pregunta");
 					String respuestaGuia = pedirCadena("Ingresa la respuesta guia para calificar");
 					PreguntaAbierta nuevaPregunta = crearPreguntaAbierta(enunciado, respuestaGuia);
+					sistema.crearPreguntaAbierta(nuevaPregunta);
 					preguntas.add(nuevaPregunta);
 					j+=1;
 				}
@@ -297,6 +301,8 @@ public void mostrarOpcionesLP() throws SQLException{
 				sistema.crearLearningPath(miLP);
 				profesor.crearLearningPath(Actividades, titulo, descripcion, objetivo, metadatos, duracion, dificultad,5);
 				
+				modificarDatos.cambiarDatosProfesor(profesor);
+				
 				
 			}
 			//Duplicar
@@ -320,6 +326,7 @@ public void mostrarOpcionesLP() throws SQLException{
 				}
 				this.profesor.duplicarLP(miLP);
 				sistema.crearLearningPath(miLP);
+				modificarDatos.cambiarDatosProfesor(profesor);
 								
 			}
 			else if(opcionSeleccionada == 3) {

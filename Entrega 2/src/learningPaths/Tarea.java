@@ -19,7 +19,7 @@ public class Tarea extends Actividad{
 	public boolean completado;
 
 	
-	public Tarea(boolean enviado, boolean estado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
+	public Tarea(boolean estado,String objetivo,String titulo, String nivel, Actividad prerequisistos, Actividad sugeridos,
 			String resenias, float tiempoLimite, double rating, boolean completado) {
 		//actividad
 		super(objetivo, titulo, nivel, prerequisistos, sugeridos, resenias, tiempoLimite, rating, completado);

@@ -1,8 +1,8 @@
 package learningPaths;
 
 public class PreguntaCerrada {
-	private String respuestaCorrecta;
-	private String justificacion;
+	public String respuestaCorrecta;
+	public String justificacion;
 	public String enunciado;
 	public String opcionA;
 	public String opcionB;

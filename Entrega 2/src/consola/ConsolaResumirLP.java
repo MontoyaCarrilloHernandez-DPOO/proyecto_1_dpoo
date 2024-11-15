@@ -4,7 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import learningPaths.Actividad;
+import learningPaths.Encuesta;
+import learningPaths.Examen;
 import learningPaths.LearningPath;
+import learningPaths.Quiz;
+import learningPaths.Recurso;
+import learningPaths.Tarea;
 import persistencia.Controlador;
 import persistencia.RecogerDatos;
 import usuarios.Estudiante;
@@ -37,8 +42,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
             		
             		LearningPath lp = miEstudiante.actualLearningPath;
             		ArrayList<Actividad> actividades = miEstudiante.progreso.getActividadesIncompletas();
-            		
-            		//Las actividades estan saliendo nulas :(       		
+            		 		
             		int i = 1;
             		for(Actividad act : actividades) {
             			System.out.println("\n"+i+". Titulo: "+act.getTitulo()+" - Objetivo: "+act.getObjetivo() + "\n");
@@ -49,36 +53,45 @@ public class ConsolaResumirLP extends ConsolaBasica {
             		
             		for (Actividad act : actividades) {
 						if (act.getTitulo().equals(actual) && miEstudiante.verificarActividadEnLP(act)) {
-							miEstudiante.comenzarActividad(act);
-							Actividad actividad = losDatos.getActividadDeString(actual);
-							String tipo = losDatos.getTipo(actividad);
-							System.out.println("Esta actividad es de tipo "+ tipo);
-							
 							Actividad estaActividad = act;
 							
-							if(tipo.equals("TAREA")) {
-
+							miEstudiante.comenzarActividad(estaActividad);
+							String tipo = losDatos.getTipo(estaActividad);
+							System.out.println("Esta actividad es de tipo "+ tipo);
+							System.out.println("Titulo: "+ estaActividad.titulo);
+							System.out.println("Objetivo: "+ estaActividad.objetivo);
+							System.out.println("Nivel: "+ estaActividad.nivel);
+							System.out.println("Tiempo limite : "+ estaActividad.tiempoLimite);
+							
+							
+							if(tipo.equals("TAREAS")) {
+								Tarea miTarea = (Tarea) estaActividad;
+								  
+								//seguir modificando
 								
-							}else if (tipo.equals("QUIZ")) {
+								
+							}else if (tipo.equals("QUIZES")) {
+								Quiz miQuiz = (Quiz) estaActividad;
+								
+							}else if (tipo.equals("EXAMENES")) {
+								Examen miExamen = (Examen) estaActividad;
 								
 								
-							}else if (tipo.equals("EXAMEN")) {
+							}else if (tipo.equals("RECURSOS")) {
+								Recurso miRecurso = (Recurso) estaActividad;
+								System.out.println("Tipo de recurso: "+ miRecurso.tipo);
+								System.out.println("Disfruta del recurso!");
 								
-								
-							}else if (tipo.equals("RECURSO")) {
-								
-								
-							}else if (tipo.equals("ENCUESTA")) {
-								
+							}else if (tipo.equals("ENCUESTAS")) {
+								Encuesta miEncuesta = (Encuesta) estaActividad;
 								
 							}
 							
 							//modificiar
-							String cadena = pedirCadena("Ingresa 1 cuando termines la actividad");
-							if (cadena.equals("1")) {
-								miEstudiante.terminarActividad();
+							System.out.println("Actividad terminada");
+							miEstudiante.terminarActividad();
 							}
-							}
+							
 						}
 					}
             	else {
