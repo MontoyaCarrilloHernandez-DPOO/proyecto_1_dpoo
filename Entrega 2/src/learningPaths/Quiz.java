@@ -58,18 +58,11 @@ public class Quiz extends Actividad{
 		}	
 	}
 	
-	public String getEnunciados(ArrayList<PreguntaCerrada> preguntas) {
-		String enunciado = "";
-		for (PreguntaCerrada pregunta:preguntas) {
-			enunciado += pregunta.getEnunciado();
-			enunciado += "\n \n \n";
-		}
-		return enunciado;
-	}
+
 	public String getEnunciadoPreguntas() {
 		String enunciado = "";
-		for(PreguntaCerrada pregunta:this.preguntas) {
-			enunciado +=  pregunta.getEnunciado() + ",";
+		for(PreguntaCerrada pregunta:preguntas) {
+			enunciado +=  pregunta.getEnunciado()+", ";
 		}
 		return enunciado;
 	}

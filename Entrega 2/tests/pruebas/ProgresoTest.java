@@ -80,15 +80,15 @@ public class ProgresoTest {
 	}
 	@Test
     void testGetActividadesIncompletas() {
-    assertNull(progreso1.getActividadesIncompletas());    
+    assertEquals(3,progreso1.getActividadesIncompletas().size());    
     }
 	@Test
     void testGetEstudiante() {
-    assertNull(progreso1.getEstudiante());    
+	    assertEquals("Samuel Montoya",progreso1.getEstudiante(),"El estudiante no es el mismo");    
     }
 	@Test
     void testCalcularProgreso() {
-    assertNull(progreso1.calcularProgreso());    
+    assertEquals(0.0, progreso1.calcularProgreso(),"El progreso no es el correcto");    
     }
 }
 

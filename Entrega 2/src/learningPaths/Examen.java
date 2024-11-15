@@ -86,7 +86,7 @@ public class Examen extends Actividad {
 		String enunciado = "";
 		for (PreguntaAbierta pregunta:preguntas) {
 			enunciado += pregunta.getRespuestaGuia();
-			enunciado += ",";
+			enunciado += ", ";
 		}
 		return enunciado;
 	}
