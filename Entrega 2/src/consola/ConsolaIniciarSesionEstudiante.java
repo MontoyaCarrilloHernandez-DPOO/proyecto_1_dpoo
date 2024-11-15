@@ -107,9 +107,10 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 			for (Profesor p : misprof) {
 				if (p.login.equals(miLP.propietario)) {
 					miProfLP = p;
+					modificarDatos.cambiarDatosProfesor(miProfLP);
 				}
 			}
-			modificarDatos.cambiarDatosProfesor(miProfLP);
+			
 			
         }
         else if( opcionSeleccionada == 2 )

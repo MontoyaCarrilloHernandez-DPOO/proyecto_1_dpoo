@@ -628,7 +628,7 @@ public Actividad getActividadDeString(String cadena){
 					resultado1 = pstmt1.executeQuery();
 					boolean estado = false;
 					if (resultado1.next()) {
-						estado = resultado.getBoolean("estado");
+						estado = resultado1.getBoolean("estado");
 					}
 					
 					estaAct = new Tarea(estado, objetivo, titulo, nivel, elPrerequisito , elSugerido, lista_resenias, tiempoLimite, rating, completado);
@@ -922,9 +922,8 @@ try {
 				esteEstudiante.historialLearningPaths = getLearningPathsDeString(historial_lp);
 			}
 			
-			if (progreso != 0) {
-				esteEstudiante.progreso = getProgreso(login);
-			}
+			esteEstudiante.progreso = getProgreso(login);
+			
 			
 			if (respuestas != null || respuestas != "") {
 				esteEstudiante.respuestas = getRespuestas(login);
@@ -1061,13 +1060,15 @@ public String getTipo(Actividad actividad) {
 	String tipo = null;
 	try {
 		Connection con = DriverManager.getConnection(JDBC_URL);
-		String qu2 = "SELECT TIPO FROM ACTIVIDADES WHERE TITULO=?";
+		String qu2 = "SELECT * FROM ACTIVIDADES WHERE titulo=?";
 		PreparedStatement pstmt2 = con.prepareStatement(qu2);
 		pstmt2.setString(1, actividad.getTitulo());
 		resultado = pstmt2.executeQuery();
-		tipo = resultado.getString("TIPO");	
-			
-			resultado.close();
+		
+		
+			if (resultado.next()) {
+				tipo = resultado.getString("tipo");	
+		resultado.close();}
 		
 		} catch(SQLException e) {
 			e.printStackTrace();

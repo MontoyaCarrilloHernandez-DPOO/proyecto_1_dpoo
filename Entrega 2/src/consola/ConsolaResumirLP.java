@@ -52,8 +52,10 @@ public class ConsolaResumirLP extends ConsolaBasica {
             		String actual = pedirCadena("Ingresa el titulo de la actividad que quieres empezar");
             		
             		for (Actividad act : actividades) {
-						if (act.getTitulo().equals(actual) && miEstudiante.verificarActividadEnLP(act)) {
+            			//if (act.getTitulo().equals(actual) )&& miEstudiante.verificarActividadEnLP(act)
+						if (act.getTitulo().equals(actual) ) {
 							Actividad estaActividad = act;
+							estaActividad.getClass();
 							
 							miEstudiante.comenzarActividad(estaActividad);
 							String tipo = losDatos.getTipo(estaActividad);
