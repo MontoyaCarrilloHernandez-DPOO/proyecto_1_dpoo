@@ -118,10 +118,10 @@ public class ModificarDatos {
 					}
 				}
 			}}
-			
+			if (listaAct != null) {
 			for (Actividad actividad : listaAct) {
 				listaIdAct += actividad.titulo + ",";
-			}
+			}}
 			
 			if (!(listaEstu.isEmpty())){
 				for (Estudiante es : listaEstu) {

@@ -86,9 +86,11 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 					j+=1;
 				}
 				Quiz miQuiz= new Quiz(notaMinima, notaObtenida, false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
-				profesor.actividades.add(miQuiz);
+				
+				this.profesor.anadirActs(miQuiz);
+				
 				sistema.crearQuiz(miQuiz);
-				modificarDatos.cambiarDatosProfesor(profesor);
+				modificarDatos.cambiarDatosProfesor(this.profesor);
 				
 			}
 			//Recurso 
@@ -125,6 +127,8 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				String tipo = pedirCadena("Ingrese el tipo del recurso");
 				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false,tipo);
 				profesor.actividades.add(miRecurso);
+				
+				
 				sistema.crearRecurso(miRecurso);
 				modificarDatos.cambiarDatosProfesor(profesor);
 				

@@ -15,13 +15,25 @@ public class Profesor extends Usuario{
 	public Profesor(String contrasenia, String nombre, String apellido, String login,ArrayList<LearningPath> learningPaths,ArrayList<Actividad> actividades) {	
 		
 		super(contrasenia, nombre, apellido, login);
-		if (actividades==null){
+		
+		if (actividades==null ){
+			this.actividades = new ArrayList<Actividad>();
+		}
+		else if (actividades.isEmpty()) {
 			this.actividades = new ArrayList<Actividad>();
 		}
 		else {
 			this.actividades = actividades;
 		}
-		this.learningPaths = learningPaths;
+		
+		if (learningPaths == null) {
+			this.learningPaths = new ArrayList<LearningPath>();
+		}
+		else if (learningPaths.isEmpty()) {
+			this.learningPaths = new ArrayList<LearningPath>();
+		}
+		else {
+		this.learningPaths = learningPaths;}
 
 		
 	}
@@ -36,9 +48,6 @@ public class Profesor extends Usuario{
 		
 		LearningPath lp = new LearningPath(this.nombre,titulo ,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades, null );
 		
-		if (this.learningPaths == null) {
-			this.learningPaths = new ArrayList<LearningPath>();
-		}
 		
 		this.learningPaths.addLast(lp);
 		

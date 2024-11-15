@@ -1000,6 +1000,8 @@ try {
 			
 			ArrayList<Actividad> arrayActs = getActividadesDeString(lista_actividades);
 			ArrayList<LearningPath> arrayLps = getLearningPathsDeString(lista_lps);
+			
+			
 			Profesor esteProfe = new Profesor(contrasenia, nombre, apellido, login, arrayLps, arrayActs);
 			listaProf.add(esteProfe);
 		}
