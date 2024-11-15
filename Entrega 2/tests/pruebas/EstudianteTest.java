@@ -147,7 +147,7 @@ public class EstudianteTest {
 	
 	@Test
 	public void testResponder() {
-		est1.responder("respuesta", pregunta);
+		est1.responder("respuesta", 1);
 		assertEquals(respuestas, est1.getRespuestas(), "Las respuestas no son correctas");
 	}
 	

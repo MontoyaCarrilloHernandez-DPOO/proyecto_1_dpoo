@@ -2,7 +2,7 @@ package usuarios;
 
 import learningPaths.Actividad;
 
-public abstract class Usuario {
+public class Usuario {
 	public String contrasenia;
 	public String nombre;
 	public String apellido;
