@@ -2,6 +2,7 @@ package usuarios;
 import learningPaths.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
@@ -62,9 +63,17 @@ public class Profesor extends Usuario{
 		}
 		return null;
 	}
-	public void calificar() {
+	
+	public void calificar(Estudiante estudiante) {
+		HashMap<Integer,String> respuestas = estudiante.getRespuestas();
+		for (Integer id:respuestas.keySet()) {
+			
+		}
+		}
 		
-	}
+		
+		
+	
 	public void duplicarLP(LearningPath lp) throws SQLException {
 		crearLearningPath(lp.getActividades(),lp.getTitulo()+"."+this.nombre,lp.getDescripcion(),lp.getObjetivo(),lp.getMetadatos(),lp.getDuracion(),lp.getDificultad(),lp.getRating());	
 	}
