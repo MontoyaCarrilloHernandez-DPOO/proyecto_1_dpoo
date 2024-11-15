@@ -77,7 +77,7 @@ public class Profesor extends Usuario{
 	}
 	
 	public void anadirActs(Actividad act) {
-		this.actividades.add(act);
+		this.actividades.addLast(act);
 	}
 	
 	

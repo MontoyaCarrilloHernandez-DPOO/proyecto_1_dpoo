@@ -140,6 +140,7 @@ public class RecogerDatos {
 			String[] lpArray = cadena.split(",");
 			
 			for ( String titulo : lpArray) {
+				LearningPath esteLP = null;
 				String qu = "SELECT * FROM LEARNING_PATHS WHERE titulo = ?";
 				ArrayList<Actividad> arrayActividades = new ArrayList<Actividad>(); 
 				ArrayList<Estudiante> arrayEstudiantes = new ArrayList<Estudiante>(); 
@@ -169,11 +170,13 @@ public class RecogerDatos {
 					
 					arrayActividades = getActividadesDeString(actividades); 
 					arrayEstudiantes = getEstudiantesDeString(estudiantes); 
+					
+					esteLP = new LearningPath(propietario, titulo, duracion, dificultad, rating, descripcion, objetivo, metadatos, arrayActividades, arrayEstudiantes);
 				}
 				
 				resultado.close();
-				LearningPath esteLP = new LearningPath(propietario, titulo, duracion, dificultad, rating, descripcion, objetivo, metadatos, arrayActividades, arrayEstudiantes);
-				listaLP.add(esteLP);
+				if (esteLP!=null) {
+				listaLP.add(esteLP);}
 			}
 			
 			} catch(SQLException e) {
@@ -305,7 +308,8 @@ public ArrayList<Actividad> getActividadesDeString(String cadena){
 					
 				}
 				resultado.close();
-				listaAct.add(estaAct);
+				if (estaAct != null) {
+				listaAct.add(estaAct);}
 			}
 			
 			} catch(SQLException e) {

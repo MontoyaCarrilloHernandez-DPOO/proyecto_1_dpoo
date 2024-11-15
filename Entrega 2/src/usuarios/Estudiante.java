@@ -88,7 +88,7 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void comenzarActividad(Actividad actividad) {
-		if(actualActividad.equals(null)&& verificarActividadEnLP(actividad)==true) {
+		if(actualActividad == null&& verificarActividadEnLP(actividad)==true) {
 			this.actualActividad = actividad;
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);

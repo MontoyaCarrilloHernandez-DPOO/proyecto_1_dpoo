@@ -87,10 +87,9 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				}
 				Quiz miQuiz= new Quiz(notaMinima, notaObtenida, false, preguntas, objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false);
 				
-				this.profesor.anadirActs(miQuiz);
-				
+				profesor.anadirActs(miQuiz);
 				sistema.crearQuiz(miQuiz);
-				modificarDatos.cambiarDatosProfesor(this.profesor);
+				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
 			//Recurso 
@@ -125,11 +124,10 @@ public class ConsolaCrearActividades extends ConsolaBasica {
 				int rating = 5;
 				float tiempoLimite = (float) pedirNumero("Ingrese el tiempo limite con formato hhmm");
 				String tipo = pedirCadena("Ingrese el tipo del recurso");
+				
 				Recurso miRecurso= new Recurso(objetivo, titulo, nivel, miPrerequisito, miSugerido, resenias, tiempoLimite, rating, false,tipo);
-				profesor.actividades.add(miRecurso);
-				
-				
 				sistema.crearRecurso(miRecurso);
+				profesor.actividades.add(miRecurso);	
 				modificarDatos.cambiarDatosProfesor(profesor);
 				
 			}
