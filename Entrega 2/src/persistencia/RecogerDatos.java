@@ -519,7 +519,7 @@ public ArrayList<PreguntaAbierta> getPreguntasAbiertasDeString(String preguntasS
 	
 }
 
-public ArrayList<PreguntaAbierta> getPreguntasAbiertasDeID(String preguntasString) {
+public ArrayList<PreguntaAbierta> getRespuestasAbiertasDeID(Integer idPregunta) {
 	ArrayList<PreguntaAbierta> misPreguntas = new ArrayList<PreguntaAbierta>();
 	ResultSet resultado;
 	return misPreguntas;

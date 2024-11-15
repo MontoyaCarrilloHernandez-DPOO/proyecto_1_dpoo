@@ -1,6 +1,8 @@
 package pruebas;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,10 +45,6 @@ public class ProfesorTest {
 		est3 = new Estudiante("1234","Antonio","Robinson","antoto");
 		ests = new ArrayList<Estudiante>();
 		
-		ests.addLast(est1);
-		ests.addLast(est2);
-		ests.addLast(est3);
-		
 		act_sugerida = new Actividad("TI en las org","TI","Bajo",null,null,"muy buena",5,3.2,false);
 		act_prerrequisito = new Actividad("Aprender IP","IP","Bajo",null,null,"muy buena",5,3.2,false);
 		act1 = new Actividad("Aprender EDA","EDA Act", "Medio", act_prerrequisito, act_sugerida, "Muy buena", 5, 3.2, false);
@@ -88,7 +86,7 @@ public class ProfesorTest {
 	
 	@Test
 	public void testGetEstudiantesAsociados() {
-		assertNull(profesor.getEstudiantesAsociados(lp1), "Los estudiantes asociados no son correctos");
+		assertEquals(ests, profesor.getEstudiantesAsociados(lp1), "Los estudiantes asociados no son correctos");
     }
 	
 	
