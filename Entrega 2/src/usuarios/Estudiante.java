@@ -84,7 +84,8 @@ public class Estudiante extends Usuario{
 		if(lp.getActividades().contains(actividad)) {
 			return true;
 		}
-		return false;
+		else {
+		return false;}
 	}
 	
 	public void comenzarActividad(Actividad actividad) {
