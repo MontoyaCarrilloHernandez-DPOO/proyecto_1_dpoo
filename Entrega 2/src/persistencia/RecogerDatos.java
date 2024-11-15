@@ -519,6 +519,12 @@ public ArrayList<PreguntaAbierta> getPreguntasAbiertasDeString(String preguntasS
 	
 }
 
+public ArrayList<PreguntaAbierta> getPreguntasAbiertasDeID(String preguntasString) {
+	ArrayList<PreguntaAbierta> misPreguntas = new ArrayList<PreguntaAbierta>();
+	ResultSet resultado;
+	return misPreguntas;
+}
+
 public String getIdStringPreguntaAbierta(ArrayList<PreguntaAbierta> preguntas) {
 	String idPreguntas = "";
 	ResultSet resultado;
