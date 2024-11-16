@@ -72,7 +72,7 @@ public abstract class ConsolaBasica
     }
     
 
-    protected double pedirNumero( String mensaje )
+    public double pedirNumero( String mensaje )
     {
         double valorResultado = Integer.MIN_VALUE;
         while( valorResultado == Integer.MIN_VALUE )
@@ -160,40 +160,5 @@ public abstract class ConsolaBasica
             return mostrarMenu( nombreMenu, opciones );
         }
     }
-
-    // TODO Esto se usaría para ver los estados de los Learning Paths, listado de estudiantes para el profesdor, etc.
-    /**
-    protected void mostrarEstadoActual( int cantidadSurtidores, Collection<TipoGasolina> tiposGasolina, String[] nombresEmpleados )
-    {
-        mostrarInformacionBasica( cantidadSurtidores, tiposGasolina );
-        System.out.println( "Los empleados son: " + Arrays.toString( nombresEmpleados ) );
-        System.out.println( "******************\n" );
-    }
-
-
-    protected void mostrarEstadoActual( int cantidadSurtidores, Collection<TipoGasolina> tiposGasolina, Collection<Empleado> empleados )
-    {
-        mostrarInformacionBasica( cantidadSurtidores, tiposGasolina );
-        System.out.println( "Los empleados son: " );
-        for( Empleado empleado : empleados )
-        {
-            System.out.println( "   - " + empleado.getNombre( ) + " tiene " + empleado.getCantidadDinero( ) + " pesos" );
-        }
-        System.out.println( "******************\n" );
-    }
-
-
-    private void mostrarInformacionBasica( int cantidadSurtidores, Collection<TipoGasolina> tiposGasolina )
-    {
-        System.out.println( "\n******************" );
-        System.out.println( "ESTADO ACTUAL" );
-        System.out.println( "La gasolinera tiene actualmente " + cantidadSurtidores + ( cantidadSurtidores > 1 ? " surtidores" : " surtidor" ) );
-        System.out.println( "Los tipos de gasolina disponible son:" );
-        for( TipoGasolina tipo : tiposGasolina )
-        {
-            String galonesDisponibles = String.format( "%.2f", tipo.getCantidadDisponible( ) );
-            System.out.println( "   - " + tipo.getNombre( ) + ": " + tipo.getPrecioPorGalon( ) + " por galón, " + galonesDisponibles + " galones disponibles" );
-        }
-    }
-     */
+    
 }

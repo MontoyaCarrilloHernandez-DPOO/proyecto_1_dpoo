@@ -63,7 +63,7 @@ public class Examen extends Actividad {
 	}
 
 
-	protected void setNotaObtenida(float notaObtenida) {
+	public void setNotaObtenida(float notaObtenida) {
 		this.notaObtenida = notaObtenida;
 	}
 

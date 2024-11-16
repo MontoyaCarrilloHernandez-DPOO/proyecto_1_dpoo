@@ -537,7 +537,7 @@ public PreguntaAbierta getPreguntaAbiertasDeID(Integer idPregunta) {
 			resultado.close();
 			
 			String respuestaGuia=null;
-			String qu1 = "SELECT * FROM PREGUNTAS_ABIERTAS WHERE enunciado = ?";
+			String qu1 = "SELECT * FROM PREGUNTAS_ABIERTAS WHERE  = ?";
 			PreparedStatement pstmt1 = con.prepareStatement(qu);
 		    pstmt.setString(1, miPregunta);
 			resultado1 = pstmt1.executeQuery();
@@ -551,6 +551,77 @@ public PreguntaAbierta getPreguntaAbiertasDeID(Integer idPregunta) {
 			e.printStackTrace();
 		}
 	return miPreguntaAbierta;
+}
+
+public HashMap<String,String> getPreguntaRespuesta(Estudiante est, String nombreExamen) {
+	HashMap<String,String> pyr = new HashMap<String,String>();
+	ResultSet resultado;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String qu = "SELECT * FROM RESPUESTAS_PREGUNTAS WHERE LOGIN = ? and ACTIVIDAD = ?";
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		pstmt.setString(1, est.getLogin());
+		pstmt.setString(2, nombreExamen);
+		resultado = pstmt.executeQuery();
+		while (resultado.next()) {
+			pyr.put(resultado.getString("PREGUNTA"),resultado.getString("RESPUESTA"));
+		}
+		resultado.close();
+		
+	} catch(SQLException e) {
+		e.printStackTrace();
+	}
+	return pyr;
+	
+}
+
+public ArrayList<Integer> getIDdeRTA (Estudiante est, String nombreExamen) {
+	ArrayList<Integer> ids = new ArrayList<Integer>();
+	ResultSet resultado;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String qu = "SELECT * FROM RESPUESTAS_PREGUNTAS WHERE LOGIN = ? and ACTIVIDAD = ?";
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		pstmt.setString(1, est.getLogin());
+		pstmt.setString(2, nombreExamen);
+		resultado = pstmt.executeQuery();
+		while (resultado.next()) {
+			ids.addLast(resultado.getInt("ID"));;
+		}
+		resultado.close();
+		
+	} catch(SQLException e) {
+		e.printStackTrace();
+	}
+	return ids;
+	
+}
+
+
+public ArrayList<String> getListaExamenes(Estudiante estudiante) {
+	ArrayList<String> examenes = new ArrayList<String>();
+	ResultSet resultado;
+	PreguntaAbierta miPreguntaAbierta = null;
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		String miExamen = null;
+		String qu = "SELECT * FROM RESPUESTAS_PREGUNTAS WHERE LOGIN = ?";
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		pstmt.setString(1, estudiante.getLogin());
+		resultado = pstmt.executeQuery();
+		while (resultado.next()) {
+			miExamen = resultado.getString("actividad");
+			if(!examenes.contains(miExamen)) {
+				examenes.addLast(miExamen);
+			}
+		}
+		
+		resultado.close();
+				
+	} catch(SQLException e) {
+		e.printStackTrace();
+	}
+	return examenes;
 }
 
 public String getIdStringPreguntaAbierta(ArrayList<PreguntaAbierta> preguntas) {

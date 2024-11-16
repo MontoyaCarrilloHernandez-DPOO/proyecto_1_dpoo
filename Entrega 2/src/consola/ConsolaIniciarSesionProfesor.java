@@ -1,8 +1,11 @@
 package consola;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import consola.ConsolaCrearActividades;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
 import persistencia.RecogerDatos;
 import usuarios.Estudiante;
 import usuarios.Profesor;
@@ -13,6 +16,8 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
 	private final String[] opcionesMenuProfesor = new String[]{ "Crear un Learning Path", "Crear actividad", "Calificar estudiantes", "Salir" };
 	private Controlador sistema;
 	private Profesor profesor;
+	private RecogerDatos recogerDatos = new RecogerDatos();
+	
 	
 	public ConsolaIniciarSesionProfesor (Controlador sistema) {
 		this.sistema= sistema;
@@ -70,8 +75,48 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
         }
         else if( opcionSeleccionada == 3 )
         {
-        	//TODO MIRAR COMO HACER LAS PREGUNTSAS Y CALIFICAR
+        	//escoger lp
+        	ArrayList<LearningPath> lps = profesor.getLearningPaths();
+        	int i = 1;
+        	for(LearningPath lp:lps) {
+        		System.out.println(i + ")"+lp.getTitulo());
+        		i++;
+        		
+        	}
+        int n = 	pedirEntero("Ingrese el numero del lp que quiere calificar");
+        LearningPath lp = lps.get(n-1);
+        ArrayList<Estudiante> estudiantes = lp.getEstudiantes();
+        int e = 1;
+        for (Estudiante estudiante: estudiantes) {
+        		System.out.println(e + ")"+estudiante.getNombre() +" "+ estudiante.getApellido()+":"+estudiante.getLogin());
+        		e++;
         }
+        int m = 	pedirEntero("Ingrese el numero de la lista de estudiantes que quiera calificar");
+        Estudiante estudianteE = estudiantes.get(m-1);
+        
+        ArrayList<String> examenes = recogerDatos.getListaExamenes(estudianteE);
+        
+        int p = 1;
+        for(String examen:examenes) {
+        	System.out.println(p+")"+examen);
+    		p++;
+        }
+        int h = 	pedirEntero("Ingrese el numero de la lista de examenes del estudiante:" + estudianteE.getLogin()+" que quiera calificar");
+        String examenE = examenes.get(p-1);
+        
+		HashMap<String,String> pyr = recogerDatos.getPreguntaRespuesta(estudianteE, examenE);
+		int o = 1;
+		for(String preg:pyr.keySet()) {
+			System.out.println(o+")"+preg+":"+pyr.get(preg));
+		
+        
+		}
+		float nota = (float) pedirNumero("Ingrese la nota del examen para este estudiante");
+		profesor.calificar(estudianteE, examenE, nota);
+		ModificarDatos modificarDatos = new ModificarDatos();
+		modificarDatos.cambiarDatosEstudiante(estudianteE.getLogin(), estudianteE.getHistorialLearningPaths(), estudianteE.getActualLearningPath(), estudianteE.getActualActividad(), estudianteE.getRespuestas(), estudianteE.getProgreso());
+		modificarDatos.cambiarDatosProgreso(estudianteE.getProgreso());
+		}
         
         else if( opcionSeleccionada == 4 )
         {

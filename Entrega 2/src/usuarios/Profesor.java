@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import consola.ConsolaBasica;
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import learningPaths.PreguntaAbierta;
@@ -65,18 +66,27 @@ public class Profesor extends Usuario{
 		return null;
 	}
 	
-	public void calificar(Estudiante estudiante) {
-		HashMap<Integer,String> respuestas = estudiante.getRespuestas();
+	public void calificar(Estudiante estudiante, String nombreExamen,float nota) {
 		
-		for (Integer id:respuestas.keySet()) {
-			RecogerDatos datos = new RecogerDatos();
-			PreguntaAbierta miPreg = datos.getPreguntaAbiertasDeID(id);
-			System.out.println("La pregunta era " + miPreg.enunciado);
-			System.out.println("La respuesta guía es " + miPreg.respuestaGuia);
-			System.out.println("La respuesta del estudiante es " + respuestas.get(id));
-			//Ahora el profesor la califica, dice si sí o no y sigue. Se debe modificar el progreso. Mirar si primero pued
-			//calificar actividades antes de estudiantes.
-		}
+		
+		RecogerDatos recogerDatos = new RecogerDatos();
+        ArrayList<Integer> ids = recogerDatos.getIDdeRTA(estudiante, nombreExamen);
+        for(Integer id : ids) {
+        	if(!estudiante.respuestas.get(id).equals(null)) {
+        		estudiante.respuestas.remove(id);
+        
+        	}
+        	Progreso progreso = estudiante.getProgreso();
+        	Examen examen = (Examen) recogerDatos.getActividadDeString(nombreExamen);
+        	examen.setNotaObtenida(nota);
+        	if(nota>= examen.getNotaMinima()) {
+        		progreso.anadirCompletasQuitarIncompleta(examen);
+        		estudiante.progreso = progreso;
+        	}
+        	
+        	}
+		
+		
 		}
 		
 		
