@@ -6,7 +6,7 @@ public class Quiz extends Actividad{
 	public float notaMinima;
 	public float notaObtenida;
 	public boolean exitoso;
-	private ArrayList<PreguntaCerrada> preguntas;
+	public ArrayList<PreguntaCerrada> preguntas;
 	public static final String tipo = "QUIZES";
 	//actividad
 	public String objetivo;

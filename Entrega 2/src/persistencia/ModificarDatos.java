@@ -53,7 +53,7 @@ public class ModificarDatos {
 			String misRtas = "";
 			if (respuestas != null) {
 			if (!(respuestas.isEmpty())) {
-				for (String rta : respuestas.values()) {
+				for (int rta : respuestas.keySet()) {
 					misRtas += rta + ",";
 				}
 			}
@@ -209,15 +209,17 @@ public void cambiarDatosProgreso(Progreso progreso){
 		String misActCompletas = "";
 		String misActIncompletas = "";
 		
-		if (progreso.getActividadesCompletas() != null) {
+		if (!progreso.getActividadesCompletas().isEmpty() || progreso.getActividadesCompletas() != null ) {
 		for (Actividad act : progreso.getActividadesCompletas()) {
-			misActCompletas+= act.titulo + ",";
+			if (act != null) {
+			misActCompletas+= act.titulo + ",";}
 		}
 		}
 		
-		if (progreso.getActividadesIncompletas() != null) {
+		if (!progreso.getActividadesIncompletas().isEmpty() || progreso.getActividadesCompletas() != null) {
 		for (Actividad act : progreso.getActividadesIncompletas()) {
-			misActIncompletas+= act.titulo + ",";
+			if (act != null) {
+			misActIncompletas+= act.titulo + ",";}
 		}
 		}
 		
@@ -251,6 +253,56 @@ public void cambiarDatosProgreso(Progreso progreso){
 			e.printStackTrace();
 		}
 }
+
+public void cambiarDatosActividad(Actividad act){
+	try {
+		Connection con = DriverManager.getConnection(JDBC_URL);
+		ResultSet resultado;
+		float ratingOriginal = 0;
+		String reseniasOriginales = "";
+		
+		PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM ACTIVIDADES WHERE id = ?");
+	    pstmt1.setString(1, act.titulo);
+		resultado = pstmt1.executeQuery();
+		if (resultado.next()) {
+			ratingOriginal= resultado.getFloat("rating");
+			reseniasOriginales = resultado.getString("lista_resenias");
+		}
+		resultado.close();
+		
+		
+		String qu = "UPDATE ACTIVIDADES SET rating = ?, lista_resenias = ? WHERE titulo = ?";
+		PreparedStatement pstmt = con.prepareStatement(qu);
+		float miRating = 0;
+		String misResenias = "";
+		
+		miRating = ((float) act.getRating() + ratingOriginal)/2;
+		misResenias = reseniasOriginales +","+ act.getResenias();
+		
+		
+		pstmt.setFloat(1, miRating);
+		pstmt.setString(2, misResenias);
+		pstmt.setString(3, act.titulo);
+		
+		System.out.println("\n");
+		int filasActualizadas = pstmt.executeUpdate();
+        System.out.println(filasActualizadas + " filas actualizadas.");
+        System.out.println("\n");
+        Statement statement  = con.createStatement();
+		ResultSet resultSet = statement.executeQuery("Select * from ACTIVIDADES");
+		ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+		int columnCount = resultSetMetaData.getColumnCount();
+		for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSetMetaData.getColumnName(x)+ " | ");
+		while (resultSet.next()) {
+			System.out.println("");
+			for (int x = 1; x<=columnCount; x++) System.out.format("%20s", resultSet.getString(x)+ " | ");
+		}
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+}
+	
 
 public void eliminarProgreso(Progreso progreso){
 	try {

@@ -93,7 +93,7 @@ public class Estudiante extends Usuario{
 			this.actualActividad = actividad;
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
-			//TODO Implementar para que el cambie los datos en la DB
+			
 		}
 	}
 	

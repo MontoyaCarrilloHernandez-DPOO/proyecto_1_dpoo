@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Encuesta extends Actividad {
 	public boolean enviado;
-	private ArrayList<PreguntaAbierta> preguntas;
+	public ArrayList<PreguntaAbierta> preguntas;
 	
 	public static final String tipo = "ENCUESTAS";
 	//actividad

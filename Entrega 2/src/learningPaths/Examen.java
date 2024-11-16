@@ -9,7 +9,7 @@ public class Examen extends Actividad {
 	public boolean exitoso;
 	public float notaObtenida;
 	public float notaMinima;
-	private ArrayList<PreguntaAbierta> preguntas;
+	public ArrayList<PreguntaAbierta> preguntas;
 	public static final String tipo = "EXAMENES";
 	//actividad
 	public String objetivo;

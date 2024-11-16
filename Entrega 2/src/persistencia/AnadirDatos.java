@@ -401,8 +401,10 @@ public class AnadirDatos {
 		}
 	}
 	
-	public void nuevaRespuesta( String login,String actividad, String pregunta, String respuesta) throws SQLException
+	public int nuevaRespuesta( String login,String actividad, String pregunta, String respuesta) throws SQLException
 	{
+		ResultSet resultado;
+		int idRespuesta = 0;
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL);
 			PreparedStatement ps = con.prepareStatement("INSERT INTO RESPUESTAS_PREGUNTAS (login, actividad, pregunta, respuesta, correcto) values (?,?,?,?,?)");
@@ -412,6 +414,16 @@ public class AnadirDatos {
 			ps.setString(4, respuesta);
 			ps.setBoolean(5, false);
 			ps.executeUpdate();
+			
+			
+			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM RESPUESTAS_PREGUNTAS WHERE login=? AND pregunta=?");
+			pstmt.setString(1, login);
+			pstmt.setString(2, pregunta);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				idRespuesta = resultado.getInt("id");
+			}
+			resultado.close();
 			
 			Statement statement  = con.createStatement();
 			ResultSet resultSet = statement.executeQuery("Select * from RESPUESTAS_PREGUNTAS");
@@ -427,6 +439,7 @@ public class AnadirDatos {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return idRespuesta;
 	}
 
 }
