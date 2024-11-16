@@ -76,11 +76,12 @@ public class ProgresoTest {
 	
 	@Test
 	void testGetActividadesCompletas() {
-	assertNull(progreso1.getActividadesCompletas());	
+		progreso1.setActividadesCompletadas(acts);
+		assertEquals(acts, progreso1.getActividadesCompletas());	
 	}
 	@Test
     void testGetActividadesIncompletas() {
-    assertEquals(3,progreso1.getActividadesIncompletas().size());    
+		assertEquals(3,progreso1.getActividadesIncompletas().size());    
     }
 	@Test
     void testGetEstudiante() {
@@ -88,7 +89,7 @@ public class ProgresoTest {
     }
 	@Test
     void testCalcularProgreso() {
-    assertEquals(0.0, progreso1.calcularProgreso(),"El progreso no es el correcto");    
+		assertEquals(0.0, progreso1.calcularProgreso(),"El progreso no es el correcto");    
     }
 }
 
