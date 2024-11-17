@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import Excepciones.LPException;
 import learningPaths.Actividad;
+import learningPaths.LearningPath;
 import persistencia.Controlador;
 import usuarios.Estudiante;
 import usuarios.Profesor;
@@ -36,6 +37,15 @@ public class ConsolaPrincipal extends ConsolaBasica
         	if (!(sistema.listaActividades.isEmpty())){
         		for (Actividad a : sistema.listaActividades) {
         			System.out.println(a.titulo);
+        		}
+        	}
+        	
+        	if (!(sistema.listaLearningPaths.isEmpty())){
+        		for (LearningPath a : sistema.listaLearningPaths) {
+        			System.out.println(a.titulo);
+        			System.out.println(a.propietario);
+        			System.out.println(a.getActividades());
+        			System.out.println(a.getEstudiantes());
         		}
         	}
         	

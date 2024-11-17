@@ -85,7 +85,10 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
         	}
         int n = 	pedirEntero("Ingrese el numero del lp que quiere calificar");
         LearningPath lp = lps.get(n-1);
-        ArrayList<Estudiante> estudiantes = lp.getEstudiantes();
+        //ArrayList<Estudiante> estudiantes = lp.getEstudiantes();
+        
+        ArrayList<Estudiante> estudiantes = sistema.listaEstudiantes;
+        
         int e = 1;
         for (Estudiante estudiante: estudiantes) {
         		System.out.println(e + ")"+estudiante.getNombre() +" "+ estudiante.getApellido()+":"+estudiante.getLogin());
@@ -102,7 +105,7 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
     		p++;
         }
         int h = 	pedirEntero("Ingrese el numero de la lista de examenes del estudiante:" + estudianteE.getLogin()+" que quiera calificar");
-        String examenE = examenes.get(p-1);
+        String examenE = examenes.get(h-1);
         
 		HashMap<String,String> pyr = recogerDatos.getPreguntaRespuesta(estudianteE, examenE);
 		int o = 1;

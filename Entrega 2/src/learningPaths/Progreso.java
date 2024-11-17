@@ -58,6 +58,7 @@ public class Progreso {
 	public double calcularProgreso()
 	{
 		double progreso;
+		
 		if (actividadesCompletadas == null || actividadesCompletadas.isEmpty()) {
 			progreso = 0;
 		}
@@ -68,6 +69,7 @@ public class Progreso {
 			progreso = actividadesCompletadas.size()/learningPath.actividades.size();
 			}
 		
+		System.out.println(progreso);
 		return progreso*100;
 	}
 

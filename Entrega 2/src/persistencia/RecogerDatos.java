@@ -336,7 +336,7 @@ public ArrayList<Estudiante> getEstudiantesDeString(String cadena){
 			PreparedStatement pstmt = con.prepareStatement(qu);
 		    pstmt.setString(1, login);
 			resultado = pstmt.executeQuery();
-			if (resultado.next()) {
+			while (resultado.next()) {
 				contrasenia = resultado.getString("contrasenia");
 				nombre = resultado.getString("nombre");
 				apellido = resultado.getString("apellido");
@@ -846,7 +846,9 @@ public ArrayList<LearningPath> getLearningPaths(){
 				
 				arrayActividades = getActividadesDeString(actividades); 
 				arrayEstudiantes = getEstudiantesDeString(estudiantes); 
-				
+				for (Estudiante est : arrayEstudiantes) {
+					System.out.println(est.login);
+				}
 				LearningPath esteLP = new LearningPath(propietario, titulo, duracion, dificultad, rating, descripcion, objetivo, metadatos, arrayActividades, arrayEstudiantes);
 				listaLP.add(esteLP);
 			}

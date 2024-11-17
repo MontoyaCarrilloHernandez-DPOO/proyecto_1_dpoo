@@ -1,6 +1,7 @@
 package usuarios;
 import learningPaths.LearningPath;
 import persistencia.ModificarDatos;
+import persistencia.RecogerDatos;
 import learningPaths.Actividad;
 import learningPaths.PreguntaAbierta;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public class Estudiante extends Usuario{
 	public Actividad actualActividad;
 	public HashMap<Integer, String> respuestas; // la llave es un entero que es la llave primaria en la base de datos
 	public Progreso progreso;
+	private RecogerDatos recogerDatos = new RecogerDatos();
 	
 	public Estudiante(String contrasenia, String nombre, String apellido, String login)
 	{
@@ -49,17 +51,28 @@ public class Estudiante extends Usuario{
 	
 	public void enroll(LearningPath learningPath) throws LPException {
 		if (!historialLearningPaths.contains(learningPath)) {
-			this.actualLearningPath = learningPath;
-			this.progreso = new Progreso(learningPath, this.login);
-			this.historialLearningPaths.add(learningPath);
-			this.actualActividad = null;
-			this.respuestas = new HashMap<Integer, String>();
+			actualLearningPath = learningPath;
+			progreso = new Progreso(learningPath, login);
+			historialLearningPaths.add(learningPath);
+			actualActividad = null;
+			respuestas = new HashMap<Integer, String>();
 			
 			learningPath.anadirEstudiantes(this);
-			
+			String profeString = learningPath.getPropietario();
+			ArrayList<Profesor> misProfes = recogerDatos.getProfesores();
+			Profesor miProfe = null;
+			for (Profesor p : misProfes) {
+				if (p.login.equals(profeString)) {
+					miProfe = p;
+				}
+			}
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
 			modificar.cambiarDatosProgreso(progreso);
+			
+			modificar.cambiarDatosLP(learningPath);
+			modificar.cambiarDatosProfesor(miProfe);
+			
 			
 		}
 		else {

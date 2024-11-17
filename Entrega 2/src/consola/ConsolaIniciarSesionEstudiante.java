@@ -101,15 +101,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 			
 			estudiante.enroll(miLP);
 			
-			modificarDatos.cambiarDatosLP(miLP);
-			ArrayList<Profesor> misprof = sistema.listaProfesores;
-			Profesor miProfLP = null;
-			for (Profesor p : misprof) {
-				if (p.login.equals(miLP.propietario)) {
-					miProfLP = p;
-					modificarDatos.cambiarDatosProfesor(miProfLP);
-				}
-			}
+			
 			
 			
         }
