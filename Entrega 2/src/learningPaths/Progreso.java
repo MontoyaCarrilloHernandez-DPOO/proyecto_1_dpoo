@@ -35,9 +35,9 @@ public class Progreso {
 	
 	
 	public void anadirCompletasQuitarIncompleta(Actividad actividad)
-	{	
-		this.actividadesCompletadas.add(actividad);
-		this.actividadesIncompletas.remove(actividad);
+	{	actividadesIncompletas.remove(actividad);
+		actividadesCompletadas.add(actividad);
+		
 	}
 	
 	public LearningPath getLearningPath()
@@ -55,9 +55,9 @@ public class Progreso {
 		return actividadesIncompletas;
 	}
 	
-	public double calcularProgreso()
+	public float calcularProgreso()
 	{
-		double progreso;
+		float progreso;
 		
 		if (actividadesCompletadas == null || actividadesCompletadas.isEmpty()) {
 			progreso = 0;

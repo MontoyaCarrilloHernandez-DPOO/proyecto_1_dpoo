@@ -111,8 +111,14 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void terminarActividad() {
-		this.progreso.anadirCompletasQuitarIncompleta(actualActividad);
-		this.actualActividad = null;
+		for (Actividad a : progreso.getActividadesIncompletas()) {
+		System.out.println(a.titulo);}
+		progreso.anadirCompletasQuitarIncompleta(actualActividad);
+		for (Actividad a : progreso.getActividadesIncompletas()) {
+			System.out.println(a.titulo);}
+		for (Actividad a : progreso.getActividadesCompletas()) {
+			System.out.println(a.titulo);}
+		actualActividad = null;
 		
 	}
 	
