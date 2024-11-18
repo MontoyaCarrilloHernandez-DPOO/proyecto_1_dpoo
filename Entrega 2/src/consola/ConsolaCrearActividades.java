@@ -324,8 +324,8 @@ public void mostrarOpcionesLP() throws SQLException{
 						e.printStackTrace();
 					}
 				}
-				this.profesor.duplicarLP(miLP);
-				sistema.crearLearningPath(miLP);
+				profesor.duplicarLP(miLP);
+				sistema.crearLearningPath(profesor.duplicarLPRetornoLP(miLP));
 				modificarDatos.cambiarDatosProfesor(profesor);
 								
 			}

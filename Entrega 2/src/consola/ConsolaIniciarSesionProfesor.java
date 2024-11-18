@@ -115,10 +115,10 @@ public class ConsolaIniciarSesionProfesor extends ConsolaBasica {
         
 		}
 		float nota = (float) pedirNumero("Ingrese la nota del examen para este estudiante");
-		profesor.calificar(estudianteE, examenE, nota);
+		Estudiante estuModificado = profesor.calificar(estudianteE, examenE, nota);
 		ModificarDatos modificarDatos = new ModificarDatos();
-		modificarDatos.cambiarDatosEstudiante(estudianteE.getLogin(), estudianteE.getHistorialLearningPaths(), estudianteE.getActualLearningPath(), estudianteE.getActualActividad(), estudianteE.getRespuestas(), estudianteE.getProgreso());
-		modificarDatos.cambiarDatosProgreso(estudianteE.getProgreso());
+		modificarDatos.cambiarDatosEstudiante(estuModificado.getLogin(), estuModificado.getHistorialLearningPaths(), estuModificado.getActualLearningPath(), estuModificado.getActualActividad(), estuModificado.getRespuestas(), estuModificado.getProgreso());
+		modificarDatos.cambiarDatosProgreso(estuModificado.getProgreso());
 		}
         
         else if( opcionSeleccionada == 4 )

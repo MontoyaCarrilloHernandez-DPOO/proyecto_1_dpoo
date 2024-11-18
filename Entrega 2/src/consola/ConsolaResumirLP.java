@@ -47,12 +47,13 @@ public class ConsolaResumirLP extends ConsolaBasica {
             		}
             		
             		String actual = pedirCadena("Ingresa el titulo de la actividad que quieres empezar");
-            		
+            		Actividad estaActividad = null;
             		for (Actividad act : actividades) {
             			//if (act.getTitulo().equals(actual) )&& miEstudiante.verificarActividadEnLP(act)
 						if (act.getTitulo().equals(actual) ) {
-							Actividad estaActividad = act;
+							estaActividad = act;}}
 							
+            		if (estaActividad != null) {
 							miEstudiante.comenzarActividad(estaActividad);
 							String tipo = losDatos.getTipo(estaActividad);
 							System.out.println("Esta actividad es de tipo "+ tipo);
@@ -85,17 +86,18 @@ public class ConsolaResumirLP extends ConsolaBasica {
 								for (PreguntaCerrada preg : miQuiz.preguntas) {
 									System.out.println(numb + "." + " " + preg.getEnunciado());
 									System.out.println("A) " + preg.opcionA);
-									System.out.println("B) " + preg.opcionA);
-									System.out.println("C) " + preg.opcionA);
-									System.out.println("D) " + preg.opcionA);
-									String rta = pedirCadena("Respuesta: ");
+									System.out.println("B) " + preg.opcionB);
+									System.out.println("C) " + preg.opcionC);
+									System.out.println("D) " + preg.opcionD);
+									String rta = pedirCadena("Respuesta");
 									String respuestaCorrecta = preg.respuestaCorrecta;
-									if (rta.equals(respuestaCorrecta)) {
+									if (rta.toUpperCase().equals(respuestaCorrecta.toUpperCase().replace(" ", ""))) {
 										System.out.println("Justificacion: " + preg.justificacion);
 										correctas +=1 ;
 									}
 									else {
 										System.out.println("Respuesta incorrecta");
+										
 									}
 									numb+=1;
 								}
@@ -108,6 +110,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
 								else {
 									System.out.println("No aprobaste el quiz, debes volverlo a hacer");
 									System.out.println("Tu calificacion fue : " + notaObtenida);
+									miEstudiante.actualActividad=null;
 								}
 								
 							}else if (tipo.equals("EXAMENES")) {
@@ -144,7 +147,7 @@ public class ConsolaResumirLP extends ConsolaBasica {
 									//la verdad me da pereza implementarlo en la DB ya que las encuestas no se califican
 									//lo dejo así mientras
 									System.out.println(numb + "." + " " + preg.getEnunciado());
-									String rta = pedirCadena("Respuesta: ");
+									String rta = pedirCadena("Respuesta");
 									pregsRes.put(preg, rta);
 									numb+=1;
 								}
@@ -153,11 +156,14 @@ public class ConsolaResumirLP extends ConsolaBasica {
 								miEstudiante.terminarActividad();
 							}
 							
-							modificarDatos.cambiarDatosEstudiante(miEstudiante.login, miEstudiante.getHistorialLearningPaths(), miEstudiante.actualLearningPath,miEstudiante.actualActividad, miEstudiante.getRespuestas(), miEstudiante.getProgreso());
+							modificarDatos.cambiarDatosEstudiante(miEstudiante.login, miEstudiante.getHistorialLearningPaths(), miEstudiante.actualLearningPath,null, miEstudiante.getRespuestas(), miEstudiante.getProgreso());
 							modificarDatos.cambiarDatosProgreso(miEstudiante.getProgreso());
-							}
+            		}
+            		else {
+            			System.out.println("Hubo un error, vuelve a iniciar sesion por favor");
+            		}
 							
-						}
+						
 					}
             	else {
             		System.out.println("Inscribete a un LP para comenzar");

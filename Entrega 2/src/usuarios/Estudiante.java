@@ -58,20 +58,15 @@ public class Estudiante extends Usuario{
 			respuestas = new HashMap<Integer, String>();
 			
 			learningPath.anadirEstudiantes(this);
+			
 			String profeString = learningPath.getPropietario();
-			ArrayList<Profesor> misProfes = recogerDatos.getProfesores();
-			Profesor miProfe = null;
-			for (Profesor p : misProfes) {
-				if (p.login.equals(profeString)) {
-					miProfe = p;
-				}
-			}
+			
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
 			modificar.cambiarDatosProgreso(progreso);
 			
 			modificar.cambiarDatosLP(learningPath);
-			modificar.cambiarDatosProfesor(miProfe);
+			
 			
 			
 		}
@@ -102,8 +97,8 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void comenzarActividad(Actividad actividad) {
-		if(actualActividad == null&& verificarActividadEnLP(actividad)==true) {
-			this.actualActividad = actividad;
+		if(actualActividad == null) {
+			actualActividad = actividad;
 			ModificarDatos modificar = new ModificarDatos();
 			modificar.cambiarDatosEstudiante(this.login, this.historialLearningPaths, this.actualLearningPath, this.actualActividad, this.respuestas, this.progreso);
 			
@@ -111,13 +106,12 @@ public class Estudiante extends Usuario{
 	}
 	
 	public void terminarActividad() {
-		for (Actividad a : progreso.getActividadesIncompletas()) {
-		System.out.println(a.titulo);}
+		
+		//progreso.actividadesCompletadas.add(actualActividad);
+		//progreso.actividadesIncompletas.remove(actualActividad);
+		
 		progreso.anadirCompletasQuitarIncompleta(actualActividad);
-		for (Actividad a : progreso.getActividadesIncompletas()) {
-			System.out.println(a.titulo);}
-		for (Actividad a : progreso.getActividadesCompletas()) {
-			System.out.println(a.titulo);}
+		
 		actualActividad = null;
 		
 	}

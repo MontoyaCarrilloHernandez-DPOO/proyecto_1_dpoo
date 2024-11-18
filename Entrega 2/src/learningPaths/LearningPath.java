@@ -91,7 +91,7 @@ public class LearningPath {
 		this.estudiantes = estudiantes;
 	}
 	public void anadirEstudiantes(Estudiante estu) {
-		estudiantes.add(estu);
+		estudiantes.addLast(estu);
 	}
 	public void quitarEstudiantes(Estudiante estu) {
 		estudiantes.remove(estu);

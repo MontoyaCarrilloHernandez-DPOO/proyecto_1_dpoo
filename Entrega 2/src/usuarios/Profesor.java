@@ -49,7 +49,7 @@ public class Profesor extends Usuario{
 	//Importante: al crear un learning path, este no debería preocuparse por no tener una lista de estudiantes asociada. Ellos luego se meten y no hay problema :)
 	public void crearLearningPath(ArrayList<Actividad> actividades,String titulo,String descripcion,String objetivo, String metadatos,float duracion,float dificultad,float rating) throws SQLException {
 		
-		LearningPath lp = new LearningPath(this.nombre,titulo ,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades, null );
+		LearningPath lp = new LearningPath(this.login,titulo ,duracion,dificultad,rating,descripcion,objetivo,metadatos,actividades, null );
 		
 		
 		this.learningPaths.addLast(lp);
@@ -66,7 +66,7 @@ public class Profesor extends Usuario{
 		return null;
 	}
 	
-	public void calificar(Estudiante estudiante, String nombreExamen,float nota) {
+	public Estudiante calificar(Estudiante estudiante, String nombreExamen,float nota) {
 		
 		
 		RecogerDatos recogerDatos = new RecogerDatos();
@@ -86,14 +86,19 @@ public class Profesor extends Usuario{
         	
         	}
 		
-		
+		return estudiante;
 		}
 		
 		
 		
 	
 	public void duplicarLP(LearningPath lp) throws SQLException {
-		crearLearningPath(lp.getActividades(),lp.getTitulo()+"."+this.nombre,lp.getDescripcion(),lp.getObjetivo(),lp.getMetadatos(),lp.getDuracion(),lp.getDificultad(),lp.getRating());	
+		crearLearningPath(lp.getActividades(),lp.getTitulo()+"."+this.login,lp.getDescripcion(),lp.getObjetivo(),lp.getMetadatos(),lp.getDuracion(),lp.getDificultad(),lp.getRating());	
+	}
+	
+	public LearningPath duplicarLPRetornoLP(LearningPath lp) throws SQLException {
+		LearningPath lpd = new LearningPath(this.login,lp.getTitulo()+"."+this.login ,lp.getDuracion(),lp.getDificultad(),lp.getRating(),lp.getDescripcion(),lp.getObjetivo(),lp.getMetadatos(),lp.getActividades(), null );
+		return lpd;
 	}
 	
 	public ArrayList<Estudiante> getEstudiantesAsociados(LearningPath lp){

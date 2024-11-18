@@ -99,7 +99,7 @@ public class ModificarDatos {
 			
 			ArrayList<LearningPath> listaLPs = profesor.learningPaths;
 			ArrayList<Actividad> listaAct = profesor.actividades;
-			ArrayList<Estudiante> listaEstu = new ArrayList<Estudiante>();
+			
 	
 			String qu = "UPDATE PROFESORES SET lista_lps = ?, lista_actividades = ?, lista_estudiantes = ? WHERE login = ?";
 			PreparedStatement pstmt = con.prepareStatement(qu);
@@ -110,24 +110,32 @@ public class ModificarDatos {
 			if (listaLPs != null) {
 			for (LearningPath lp : listaLPs) {
 				listaIdLP += lp.getTitulo() + ",";
-				ArrayList<Estudiante> lEstud = profesor.getEstudiantesAsociados(lp);
-				if(!( lEstud== null))
-				{
-					for(Estudiante e : lEstud) {
-						listaEstu.add(e);
-					}
+				
+				ResultSet result;
+				PreparedStatement pstmt1 = con.prepareStatement( "SELECT * FROM LEARNING_PATHS WHERE TITULO = ?");
+				pstmt1.setString(1, lp.getTitulo());
+				result = pstmt1.executeQuery();
+				String idsEstu = "";
+				if (result.next()) {
+					idsEstu = result.getString("ESTUDIANTES"); 
 				}
+				String[] estArray = null;
+				if (idsEstu!="") {
+				estArray = idsEstu.split(",");
+				}
+				if (estArray != null) {
+				for (String e : estArray) {
+					listaIdEstu += e+",";
+				}}
+				
+				
 			}}
+			
 			if (listaAct != null) {
 			for (Actividad actividad : listaAct) {
 				listaIdAct += actividad.titulo + ",";
 			}}
 			
-			if (!(listaEstu.isEmpty())){
-				for (Estudiante es : listaEstu) {
-				listaIdEstu+= es.login+",";
-				}
-			}
 			
 			pstmt.setString(1, listaIdLP);
 			pstmt.setString(2, listaIdAct);
@@ -261,7 +269,7 @@ public void cambiarDatosActividad(Actividad act){
 		float ratingOriginal = 0;
 		String reseniasOriginales = "";
 		
-		PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM ACTIVIDADES WHERE id = ?");
+		PreparedStatement pstmt1 = con.prepareStatement("SELECT * FROM ACTIVIDADES WHERE titulo = ?");
 	    pstmt1.setString(1, act.titulo);
 		resultado = pstmt1.executeQuery();
 		if (resultado.next()) {

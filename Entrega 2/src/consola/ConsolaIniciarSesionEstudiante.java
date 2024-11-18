@@ -99,8 +99,18 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 				}
 			}
 			
+			
 			estudiante.enroll(miLP);
 			
+			Profesor miProf = null;
+			for (Profesor prof: sistema.listaProfesores) {
+				if (prof.login.toUpperCase().equals(miLP.propietario.toString().toUpperCase())) {
+					System.out.println(":)");
+					miProf = prof;
+				}
+			}
+			
+			modificarDatos.cambiarDatosProfesor(miProf);
 			
 			
 			
@@ -108,6 +118,7 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
         else if( opcionSeleccionada == 2 )
         {
         	LearningPath lpActual = estudiante.actualLearningPath;
+        	
         	lpActual.quitarEstudiantes(estudiante);
         	modificarDatos.cambiarDatosLP(lpActual);
         	
@@ -124,6 +135,8 @@ public class ConsolaIniciarSesionEstudiante extends ConsolaBasica {
 					miProfLP = p;
 				}
 			}
+			miProfLP.learningPaths.remove(lpActual);
+			miProfLP.learningPaths.add(lpActual);
 			modificarDatos.cambiarDatosProfesor(miProfLP);
         	
         }

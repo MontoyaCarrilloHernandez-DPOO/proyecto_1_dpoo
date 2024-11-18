@@ -9,8 +9,8 @@ import java.util.List;
 public class Progreso {
 	private String estudiante;
 	private LearningPath learningPath;
-	private ArrayList<Actividad> actividadesCompletadas;
-	private ArrayList<Actividad> actividadesIncompletas;
+	public ArrayList<Actividad> actividadesCompletadas;
+	public ArrayList<Actividad> actividadesIncompletas;
 	
 	public void setActividadesCompletadas(ArrayList<Actividad> actsCompletadas) {
 		this.actividadesCompletadas = actsCompletadas;
@@ -23,6 +23,7 @@ public class Progreso {
 	public Progreso(LearningPath learningPath, String login)
 	{
 		this.learningPath = learningPath;
+		
 		if (learningPath!=null) {
 			this.actividadesIncompletas = learningPath.getActividades();
 		}
@@ -66,10 +67,16 @@ public class Progreso {
 			progreso = 1;
 		}
 		else{
-			progreso = actividadesCompletadas.size()/learningPath.actividades.size();
+			int i = 0;
+			for (Actividad a : actividadesCompletadas) {
+				if (a != null) {
+					i+=1;
+				}
+			}
+			progreso = (i)/(learningPath.actividades.size());
 			}
 		
-		System.out.println(progreso);
+		
 		return progreso*100;
 	}
 
