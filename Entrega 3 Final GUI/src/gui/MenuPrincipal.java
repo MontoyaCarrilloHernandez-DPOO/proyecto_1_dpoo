@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Toolkit.*;
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -15,54 +16,48 @@ public class MenuPrincipal extends JFrame {
 	pantalla.setTitle("Menu Principal");
 	pantalla.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	pantalla.setResizable(false);
-	pantalla.setSize(600,600);
+	pantalla.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize().width, java.awt.Toolkit.getDefaultToolkit().getScreenSize().height);
 	pantalla.setVisible(true);
 	
 	
 	ImageIcon icono = new ImageIcon("datos/psy1.png");
 	pantalla.setIconImage(icono.getImage());
-	pantalla.getContentPane().setBackground(new Color(0xfff2e5));
+	pantalla.getContentPane().setBackground(new Color(0xffffff));
 	
 	
 	JLabel titulo = new JLabel();
-	pantalla.add(titulo);
 	titulo.setText("Menú Principal");
-	titulo.setBounds(250, 50, 300, 200);
-	titulo.setHorizontalTextPosition(JLabel.CENTER);
-	titulo.setVerticalTextPosition(JLabel.TOP);
+	titulo.setBounds(500, 1, 300, 200);
 	titulo.setFont(new Font("Noto Sans", Font.BOLD,40));
 	titulo.setForeground(new Color(0,0,0));
+	pantalla.add(titulo);
 	
-	/**
+	
 	JButton loginProfesor = new JButton();
-	pantalla.add(loginProfesor);
+	JButton loginEstudiante = new JButton();
+	JButton crearUsuario = new JButton();
+	
 	loginProfesor.setText("Iniciar sesión como profesor");
-	loginProfesor.setBounds(200, 150, 300, 50);
+	loginProfesor.setBounds(400, 150, 400, 50);
 	loginProfesor.setHorizontalTextPosition(JButton.CENTER);
 	loginProfesor.setVerticalTextPosition(JButton.CENTER);
-	loginProfesor.setFont(new Font ("Noto Sans", Font.PLAIN, 25));
-	loginProfesor.setBackground(new Color (0xf9cb9c));
-
+	loginProfesor.setFont(new Font ("Noto Sans", Font.PLAIN, 20));
 	
-	JButton loginEstudiante = new JButton();
-	pantalla.add(loginEstudiante);
-	loginEstudiante.setBounds(200, 250, 300, 50);
+	loginEstudiante.setBounds(400, 250, 400, 50);
 	loginEstudiante.setText("Iniciar sesión como estudiante");
 	loginEstudiante.setHorizontalTextPosition(JButton.CENTER);
 	loginEstudiante.setVerticalTextPosition(JButton.CENTER);
-	loginEstudiante.setFont(new Font ("Noto Sans", Font.PLAIN, 25));
-	loginEstudiante.setBackground(new Color (0xf9cb9c));
+	loginEstudiante.setFont(new Font ("Noto Sans", Font.PLAIN, 20));
 	
-	
-	JButton crearUsuario = new JButton();
-	pantalla.add(crearUsuario);
 	crearUsuario.setText("Crear un usuario");
-	crearUsuario.setBounds(200, 350, 300, 50);
+	crearUsuario.setBounds(400, 350, 400, 50);
 	crearUsuario.setHorizontalTextPosition(JButton.CENTER);
 	crearUsuario.setVerticalTextPosition(JButton.CENTER);
-	crearUsuario.setFont(new Font ("Noto Sans", Font.PLAIN, 25));
-	crearUsuario.setBackground(new Color (0xf9cb9c));
-	**/
+	crearUsuario.setFont(new Font ("Noto Sans", Font.PLAIN, 20));
+	
+	pantalla.add(loginEstudiante);
+	pantalla.add(loginProfesor);
+	pantalla.add(crearUsuario);
 	
 	
 	//Paleta de colores que me gustó:
