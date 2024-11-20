@@ -42,23 +42,27 @@ public class MenuPrincipal extends JFrame {
 	loginProfesor.setHorizontalTextPosition(JButton.CENTER);
 	loginProfesor.setVerticalTextPosition(JButton.CENTER);
 	loginProfesor.setFont(new Font ("Noto Sans", Font.PLAIN, 20));
+	loginProfesor.setVisible(true);
 	
 	loginEstudiante.setBounds(400, 250, 400, 50);
 	loginEstudiante.setText("Iniciar sesión como estudiante");
 	loginEstudiante.setHorizontalTextPosition(JButton.CENTER);
 	loginEstudiante.setVerticalTextPosition(JButton.CENTER);
 	loginEstudiante.setFont(new Font ("Noto Sans", Font.PLAIN, 20));
+	loginEstudiante.setVisible(true);
 	
 	crearUsuario.setText("Crear un usuario");
 	crearUsuario.setBounds(400, 350, 400, 50);
 	crearUsuario.setHorizontalTextPosition(JButton.CENTER);
 	crearUsuario.setVerticalTextPosition(JButton.CENTER);
 	crearUsuario.setFont(new Font ("Noto Sans", Font.PLAIN, 20));
+	crearUsuario.setVisible(true);
+	
 	
 	pantalla.add(loginEstudiante);
 	pantalla.add(loginProfesor);
 	pantalla.add(crearUsuario);
-	
+	pantalla.repaint();
 	
 	//Paleta de colores que me gustó:
 	//#fff2e5 - crema
