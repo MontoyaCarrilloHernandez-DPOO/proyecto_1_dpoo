@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class MainMenu extends JFrame {
 
@@ -37,6 +38,8 @@ public class MainMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public MainMenu() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\LENOVO\\Downloads\\machine-learning.png"));
+		setTitle("Menú Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -45,13 +48,14 @@ public class MainMenu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Menu Principal");
-		lblNewLabel.setBounds(190, 11, 70, 14);
+		JLabel lblNewLabel = new JLabel("Menú Principal");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel.setBounds(181, 11, 115, 29);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnIniciarSesionProfesor = new JButton("Iniciar Sesion Profesor");
+		JButton btnIniciarSesionProfesor = new JButton("Iniciar Sesión Profesor");
 		btnIniciarSesionProfesor.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnIniciarSesionProfesor.setBounds(147, 87, 153, 23);
+		btnIniciarSesionProfesor.setBounds(147, 87, 175, 23);
 		btnIniciarSesionProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -62,7 +66,7 @@ public class MainMenu extends JFrame {
 			
 		contentPane.add(btnIniciarSesionProfesor);
 		
-		JButton btnIniciarSesionEstudiante = new JButton("Iniciar Sesion Estudiante");
+		JButton btnIniciarSesionEstudiante = new JButton("Iniciar Sesión Estudiante");
 		btnIniciarSesionEstudiante.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnIniciarSesionEstudiante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -71,12 +75,12 @@ public class MainMenu extends JFrame {
 				est.setVisible(true);
 			}
 		});
-		btnIniciarSesionEstudiante.setBounds(147, 121, 153, 23);
+		btnIniciarSesionEstudiante.setBounds(147, 121, 175, 23);
 		contentPane.add(btnIniciarSesionEstudiante);
 		
 		JButton btnCrearUsuario = new JButton("Crear Usuario");
 		btnCrearUsuario.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnCrearUsuario.setBounds(147, 155, 153, 23);
+		btnCrearUsuario.setBounds(147, 155, 175, 23);
 		contentPane.add(btnCrearUsuario);
 	}
 }

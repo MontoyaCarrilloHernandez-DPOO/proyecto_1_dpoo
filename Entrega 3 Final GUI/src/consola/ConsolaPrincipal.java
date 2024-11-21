@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import Excepciones.LPException;
-import gui.MenuPrincipal;
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import persistencia.Controlador;
@@ -83,7 +82,6 @@ public class ConsolaPrincipal extends ConsolaBasica
 
 	public static void main(String[] args) throws SQLException, LPException {
 		ConsolaPrincipal c = new ConsolaPrincipal( );
-		MenuPrincipal frame = new MenuPrincipal();
 		
 		c.mostrarMenuPrincipal( );
 	}

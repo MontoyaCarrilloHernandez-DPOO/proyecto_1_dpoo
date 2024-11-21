@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
 
 public class InicioSesionProfesor extends JFrame {
 
@@ -34,6 +35,8 @@ public class InicioSesionProfesor extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioSesionProfesor() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\LENOVO\\Downloads\\machine-learning.png"));
+		setTitle("Inicio de Sesión Profesor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -43,11 +46,11 @@ public class InicioSesionProfesor extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Login:");
-		lblNewLabel.setBounds(41, 94, 47, 14);
+		lblNewLabel.setBounds(41, 94, 77, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Contraseña:");
-		lblNewLabel_1.setBounds(41, 133, 63, 14);
+		lblNewLabel_1.setBounds(41, 133, 89, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JTextField textFieldLogin = new JTextField();
@@ -61,7 +64,7 @@ public class InicioSesionProfesor extends JFrame {
 		textFieldContrasenia.setColumns(10);
 		
 		JButton btnIniciarSesion = new JButton("Ingresar");
-		btnIniciarSesion.setBounds(302, 94, 103, 53);
+		btnIniciarSesion.setBounds(301, 105, 103, 33);
 		contentPane.add(btnIniciarSesion);
 	}
 

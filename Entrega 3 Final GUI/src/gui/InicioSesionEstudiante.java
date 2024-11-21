@@ -36,6 +36,7 @@ public class InicioSesionEstudiante extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioSesionEstudiante() {
+		setTitle("Inicio de Sesión Estudiante");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -45,11 +46,11 @@ public class InicioSesionEstudiante extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Login:");
-		lblNewLabel.setBounds(41, 94, 47, 14);
+		lblNewLabel.setBounds(41, 94, 88, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Contraseña:");
-		lblNewLabel_1.setBounds(41, 133, 63, 14);
+		lblNewLabel_1.setBounds(41, 133, 88, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		textFieldLogin = new JTextField();
@@ -63,7 +64,7 @@ public class InicioSesionEstudiante extends JFrame {
 		textFieldContrasenia.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Ingresar");
-		btnNewButton.setBounds(302, 94, 103, 53);
+		btnNewButton.setBounds(304, 101, 103, 35);
 		contentPane.add(btnNewButton);
 	}
 }
