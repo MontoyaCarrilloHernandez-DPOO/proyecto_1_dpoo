@@ -81,6 +81,14 @@ public class MainMenu extends JFrame {
 		JButton btnCrearUsuario = new JButton("Crear Usuario");
 		btnCrearUsuario.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnCrearUsuario.setBounds(147, 155, 175, 23);
+		btnCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				CrearUsuario us = new CrearUsuario();
+				us.setVisible(true);
+			}
+		});
+		
 		contentPane.add(btnCrearUsuario);
 	}
 }
