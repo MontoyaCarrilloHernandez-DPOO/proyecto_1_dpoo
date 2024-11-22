@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import Excepciones.LPException;
+import gui.MainMenu;
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import persistencia.Controlador;
@@ -84,6 +85,8 @@ public class ConsolaPrincipal extends ConsolaBasica
 		ConsolaPrincipal c = new ConsolaPrincipal( );
 		
 		c.mostrarMenuPrincipal( );
+		MainMenu menu = new MainMenu();
+		
 	}
 
 }

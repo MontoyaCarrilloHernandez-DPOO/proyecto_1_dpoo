@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import persistencia.Controlador;
+import usuarios.Estudiante;
+import usuarios.Profesor;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -13,6 +18,9 @@ import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.ButtonGroup;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class CrearUsuario extends JFrame {
 
@@ -22,6 +30,7 @@ public class CrearUsuario extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private Controlador sistema;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
@@ -42,6 +51,7 @@ public class CrearUsuario extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param sistema2 
 	 */
 	public CrearUsuario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,10 +98,10 @@ public class CrearUsuario extends JFrame {
 		textField_3.setBounds(169, 136, 96, 20);
 		contentPane.add(textField_3);
 		
-		JRadioButtonMenuItem rdbtnmntmNewRadioItem = new JRadioButtonMenuItem("Estudiante");
-		buttonGroup.add(rdbtnmntmNewRadioItem);
-		rdbtnmntmNewRadioItem.setBounds(279, 54, 133, 26);
-		contentPane.add(rdbtnmntmNewRadioItem);
+		JRadioButtonMenuItem rdbSeleccion = new JRadioButtonMenuItem("Estudiante");
+		buttonGroup.add(rdbSeleccion);
+		rdbSeleccion.setBounds(279, 54, 133, 26);
+		contentPane.add(rdbSeleccion);
 		
 		JButton btnNewButton = new JButton("Crear Usuario");
 		btnNewButton.setBounds(275, 152, 137, 23);
@@ -110,5 +120,38 @@ public class CrearUsuario extends JFrame {
 		JLabel lblNewLabel_3 = new JLabel("Selecciona el tipo de usuario: ");
 		lblNewLabel_3.setBounds(144, 35, 230, 14);
 		contentPane.add(lblNewLabel_3);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			if (rdbSeleccion.isSelected()) {
+				try {
+					Estudiante prof = sistema.crearEstudiante(textField_2.getText(),textField_3.getText(),textField.getText(),textField_1.getText());
+				} catch (SQLException e1) {
+					ExcepcionesFrame pop = new ExcepcionesFrame("Falta alguno de los parametros");
+					pop.setVisible(true);
+					
+				}				
+				dispose(  );
+				ExcepcionesFrame pop = new ExcepcionesFrame("Usuario Creado con exito, reinicie el programa");
+				pop.setVisible(true);
+				
+		}
+			else if (rdbtnmntmProfesor.isSelected()) {
+				try {
+					Profesor prof = sistema.crearProfesor(textField_2.getText(),textField_3.getText(),textField.getText(),textField_1.getText());
+				} catch (SQLException e1) {
+					ExcepcionesFrame pop = new ExcepcionesFrame("Falta alguno de los parametros");
+					pop.setVisible(true);
+				}
+				dispose( );
+				ExcepcionesFrame pop = new ExcepcionesFrame("Usuario Creado con exito, reinicie el programa");
+				pop.setVisible(true);
+			}
+			else {
+
+				ExcepcionesFrame pop = new ExcepcionesFrame("Falta alguno de los parametros");
+				pop.setVisible(true);
+			}
+			}
+		});
 	}
 }

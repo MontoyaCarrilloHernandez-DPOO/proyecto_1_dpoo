@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import consola.ConsolaCrearControlador;
+import persistencia.Controlador;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -25,7 +29,10 @@ public class MainMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainMenu frame = new MainMenu();
+					ConsolaCrearControlador consola = new ConsolaCrearControlador();
+					Controlador sistema;
+					sistema = consola.crear();
+					MainMenu frame = new MainMenu(sistema);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +44,7 @@ public class MainMenu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public MainMenu() {
+	public MainMenu(Controlador sistema) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\LENOVO\\Downloads\\machine-learning.png"));
 		setTitle("Menú Principal");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

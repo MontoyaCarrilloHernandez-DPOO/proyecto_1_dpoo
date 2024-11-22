@@ -1,10 +1,17 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import persistencia.RecogerDatos;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -36,6 +43,7 @@ public class InicioSesionEstudiante extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioSesionEstudiante() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\LENOVO\\Downloads\\machine-learning.png"));
 		setTitle("Inicio de Sesión Estudiante");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -46,25 +54,52 @@ public class InicioSesionEstudiante extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Login:");
-		lblNewLabel.setBounds(41, 94, 88, 14);
+		lblNewLabel.setBounds(41, 94, 77, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Contraseña:");
-		lblNewLabel_1.setBounds(41, 133, 88, 14);
+		lblNewLabel_1.setBounds(41, 133, 89, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		textFieldLogin = new JTextField();
+		JTextField textFieldLogin = new JTextField();
 		textFieldLogin.setBounds(152, 91, 96, 20);
 		contentPane.add(textFieldLogin);
 		textFieldLogin.setColumns(10);
 		
-		textFieldContrasenia = new JTextField();
+		JTextField textFieldContrasenia = new JTextField();
 		textFieldContrasenia.setBounds(152, 130, 96, 20);
 		contentPane.add(textFieldContrasenia);
 		textFieldContrasenia.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Ingresar");
-		btnNewButton.setBounds(304, 101, 103, 35);
-		contentPane.add(btnNewButton);
+		JButton btnIniciarSesion = new JButton("Ingresar");
+		btnIniciarSesion.setBounds(301, 105, 103, 33);
+		contentPane.add(btnIniciarSesion);
+		btnIniciarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String login = textFieldLogin.getText();
+				String contrasenia = textFieldContrasenia.getText();
+				RecogerDatos datos = new RecogerDatos();
+		    	
+				ArrayList<String> datosProfe= datos.getContraseniaEstudiante(login);
+		    		String contraseniaEsperada = datosProfe.get(0);
+		  
+		    	  	if (contrasenia.equals(contraseniaEsperada)) {
+			    		
+			    		dispose();
+			    		MenuProfesor menu = new MenuProfesor();
+			    		menu.setVisible(true);
+			    		}else {
+			    			ExcepcionesFrame pop = new ExcepcionesFrame("Login o contrasenia incorrecta⛔🚫⛔🚫");
+			    			pop.setVisible(true);
+			    			
+			    		}
+		  
+		    			
+				
+				}
+			}
+		);
 	}
-}
+	
+	}
+
