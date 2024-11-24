@@ -34,26 +34,10 @@ public class CrearUsuario extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CrearUsuario frame = new CrearUsuario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 * @param sistema2 
 	 */
-	public CrearUsuario() {
+	public CrearUsuario(Controlador sistema) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -124,31 +108,32 @@ public class CrearUsuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			if (rdbSeleccion.isSelected()) {
 				try {
-					Estudiante prof = sistema.crearEstudiante(textField_2.getText(),textField_3.getText(),textField.getText(),textField_1.getText());
+					Estudiante est = sistema.crearEstudiante(textField_2.getText(),textField_3.getText(),textField.getText(),textField_1.getText());
 				} catch (SQLException e1) {
 					ExcepcionesFrame pop = new ExcepcionesFrame("Falta alguno de los parametros");
 					pop.setVisible(true);
 					
 				}				
 				dispose(  );
-				ExcepcionesFrame pop = new ExcepcionesFrame("Usuario Creado con exito, reinicie el programa");
+				ExcepcionesFrame pop = new ExcepcionesFrame("Usuario creado con exito, reinicie el programa e inicie sesion");
 				pop.setVisible(true);
+				
 				
 		}
 			else if (rdbtnmntmProfesor.isSelected()) {
 				try {
 					Profesor prof = sistema.crearProfesor(textField_2.getText(),textField_3.getText(),textField.getText(),textField_1.getText());
 				} catch (SQLException e1) {
-					ExcepcionesFrame pop = new ExcepcionesFrame("Falta alguno de los parametros");
+					ExcepcionesFrame pop = new ExcepcionesFrame("El login ya existe o falta algún parámetro");
 					pop.setVisible(true);
 				}
 				dispose( );
-				ExcepcionesFrame pop = new ExcepcionesFrame("Usuario Creado con exito, reinicie el programa");
+				ExcepcionesFrame pop = new ExcepcionesFrame("Usuario Creado con exito, reinicie el programa e inicie sesion");
 				pop.setVisible(true);
 			}
 			else {
 
-				ExcepcionesFrame pop = new ExcepcionesFrame("Falta alguno de los parametros");
+				ExcepcionesFrame pop = new ExcepcionesFrame("El login ya existe o falta algún parámetro");
 				pop.setVisible(true);
 			}
 			}

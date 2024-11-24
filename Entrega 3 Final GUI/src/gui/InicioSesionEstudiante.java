@@ -10,7 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import persistencia.Controlador;
 import persistencia.RecogerDatos;
+import usuarios.Estudiante;
+import usuarios.Profesor;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -22,27 +25,13 @@ public class InicioSesionEstudiante extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldLogin;
 	private JTextField textFieldContrasenia;
+	private Estudiante estudiante = null;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InicioSesionEstudiante frame = new InicioSesionEstudiante();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public InicioSesionEstudiante() {
+	public InicioSesionEstudiante(Controlador sistema) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\LENOVO\\Downloads\\machine-learning.png"));
 		setTitle("Inicio de Sesión Estudiante");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,9 +73,13 @@ public class InicioSesionEstudiante extends JFrame {
 		    		String contraseniaEsperada = datosProfe.get(0);
 		  
 		    	  	if (contrasenia.equals(contraseniaEsperada)) {
-			    		
 			    		dispose();
-			    		MenuProfesor menu = new MenuProfesor();
+			    		for (Estudiante estu : sistema.listaEstudiantes) {
+			    			if (estu.login.equals(login)) {
+			    				estudiante = estu;
+			    			}
+			    		}
+			    		MenuEstudiante menu = new MenuEstudiante(sistema, estudiante);
 			    		menu.setVisible(true);
 			    		}else {
 			    			ExcepcionesFrame pop = new ExcepcionesFrame("Login o contrasenia incorrecta⛔🚫⛔🚫");

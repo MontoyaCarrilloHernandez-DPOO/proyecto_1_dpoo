@@ -66,7 +66,7 @@ public class MainMenu extends JFrame {
 		btnIniciarSesionProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				InicioSesionProfesor prof = new InicioSesionProfesor();
+				InicioSesionProfesor prof = new InicioSesionProfesor(sistema);
 				prof.setVisible(true);
 			}
 		});
@@ -78,7 +78,7 @@ public class MainMenu extends JFrame {
 		btnIniciarSesionEstudiante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				InicioSesionEstudiante est = new InicioSesionEstudiante();
+				InicioSesionEstudiante est = new InicioSesionEstudiante(sistema);
 				est.setVisible(true);
 			}
 		});
@@ -91,7 +91,7 @@ public class MainMenu extends JFrame {
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				CrearUsuario us = new CrearUsuario();
+				CrearUsuario us = new CrearUsuario(sistema);
 				us.setVisible(true);
 			}
 		});

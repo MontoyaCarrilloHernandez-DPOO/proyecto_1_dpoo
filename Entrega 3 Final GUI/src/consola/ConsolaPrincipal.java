@@ -83,9 +83,7 @@ public class ConsolaPrincipal extends ConsolaBasica
 
 	public static void main(String[] args) throws SQLException, LPException {
 		ConsolaPrincipal c = new ConsolaPrincipal( );
-		
 		c.mostrarMenuPrincipal( );
-		MainMenu menu = new MainMenu();
 		
 	}
 

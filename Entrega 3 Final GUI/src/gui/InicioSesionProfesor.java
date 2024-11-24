@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import persistencia.Controlador;
 import persistencia.RecogerDatos;
 import usuarios.Profesor;
 
@@ -21,27 +22,13 @@ public class InicioSesionProfesor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Profesor profesor = null ;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InicioSesionProfesor frame = new InicioSesionProfesor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public InicioSesionProfesor() {
+	public InicioSesionProfesor(Controlador sistema) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\LENOVO\\Downloads\\machine-learning.png"));
 		setTitle("Inicio de Sesión Profesor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +72,13 @@ public class InicioSesionProfesor extends JFrame {
 		    	  	if (contrasenia.equals(contraseniaEsperada)) {
 			    		
 			    		dispose();
-			    		MenuProfesor menu = new MenuProfesor();
+			    		
+			    		for (Profesor prof : sistema.listaProfesores) {
+			    			if (prof.login.equals(login)) {
+			    				profesor = prof;
+			    			}
+			    		}	
+			    		MenuProfesor menu = new MenuProfesor(sistema, profesor);
 			    		menu.setVisible(true);
 			    		}else {
 			    			ExcepcionesFrame pop = new ExcepcionesFrame("Login o contrasenia incorrecta⛔🚫⛔🚫");
