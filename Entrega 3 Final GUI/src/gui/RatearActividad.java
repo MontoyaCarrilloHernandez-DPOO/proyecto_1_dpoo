@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,6 +32,9 @@ public class RatearActividad extends JFrame {
 	 * Create the frame.
 	 */
 	public RatearActividad() {
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
+		setTitle("Ratear Actividad");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

@@ -17,6 +17,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JButton;
 import javax.swing.JTree;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +40,9 @@ public class CrearUsuario extends JFrame {
 	 * @param sistema2 
 	 */
 	public CrearUsuario(Controlador sistema) {
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
+		setTitle("Crear usuario");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

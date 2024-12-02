@@ -17,6 +17,7 @@ import usuarios.Profesor;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class InicioSesionEstudiante extends JFrame {
@@ -32,7 +33,8 @@ public class InicioSesionEstudiante extends JFrame {
 	 * Create the frame.
 	 */
 	public InicioSesionEstudiante(Controlador sistema) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\LENOVO\\Downloads\\machine-learning.png"));
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
 		setTitle("Inicio de Sesión Estudiante");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

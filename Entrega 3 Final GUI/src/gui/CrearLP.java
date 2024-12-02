@@ -11,6 +11,7 @@ import usuarios.Profesor;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 
 public class CrearLP extends JFrame {
@@ -23,6 +24,9 @@ public class CrearLP extends JFrame {
 	 */
 	//mirar si aqui mismo se puede o duplicar o crear
 	public CrearLP(Controlador programa, Profesor profesor) {
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
+		setTitle("Crear o duplicar un Learning Path");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 723, 385);
 		contentPane = new JPanel();
