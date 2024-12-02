@@ -14,9 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
+import javax.swing.JComboBox;
 
 public class CrearActividad extends JFrame {
 
@@ -27,9 +31,8 @@ public class CrearActividad extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
 	private JTextField textFieldCantidadPreg;
+	private JTextField textField_7;
 
 	/**
 	 * Launch the application.
@@ -67,6 +70,13 @@ public class CrearActividad extends JFrame {
 		
 		JButton btnCrearQuiz = new JButton("Crear Quiz");
 		btnCrearQuiz.setBounds(311, 185, 120, 23);
+		btnCrearQuiz.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Quiz creado con éxito");
+				exp.setVisible(true);
+			}
+		});
+		
 		panelQuiz.add(btnCrearQuiz);
 		
 		JLabel lblTitulo = new JLabel("Titulo:");
@@ -126,16 +136,6 @@ public class CrearActividad extends JFrame {
 		lblSugerido.setBounds(10, 156, 67, 14);
 		panelQuiz.add(lblSugerido);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(94, 126, 166, 20);
-		panelQuiz.add(textField_5);
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(94, 157, 166, 20);
-		panelQuiz.add(textField_6);
-		
 		textFieldCantidadPreg = new JTextField();
 		textFieldCantidadPreg.setColumns(10);
 		textFieldCantidadPreg.setBounds(314, 77, 87, 20);
@@ -143,15 +143,93 @@ public class CrearActividad extends JFrame {
 		
 		JButton btnNewButton_1 = new JButton("Crear Preguntas");
 		btnNewButton_1.setBounds(302, 105, 111, 23);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int cantidadPreguntas = Integer.valueOf(textFieldCantidadPreg.getText()) ;
+				int j=1;
+				while (j <= cantidadPreguntas) {
+					CrearPreguntasCerradas preg = new CrearPreguntasCerradas();
+					preg.setVisible(true);
+				}
+				
+			}
+		});
 		panelQuiz.add(btnNewButton_1);
+		
+		JComboBox comboBoxPre_4 = new JComboBox();
+		comboBoxPre_4.setBounds(94, 126, 166, 22);
+		panelQuiz.add(comboBoxPre_4);
+		
+		JComboBox comboBoxSug_4 = new JComboBox();
+		comboBoxSug_4.setBounds(94, 156, 166, 22);
+		panelQuiz.add(comboBoxSug_4);
 		
 		//
 		JPanel panelTarea = new JPanel();
 		tabbedPane.addTab("     Tarea     ", null, panelTarea, null);
 		panelTarea.setLayout(null);
 		
+		JLabel lblTituloT = new JLabel("Titulo:");
+		lblTituloT.setBounds(10, 14, 32, 14);
+		panelTarea.add(lblTituloT);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(94, 11, 166, 20);
+		panelTarea.add(textField);
+		
+		JLabel lblNivelT = new JLabel("Nivel:");
+		lblNivelT.setBounds(10, 42, 48, 14);
+		panelTarea.add(lblNivelT);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(94, 39, 166, 20);
+		panelTarea.add(textField_1);
+		
+		JLabel lblTiempoLmiteT = new JLabel("Tiempo Límite:");
+		lblTiempoLmiteT.setBounds(10, 70, 99, 14);
+		panelTarea.add(lblTiempoLmiteT);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(94, 67, 166, 20);
+		panelTarea.add(textField_2);
+		
+		JLabel lblObjetivoT = new JLabel("Objetivo:");
+		lblObjetivoT.setBounds(10, 99, 45, 14);
+		panelTarea.add(lblObjetivoT);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(94, 95, 166, 20);
+		panelTarea.add(textField_3);
+		
+		JLabel lblMetaT = new JLabel("Metadatos:");
+		lblMetaT.setBounds(10, 239, 56, 14);
+		panelTarea.add(lblMetaT);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(94, 236, 166, 20);
+		panelTarea.add(textField_4);
+		
+		JLabel lblPrerequisitoT = new JLabel("Prerequisito:");
+		lblPrerequisitoT.setBounds(10, 131, 80, 14);
+		panelTarea.add(lblPrerequisitoT);
+		
+		JLabel lblSugeridoT = new JLabel("Sugerido:");
+		lblSugeridoT.setBounds(10, 156, 67, 14);
+		panelTarea.add(lblSugeridoT);
+		
 		JButton btnCrearTarea = new JButton("Crear Tarea");
 		btnCrearTarea.setBounds(311, 185, 120, 23);
+		btnCrearTarea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Tarea creada con éxito");
+				exp.setVisible(true);
+			}
+		});
 		panelTarea.add(btnCrearTarea);
 		
 		//
@@ -200,7 +278,7 @@ public class CrearActividad extends JFrame {
 		panelExamen.add(lblCantidadDePreguntasE);
 		
 		JLabel lblMetaE = new JLabel("Metadatos:");
-		lblMeta.setBounds(10, 239, 56, 14);
+		lblMetaE.setBounds(10, 239, 56, 14);
 		panelExamen.add(lblMetaE);
 		
 		textField_4 = new JTextField();
@@ -216,37 +294,132 @@ public class CrearActividad extends JFrame {
 		lblSugeridoE.setBounds(10, 156, 67, 14);
 		panelExamen.add(lblSugeridoE);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(94, 126, 166, 20);
-		panelExamen.add(textField_5);
-		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(94, 157, 166, 20);
-		panelExamen.add(textField_6);
-		
 		textFieldCantidadPreg = new JTextField();
 		textFieldCantidadPreg.setColumns(10);
 		textFieldCantidadPreg.setBounds(314, 77, 87, 20);
 		panelExamen.add(textFieldCantidadPreg);
 		
-		JButton btnCrearPreguntas = new JButton("Crear Preguntas");
-		btnCrearPreguntas.setBounds(302, 105, 111, 23);
-		panelExamen.add(btnCrearPreguntas);
+		JButton btnCrearPreguntasE = new JButton("Crear Preguntas");
+		btnCrearPreguntasE.setBounds(302, 105, 111, 23);
+		btnCrearPreguntasE.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int cantidadPreguntas = Integer.valueOf(lblCantidadDePreguntasE.getText()) ;
+				int j=1;
+				while (j <= cantidadPreguntas) {
+					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas();
+					preg.setVisible(true);
+				}
+				
+			}
+		});
+		panelExamen.add(btnCrearPreguntasE);
 		
 		JButton btnCrearExamen = new JButton("Crear Examen");
 		btnCrearExamen.setBounds(311, 185, 120, 23);
+		btnCrearExamen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Examen creado con éxito");
+				exp.setVisible(true);
+			}
+		});
 		panelExamen.add(btnCrearExamen);
+		
+		JComboBox comboBoxPre_2 = new JComboBox();
+		comboBoxPre_2.setBounds(94, 126, 166, 22);
+		panelExamen.add(comboBoxPre_2);
+		
+		JComboBox comboBoxSug_2 = new JComboBox();
+		comboBoxSug_2.setBounds(94, 156, 166, 22);
+		panelExamen.add(comboBoxSug_2);
 		
 		//
 		JPanel panelEncuesta = new JPanel();
 		tabbedPane.addTab("    Encuesta    ", null, panelEncuesta, null);
 		panelEncuesta.setLayout(null);
 		
+		JLabel lblTituloEE = new JLabel("Titulo:");
+		lblTituloEE.setBounds(10, 14, 32, 14);
+		panelEncuesta.add(lblTituloEE);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(94, 11, 166, 20);
+		panelEncuesta.add(textField);
+		
+		JLabel lblNivelEE = new JLabel("Nivel:");
+		lblNivelEE.setBounds(10, 42, 48, 14);
+		panelEncuesta.add(lblNivelEE);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(94, 39, 166, 20);
+		panelEncuesta.add(textField_1);
+		
+		JLabel lblTiempoLmiteEE = new JLabel("Tiempo Límite:");
+		lblTiempoLmiteEE.setBounds(10, 70, 99, 14);
+		panelEncuesta.add(lblTiempoLmiteEE);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(94, 67, 166, 20);
+		panelEncuesta.add(textField_2);
+		
+		JLabel lblObjetivoEE = new JLabel("Objetivo:");
+		lblObjetivoEE.setBounds(10, 99, 45, 14);
+		panelEncuesta.add(lblObjetivoEE);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(94, 95, 166, 20);
+		panelEncuesta.add(textField_3);
+		
+		JLabel lblCantidadDePreguntasEE = new JLabel("Cantidad de preguntas:");
+		lblCantidadDePreguntasEE.setBounds(293, 52, 128, 14);
+		panelEncuesta.add(lblCantidadDePreguntasEE);
+		
+		JLabel lblMetaEE = new JLabel("Metadatos:");
+		lblMetaEE.setBounds(10, 239, 56, 14);
+		panelEncuesta.add(lblMetaEE);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(94, 236, 166, 20);
+		panelEncuesta.add(textField_4);
+		
+		JLabel lblPrerequisitoEE = new JLabel("Prerequisito:");
+		lblPrerequisitoEE.setBounds(10, 131, 80, 14);
+		panelEncuesta.add(lblPrerequisitoEE);
+		
+		JLabel lblSugeridoEE = new JLabel("Sugerido:");
+		lblSugeridoEE.setBounds(10, 160, 67, 14);
+		panelEncuesta.add(lblSugeridoEE);
+		
+		textFieldCantidadPreg = new JTextField();
+		textFieldCantidadPreg.setColumns(10);
+		textFieldCantidadPreg.setBounds(314, 77, 87, 20);
+		panelEncuesta.add(textFieldCantidadPreg);
+		
+		JButton btnCrearPreguntasEE = new JButton("Crear Preguntas");
+		btnCrearPreguntasEE.setBounds(302, 105, 111, 23);
+		panelEncuesta.add(btnCrearPreguntasEE);
+		
 		JButton btnCrearEncuesta = new JButton("Crear Encuesta");
 		btnCrearEncuesta.setBounds(311, 185, 120, 23);
+		btnCrearEncuesta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Encuesta creada con éxito");
+				exp.setVisible(true);
+			}
+		});
 		panelEncuesta.add(btnCrearEncuesta);
+		
+		JComboBox comboBoxPre_1 = new JComboBox();
+		comboBoxPre_1.setBounds(94, 126, 166, 22);
+		panelEncuesta.add(comboBoxPre_1);
+		
+		JComboBox comboBoxSug_1 = new JComboBox();
+		comboBoxSug_1.setBounds(94, 156, 166, 22);
+		panelEncuesta.add(comboBoxSug_1);
 		
 		
 		//
@@ -254,9 +427,101 @@ public class CrearActividad extends JFrame {
 		tabbedPane.addTab("   Recurso ", null, panelRecurso, null);
 		panelRecurso.setLayout(null);
 		
+		JLabel lblTituloR = new JLabel("Titulo:");
+		lblTituloR.setBounds(10, 14, 32, 14);
+		panelRecurso.add(lblTituloR);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(94, 11, 166, 20);
+		panelRecurso.add(textField);
+		
+		JLabel lblNivelR = new JLabel("Nivel:");
+		lblNivelR.setBounds(10, 42, 48, 14);
+		panelRecurso.add(lblNivelR);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(94, 39, 166, 20);
+		panelRecurso.add(textField_1);
+		
+		JLabel lblTiempoLmiteR = new JLabel("Tiempo Límite:");
+		lblTiempoLmiteT.setBounds(10, 70, 99, 14);
+		panelRecurso.add(lblTiempoLmiteR);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(94, 67, 166, 20);
+		panelRecurso.add(textField_2);
+		
+		JLabel lblObjetivoR = new JLabel("Objetivo:");
+		lblObjetivoR.setBounds(10, 99, 45, 14);
+		panelRecurso.add(lblObjetivoR);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(94, 95, 166, 20);
+		panelRecurso.add(textField_3);
+		
+		JLabel lblMetaR = new JLabel("Metadatos:");
+		lblMetaR.setBounds(10, 239, 56, 14);
+		panelRecurso.add(lblMetaR);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(94, 236, 166, 20);
+		panelRecurso.add(textField_4);
+		
+		JLabel lblPrerequisitoR = new JLabel("Prerequisito:");
+		lblPrerequisitoR.setBounds(10, 131, 80, 14);
+		panelRecurso.add(lblPrerequisitoR);
+		
+		JLabel lblSugeridoR = new JLabel("Sugerido:");
+		lblSugeridoT.setBounds(10, 156, 67, 14);
+		
+		JComboBox comboBoxPre_3 = new JComboBox();
+		comboBoxPre_3.setBounds(94, 126, 166, 22);
+		panelTarea.add(comboBoxPre_3);
+		
+		JComboBox comboBoxSug_3 = new JComboBox();
+		comboBoxSug_3.setBounds(94, 156, 166, 22);
+		panelTarea.add(comboBoxSug_3);
+		panelRecurso.add(lblSugeridoR);
+		
 		JButton btnNewButton = new JButton("Crear Recurso");
 		btnNewButton.setBounds(311, 185, 120, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Recurso creado con éxito");
+				exp.setVisible(true);
+			}
+		});
 		panelRecurso.add(btnNewButton);
+		
+		JLabel lblTiempoLmiteT_1 = new JLabel("Tiempo Límite:");
+		lblTiempoLmiteT_1.setBounds(10, 70, 99, 14);
+		panelRecurso.add(lblTiempoLmiteT_1);
+		
+		JLabel lblSugeridoT_1 = new JLabel("Sugerido:");
+		lblSugeridoT_1.setBounds(10, 160, 67, 14);
+		panelRecurso.add(lblSugeridoT_1);
+		
+		JLabel lblTipo = new JLabel("Tipo:");
+		lblTipo.setBounds(10, 189, 45, 14);
+		panelRecurso.add(lblTipo);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(94, 185, 166, 20);
+		panelRecurso.add(textField_7);
+		
+		JComboBox comboBoxPre = new JComboBox();
+		comboBoxPre.setBounds(94, 126, 166, 22);
+		panelRecurso.add(comboBoxPre);
+		
+		JComboBox comboBoxSug = new JComboBox();
+		comboBoxSug.setBounds(94, 156, 166, 22);
+		panelRecurso.add(comboBoxSug);
 		
 		
 	}

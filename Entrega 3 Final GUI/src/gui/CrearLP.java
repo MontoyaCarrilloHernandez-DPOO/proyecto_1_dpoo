@@ -36,7 +36,6 @@ public class CrearLP extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	//mirar si aqui mismo se puede o duplicar o crear
 	public CrearLP(Controlador programa, Profesor profesor) {
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
@@ -113,6 +112,10 @@ public class CrearLP extends JFrame {
 		JButton btnNewButton = new JButton("Crear Learning Path");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ExcepcionesFrame exp = new ExcepcionesFrame("Learning Path creado con éxito");
+				exp.setVisible(true);
+				
 			}
 		});
 		btnNewButton.setBounds(528, 270, 144, 23);
@@ -137,6 +140,13 @@ public class CrearLP extends JFrame {
 		JButton btnDuplicarLearningPath = new JButton("Duplicar Learning Path");
 		btnDuplicarLearningPath.setBounds(498, 270, 186, 23);
 		Duplicar.add(btnDuplicarLearningPath);
+		btnDuplicarLearningPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ExcepcionesFrame exp = new ExcepcionesFrame("Learning Path duplicado con éxito");
+				exp.setVisible(true);
+			}
+		});
 		
 		JList list_1 = new JList();
 		list_1.setBounds(217, 41, 260, 218);

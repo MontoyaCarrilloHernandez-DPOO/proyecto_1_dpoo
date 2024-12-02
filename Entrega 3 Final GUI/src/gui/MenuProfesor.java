@@ -45,6 +45,8 @@ public class MenuProfesor extends JFrame {
 		JButton btnCrearLP = new JButton("Crea un Learning Path");
 		btnCrearLP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CrearLP crearLP = new CrearLP(sistema, profesor);
+				crearLP.setVisible(true);
 				
 			}
 		});
@@ -54,6 +56,8 @@ public class MenuProfesor extends JFrame {
 		JButton btnCrearActividad = new JButton("Crear una Actividad");
 		btnCrearActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CrearActividad crearActividad = new CrearActividad(sistema, profesor);
+				crearActividad.setVisible(true);
 			}
 		});
 		btnCrearActividad.setBounds(248, 119, 157, 23);
@@ -62,12 +66,14 @@ public class MenuProfesor extends JFrame {
 		JButton btnCalificar = new JButton("Calificar Exámenes");
 		btnCalificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CalificarExamenes calificar = new CalificarExamenes(sistema, profesor);
+				calificar.setVisible(true);
 			}
 		});
 		btnCalificar.setBounds(248, 190, 157, 23);
 		contentPane.add(btnCalificar);
 		
-		JLabel lblNewLabel_1 = new JLabel("<dynamic> !");
+		JLabel lblNewLabel_1 = new JLabel(profesor.getNombre()+"!");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(10, 132, 196, 60);
