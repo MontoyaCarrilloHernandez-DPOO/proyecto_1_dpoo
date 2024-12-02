@@ -17,6 +17,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class MenuEstudiante extends JFrame {
 
@@ -37,35 +38,66 @@ public class MenuEstudiante extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("¡Bienvenido, "+ estudiante.getNombre()+ " !");
-		lblNewLabel.setBounds(10, 119, 137, 25);
+		JLabel lblNewLabel = new JLabel("¡Bienvenido,");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(10, 119, 228, 25);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		contentPane.add(lblNewLabel);
 		
 		JButton btnEnroll = new JButton("Únete a un Learning Path");
 		btnEnroll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				EnrollEstudiante enroll = new EnrollEstudiante(sistema, estudiante);
+				enroll.setVisible(true);
 			}
 		});
-		btnEnroll.setBounds(248, 48, 157, 23);
+		btnEnroll.setBounds(248, 24, 157, 23);
 		contentPane.add(btnEnroll);
 		
 		JButton btnUnenroll = new JButton("Sal de tu Learning Path");
 		btnUnenroll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO
 			}
 		});
-		btnUnenroll.setBounds(248, 119, 157, 23);
+		btnUnenroll.setBounds(248, 71, 157, 23);
 		contentPane.add(btnUnenroll);
 		
 		JButton btnResumir = new JButton("Resume tu Learning Path");
 		btnResumir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				HacerActividades act = new HacerActividades(sistema, estudiante);
+				act.setVisible(true);
 			}
 		});
-		btnResumir.setBounds(248, 190, 157, 23);
+		btnResumir.setBounds(248, 118, 157, 23);
 		contentPane.add(btnResumir);
+		
+		JButton btnRatea = new JButton("Valora Actividades");
+		btnRatea.setBounds(248, 165, 157, 23);
+		btnRatea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RatearActividad act = new RatearActividad(sistema, estudiante);
+				act.setVisible(true);
+			}
+		});
+		contentPane.add(btnRatea);
+		
+		JButton btnReseniar = new JButton("Reseña Actividades");
+		btnReseniar.setBounds(248, 212, 157, 23);
+		btnReseniar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ReseniarActividad act = new ReseniarActividad(sistema, estudiante);
+				act.setVisible(true);
+			}
+		});
+		contentPane.add(btnReseniar);
+		
+		JLabel lblNewLabel_1 = new JLabel(estudiante.getNombre()+" !");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(10, 145, 228, 25);
+		contentPane.add(lblNewLabel_1);
 		
 		
 	}

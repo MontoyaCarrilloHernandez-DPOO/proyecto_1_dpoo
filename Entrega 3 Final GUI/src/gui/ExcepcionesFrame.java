@@ -33,7 +33,7 @@ public class ExcepcionesFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("ok");
+		JButton btnNewButton = new JButton("OK");
 		btnNewButton.setBounds(174, 163, 89, 23);
 		contentPane.add(btnNewButton);
 		

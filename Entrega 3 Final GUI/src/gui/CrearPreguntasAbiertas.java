@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
 
 public class CrearPreguntasAbiertas extends JFrame {
@@ -34,10 +37,6 @@ public class CrearPreguntasAbiertas extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(213, 10, 10, 10);
-		contentPane.add(panel);
-		
 		JLabel lblEnunciado = new JLabel("Enunciado:");
 		lblEnunciado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEnunciado.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -47,21 +46,29 @@ public class CrearPreguntasAbiertas extends JFrame {
 		JLabel lblrtaGuia = new JLabel("Respuesta Guía:");
 		lblrtaGuia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblrtaGuia.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblrtaGuia.setBounds(134, 106, 169, 14);
+		lblrtaGuia.setBounds(133, 106, 169, 23);
 		contentPane.add(lblrtaGuia);
 		
 		JButton btnCrearPregunta = new JButton("Crear Pregunta");
-		btnCrearPregunta.setBounds(154, 201, 129, 23);
+		btnCrearPregunta.setBounds(153, 201, 129, 23);
+		btnCrearPregunta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//REGISTRAR PREGUNTA
+				dispose();
+				ExcepcionesFrame exp = new ExcepcionesFrame("Pregunta creada con éxito");
+				exp.setVisible(true);
+			}
+		});
 		contentPane.add(btnCrearPregunta);
 		
 		pregunta = new JTextField();
-		pregunta.setBounds(10, 48, 416, 35);
+		pregunta.setBounds(10, 36, 416, 28);
 		contentPane.add(pregunta);
 		pregunta.setColumns(10);
 		
 		rtaGuia = new JTextField();
 		rtaGuia.setColumns(10);
-		rtaGuia.setBounds(10, 143, 416, 35);
+		rtaGuia.setBounds(10, 131, 416, 28);
 		contentPane.add(rtaGuia);
 	}
 }

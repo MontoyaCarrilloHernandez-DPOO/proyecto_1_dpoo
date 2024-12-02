@@ -31,7 +31,7 @@ public class CalificarExamenes extends JFrame {
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
 		setTitle("Calificar Examenes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,7 +56,7 @@ public class CalificarExamenes extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(31, 188, 138, 22);
+		btnNewButton.setBounds(10, 191, 170, 22);
 		contentPane.add(btnNewButton);
 		
 		JTextArea txtrAquSeMostrarn = new JTextArea();
@@ -64,20 +64,24 @@ public class CalificarExamenes extends JFrame {
 		txtrAquSeMostrarn.setLineWrap(true);
 		txtrAquSeMostrarn.setEditable(false);
 		txtrAquSeMostrarn.setText("Aquí se mostrarán las respuestas del estudiante");
-		txtrAquSeMostrarn.setBounds(231, 27, 195, 176);
+		txtrAquSeMostrarn.setBounds(225, 19, 201, 184);
 		contentPane.add(txtrAquSeMostrarn);
 		
 		textFieldNota = new JTextField();
-		textFieldNota.setBounds(322, 213, 104, 20);
+		textFieldNota.setBounds(345, 213, 81, 20);
 		contentPane.add(textFieldNota);
 		textFieldNota.setColumns(10);
 		
 		JLabel lblNotaObtenida = new JLabel("Nota Obtenida:");
-		lblNotaObtenida.setBounds(241, 216, 93, 14);
+		lblNotaObtenida.setBounds(225, 216, 110, 14);
 		contentPane.add(lblNotaObtenida);
 		
 		JButton btnCalificar = new JButton("Calificar");
-		btnCalificar.setBounds(161, 240, 89, 23);
+		btnCalificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCalificar.setBounds(173, 239, 89, 23);
 		contentPane.add(btnCalificar);
 		
 		JLabel lblLP = new JLabel("Selecciona un Learning Path:");

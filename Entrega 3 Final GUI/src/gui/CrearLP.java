@@ -40,8 +40,8 @@ public class CrearLP extends JFrame {
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
 		setTitle("Crear o duplicar un Learning Path");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 723, 385);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 781, 422);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -49,7 +49,7 @@ public class CrearLP extends JFrame {
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setFont(new Font("Tahoma", Font.BOLD, 16));
+		tabbedPane.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		contentPane.add(tabbedPane);
 		
 		JPanel Crear = new JPanel();
@@ -57,56 +57,56 @@ public class CrearLP extends JFrame {
 		Crear.setLayout(null);
 		
 		JLabel lblTitulo = new JLabel("Titulo:");
-		lblTitulo.setBounds(51, 31, 32, 14);
+		lblTitulo.setBounds(26, 31, 57, 14);
 		Crear.add(lblTitulo);
 		
 		JLabel lblDuracion = new JLabel("Duración:");
-		lblDuracion.setBounds(51, 76, 48, 14);
+		lblDuracion.setBounds(26, 76, 73, 14);
 		Crear.add(lblDuracion);
 		
 		JLabel lblDescripcion = new JLabel("Descripción:");
-		lblDescripcion.setBounds(51, 121, 61, 14);
+		lblDescripcion.setBounds(26, 121, 86, 14);
 		Crear.add(lblDescripcion);
 		
 		JLabel lblObjetivo = new JLabel("Objetivo:");
-		lblObjetivo.setBounds(51, 166, 45, 14);
+		lblObjetivo.setBounds(26, 166, 70, 14);
 		Crear.add(lblObjetivo);
 		
 		JLabel lblDificultad = new JLabel("Dificultad:");
-		lblDificultad.setBounds(51, 211, 51, 14);
+		lblDificultad.setBounds(26, 211, 76, 14);
 		Crear.add(lblDificultad);
 		
 		JLabel lblMeta = new JLabel("Metadatos:");
-		lblMeta.setBounds(51, 256, 56, 14);
+		lblMeta.setBounds(26, 267, 81, 14);
 		Crear.add(lblMeta);
 		
 		textFieldTitulo = new JTextField();
-		textFieldTitulo.setBounds(135, 28, 166, 20);
+		textFieldTitulo.setBounds(116, 31, 166, 20);
 		Crear.add(textFieldTitulo);
 		textFieldTitulo.setColumns(10);
 		
 		textFieldDuracion = new JTextField();
 		textFieldDuracion.setColumns(10);
-		textFieldDuracion.setBounds(135, 73, 166, 20);
+		textFieldDuracion.setBounds(116, 76, 166, 20);
 		Crear.add(textFieldDuracion);
 		
 		textFieldDescripcion = new JTextField();
 		textFieldDescripcion.setColumns(10);
-		textFieldDescripcion.setBounds(135, 118, 166, 20);
+		textFieldDescripcion.setBounds(116, 121, 166, 20);
 		Crear.add(textFieldDescripcion);
 		
 		textFieldObjetivo = new JTextField();
 		textFieldObjetivo.setColumns(10);
-		textFieldObjetivo.setBounds(135, 162, 166, 20);
+		textFieldObjetivo.setBounds(116, 165, 166, 20);
 		Crear.add(textFieldObjetivo);
 		
 		textFieldMetadatos = new JTextField();
 		textFieldMetadatos.setColumns(10);
-		textFieldMetadatos.setBounds(135, 253, 166, 20);
+		textFieldMetadatos.setBounds(116, 267, 166, 20);
 		Crear.add(textFieldMetadatos);
 		
 		JList listLP = new JList();
-		listLP.setBounds(382, 35, 266, 215);
+		listLP.setBounds(382, 45, 348, 229);
 		Crear.add(listLP);
 		
 		JButton btnNewButton = new JButton("Crear Learning Path");
@@ -118,19 +118,24 @@ public class CrearLP extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(528, 270, 144, 23);
+		btnNewButton.setBounds(488, 285, 144, 23);
 		Crear.add(btnNewButton);
 		
 		JLabel lblAct = new JLabel("Selecciona las actividades que tu Learning Path contendrá: ");
-		lblAct.setBounds(358, 11, 314, 14);
+		lblAct.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAct.setBounds(358, 20, 384, 14);
 		Crear.add(lblAct);
 		
 		JSlider slider = new JSlider();
-		slider.setValue(5);
+		slider.setPaintLabels(true);
+		slider.setMinorTickSpacing(1);
+		slider.setMajorTickSpacing(10);
 		slider.setPaintTicks(true);
+		slider.setSnapToTicks(true);
+		slider.setValue(5);
 		slider.setMinimum(1);
 		slider.setMaximum(10);
-		slider.setBounds(135, 205, 166, 26);
+		slider.setBounds(116, 200, 166, 56);
 		Crear.add(slider);
 		
 		JPanel Duplicar = new JPanel();
@@ -149,12 +154,12 @@ public class CrearLP extends JFrame {
 		});
 		
 		JList list_1 = new JList();
-		list_1.setBounds(217, 41, 260, 218);
+		list_1.setBounds(217, 41, 260, 246);
 		Duplicar.add(list_1);
 		
 		JLabel lblNewLabel_4 = new JLabel("Selecciona uno de los siguientes Learning Paths para duplicarlo:");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_4.setBounds(138, 16, 417, 14);
+		lblNewLabel_4.setBounds(45, 16, 601, 14);
 		Duplicar.add(lblNewLabel_4);
 	}
 }

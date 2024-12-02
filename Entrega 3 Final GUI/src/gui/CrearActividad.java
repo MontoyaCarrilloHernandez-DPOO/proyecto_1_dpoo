@@ -45,7 +45,7 @@ public class CrearActividad extends JFrame {
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
 		setTitle("Crear Actividad");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -65,7 +65,7 @@ public class CrearActividad extends JFrame {
 		contentPane.add(tabbedPane);
 		
 		JPanel panelQuiz = new JPanel();
-		tabbedPane.addTab("      Quiz      ", null, panelQuiz, null);
+		tabbedPane.addTab("   Quiz  ", null, panelQuiz, null);
 		panelQuiz.setLayout(null);
 		
 		JButton btnCrearQuiz = new JButton("Crear Quiz");
@@ -166,7 +166,7 @@ public class CrearActividad extends JFrame {
 		
 		//
 		JPanel panelTarea = new JPanel();
-		tabbedPane.addTab("     Tarea     ", null, panelTarea, null);
+		tabbedPane.addTab("  Tarea  ", null, panelTarea, null);
 		panelTarea.setLayout(null);
 		
 		JLabel lblTituloT = new JLabel("Titulo:");
@@ -234,7 +234,7 @@ public class CrearActividad extends JFrame {
 		
 		//
 		JPanel panelExamen = new JPanel();
-		tabbedPane.addTab("    Examen    ", null, panelExamen, null);
+		tabbedPane.addTab("   Examen ", null, panelExamen, null);
 		panelExamen.setLayout(null);
 		
 		JLabel lblTituloE = new JLabel("Titulo:");
@@ -334,7 +334,7 @@ public class CrearActividad extends JFrame {
 		
 		//
 		JPanel panelEncuesta = new JPanel();
-		tabbedPane.addTab("    Encuesta    ", null, panelEncuesta, null);
+		tabbedPane.addTab(" Encuesta ", null, panelEncuesta, null);
 		panelEncuesta.setLayout(null);
 		
 		JLabel lblTituloEE = new JLabel("Titulo:");
@@ -401,6 +401,17 @@ public class CrearActividad extends JFrame {
 		
 		JButton btnCrearPreguntasEE = new JButton("Crear Preguntas");
 		btnCrearPreguntasEE.setBounds(302, 105, 111, 23);
+		btnCrearPreguntasEE.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int cantidadPreguntas = Integer.valueOf(lblCantidadDePreguntasEE.getText()) ;
+				int j=1;
+				while (j <= cantidadPreguntas) {
+					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas();
+					preg.setVisible(true);
+				}
+				
+			}
+		});
 		panelEncuesta.add(btnCrearPreguntasEE);
 		
 		JButton btnCrearEncuesta = new JButton("Crear Encuesta");
@@ -424,7 +435,7 @@ public class CrearActividad extends JFrame {
 		
 		//
 		JPanel panelRecurso = new JPanel();
-		tabbedPane.addTab("   Recurso ", null, panelRecurso, null);
+		tabbedPane.addTab("  Recurso", null, panelRecurso, null);
 		panelRecurso.setLayout(null);
 		
 		JLabel lblTituloR = new JLabel("Titulo:");

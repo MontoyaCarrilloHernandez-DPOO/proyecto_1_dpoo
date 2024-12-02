@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -63,6 +66,14 @@ public class CrearPreguntasCerradas extends JFrame {
 		
 		JButton btnCrearPregunta = new JButton("Crear Pregunta");
 		btnCrearPregunta.setBounds(157, 236, 129, 23);
+		btnCrearPregunta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO: REGISTRAR PREGUNTA
+				dispose();
+				ExcepcionesFrame exp = new ExcepcionesFrame("Pregunta creada con éxito");
+				exp.setVisible(true);
+			}
+		});
 		contentPane.add(btnCrearPregunta);
 		
 		textField_2 = new JTextField();

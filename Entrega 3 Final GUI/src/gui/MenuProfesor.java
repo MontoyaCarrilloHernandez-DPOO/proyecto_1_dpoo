@@ -50,7 +50,7 @@ public class MenuProfesor extends JFrame {
 				
 			}
 		});
-		btnCrearLP.setBounds(248, 48, 157, 23);
+		btnCrearLP.setBounds(221, 48, 184, 23);
 		contentPane.add(btnCrearLP);
 		
 		JButton btnCrearActividad = new JButton("Crear una Actividad");
@@ -60,7 +60,7 @@ public class MenuProfesor extends JFrame {
 				crearActividad.setVisible(true);
 			}
 		});
-		btnCrearActividad.setBounds(248, 119, 157, 23);
+		btnCrearActividad.setBounds(221, 119, 184, 23);
 		contentPane.add(btnCrearActividad);
 		
 		JButton btnCalificar = new JButton("Calificar Exámenes");
@@ -70,7 +70,7 @@ public class MenuProfesor extends JFrame {
 				calificar.setVisible(true);
 			}
 		});
-		btnCalificar.setBounds(248, 190, 157, 23);
+		btnCalificar.setBounds(221, 190, 184, 23);
 		contentPane.add(btnCalificar);
 		
 		JLabel lblNewLabel_1 = new JLabel(profesor.getNombre()+"!");
