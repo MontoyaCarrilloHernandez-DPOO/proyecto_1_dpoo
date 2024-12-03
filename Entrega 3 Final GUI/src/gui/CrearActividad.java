@@ -9,7 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import learningPaths.Actividad;
+import learningPaths.PreguntaAbierta;
+import learningPaths.PreguntaCerrada;
+import learningPaths.Quiz;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
+import persistencia.RecogerDatos;
 import usuarios.Profesor;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
@@ -40,7 +45,9 @@ public class CrearActividad extends JFrame {
 	private JTextField textFieldCantidadPregEx;
 	private JTextField textFieldCantidadPregQuiz;
 	private JTextField textField_7;
-
+	 ArrayList<PreguntaAbierta> pregA = new ArrayList<PreguntaAbierta>();
+	ArrayList<PreguntaCerrada> pregC = new ArrayList<PreguntaCerrada>();
+	private JTextField textFieldNota;
 	/**
 	 * Launch the application.
 	 */
@@ -49,6 +56,8 @@ public class CrearActividad extends JFrame {
 	 * Create the frame.
 	 */
 	public CrearActividad(Controlador programa, Profesor profesor) {
+		ModificarDatos datos = new ModificarDatos();
+		RecogerDatos recoger = new RecogerDatos();
 		ArrayList<String> nombreAct = new ArrayList<String>();
 		for (Actividad act:programa.listaActividades) {
 			nombreAct.addLast(act.getTitulo());
@@ -79,12 +88,56 @@ public class CrearActividad extends JFrame {
 		tabbedPane.addTab("   Quiz  ", null, panelQuiz, null);
 		panelQuiz.setLayout(null);
 		
+		JLabel lblPrerequisito = new JLabel("Prerequisito:");
+		lblPrerequisito.setBounds(10, 157, 80, 14);
+		panelQuiz.add(lblPrerequisito);
+		
+		JLabel lblSugerido = new JLabel("Sugerido:");
+		lblSugerido.setBounds(10, 185, 67, 14);
+		panelQuiz.add(lblSugerido);
+		
+		textFieldCantidadPregQuiz = new JTextField();
+		textFieldCantidadPregQuiz.setColumns(10);
+		textFieldCantidadPregQuiz.setBounds(314, 77, 87, 20);
+		panelQuiz.add(textFieldCantidadPregQuiz);
+
+		JComboBox comboBoxPrereq = new JComboBox();
+		comboBoxPrereq.setBounds(94, 153, 166, 22);
+		panelQuiz.add(comboBoxPrereq);
+		for(String nombre:nombreAct) {
+			comboBoxPrereq.addItem(nombre);
+		}
+		panelQuiz.add(comboBoxPrereq);
+		
+		JComboBox comboBoxsug = new JComboBox();
+		comboBoxsug.setBounds(94, 185, 166, 22);
+		for(String nombre:nombreAct) {
+			comboBoxsug.addItem(nombre);
+		}
+		panelQuiz.add(comboBoxsug);
 		JButton btnCrearQuiz = new JButton("Crear Quiz");
 		btnCrearQuiz.setBounds(311, 185, 120, 23);
 		btnCrearQuiz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ExcepcionesFrame exp = new ExcepcionesFrame("Quiz creado con éxito");
 				exp.setVisible(true);
+				Actividad pre = null ;
+				Actividad sug = null ;
+				for(Actividad act:programa.listaActividades) {
+					if(comboBoxPrereq.getSelectedItem().equals(act.getTitulo())){
+						pre = act;
+					if(comboBoxsug.getSelectedItem().equals(act.getTitulo())) {
+						sug = act;
+					}
+				}}
+				Quiz quiz = new Quiz(Float.parseFloat(textFieldNota.getText()),(float) 0,false,pregC,textField_3.getText(),textField.getText(),textField_1.getText(),pre,sug,"",Float.parseFloat(textField_2.getText()),5,false);
+				try {
+                    programa.crearQuiz(quiz);
+                    profesor.anadirActs(quiz);
+                    datos.cambiarDatosProfesor(profesor);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
 			}
 		});
 		
@@ -118,7 +171,7 @@ public class CrearActividad extends JFrame {
 		panelQuiz.add(textField_2);
 		
 		JLabel lblObjetivo = new JLabel("Objetivo:");
-		lblObjetivo.setBounds(10, 99, 45, 14);
+		lblObjetivo.setBounds(10, 99, 74, 14);
 		panelQuiz.add(lblObjetivo);
 		
 		textField_3 = new JTextField();
@@ -139,18 +192,6 @@ public class CrearActividad extends JFrame {
 		textField_4.setBounds(94, 236, 166, 20);
 		panelQuiz.add(textField_4);
 		
-		JLabel lblPrerequisito = new JLabel("Prerequisito:");
-		lblPrerequisito.setBounds(10, 131, 80, 14);
-		panelQuiz.add(lblPrerequisito);
-		
-		JLabel lblSugerido = new JLabel("Sugerido:");
-		lblSugerido.setBounds(10, 156, 67, 14);
-		panelQuiz.add(lblSugerido);
-		
-		textFieldCantidadPregQuiz = new JTextField();
-		textFieldCantidadPregQuiz.setColumns(10);
-		textFieldCantidadPregQuiz.setBounds(314, 77, 87, 20);
-		panelQuiz.add(textFieldCantidadPregQuiz);
 		
 		JButton btnCrearPreguntaQ = new JButton("Crear Preguntas");
 		btnCrearPreguntaQ.setBounds(302, 105, 111, 23);
@@ -160,7 +201,7 @@ public class CrearActividad extends JFrame {
 				System.out.println(cantidadPreguntas);
 				int j=0;
 				while (j < cantidadPreguntas) {
-					CrearPreguntasCerradas preg = new CrearPreguntasCerradas();
+					CrearPreguntasCerradas preg = new CrearPreguntasCerradas(programa, CrearActividad.this);
 					preg.setVisible(true);
 					j++;
 				}
@@ -169,20 +210,15 @@ public class CrearActividad extends JFrame {
 		});
 		panelQuiz.add(btnCrearPreguntaQ);
 		
-		JComboBox comboBoxPrereq = new JComboBox();
-		comboBoxPrereq.setBounds(94, 126, 166, 22);
-		panelQuiz.add(comboBoxPrereq);
-		for(String nombre:nombreAct) {
-			comboBoxPrereq.addItem(nombre);
-		}
-		panelQuiz.add(comboBoxPrereq);
 		
-		JComboBox comboBoxsug = new JComboBox();
-		comboBoxsug.setBounds(94, 156, 166, 22);
-		for(String nombre:nombreAct) {
-			comboBoxsug.addItem(nombre);
-		}
-		panelQuiz.add(comboBoxsug);
+		JLabel lblNotaMinima = new JLabel("Nota Minima:");
+		lblNotaMinima.setBounds(10, 128, 74, 14);
+		panelQuiz.add(lblNotaMinima);
+		
+		textFieldNota = new JTextField();
+		textFieldNota.setColumns(10);
+		textFieldNota.setBounds(94, 124, 166, 20);
+		panelQuiz.add(textFieldNota);
 		
 		
 		//
@@ -530,6 +566,7 @@ public class CrearActividad extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ExcepcionesFrame exp = new ExcepcionesFrame("Recurso creado con éxito");
 				exp.setVisible(true);
+				
 			}
 		});
 		panelRecurso.add(btnNewButton);
@@ -559,12 +596,7 @@ public class CrearActividad extends JFrame {
 		comboBoxSug.setBounds(94, 156, 166, 22);
 		panelRecurso.add(comboBoxSug);
 		
-		try {
-			programa.crearActividad(null, getName());
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
 		
 		
 	}

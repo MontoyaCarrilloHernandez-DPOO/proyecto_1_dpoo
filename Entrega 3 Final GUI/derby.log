@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue Dec 03 17:12:08 COT 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-0193-8e94-ac61-00000e966d30 
+Tue Dec 03 18:18:01 COT 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-0193-8ed0-fbab-00000e966d30 
 on database directory C:\Users\samue\OneDrive\Universidad\Tercer semestre\DPOO\proyecto_1_dpoo\Entrega 3 Final GUI\proyecto1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4cb2c100 
 Loaded from file:/C:/Users/samue/OneDrive/Universidad/Tercer%20semestre/DPOO/proyecto_1_dpoo/Entrega%203%20Final%20GUI/src/lib/derby.jar
 java.vendor=Eclipse Adoptium
