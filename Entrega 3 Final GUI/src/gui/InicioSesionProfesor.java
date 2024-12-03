@@ -62,6 +62,19 @@ public class InicioSesionProfesor extends JFrame {
 		JButton btnIniciarSesion = new JButton("Ingresar");
 		btnIniciarSesion.setBounds(301, 105, 103, 33);
 		contentPane.add(btnIniciarSesion);
+		
+		JButton btnDevolver = new JButton("<----");
+		btnDevolver.setBounds(25, 11, 71, 23);
+		btnDevolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				MainMenu menu = new MainMenu(sistema);
+				menu.setVisible(true);
+				}
+			}
+		);
+	
+		contentPane.add(btnDevolver);
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String login = textFieldLogin.getText();
