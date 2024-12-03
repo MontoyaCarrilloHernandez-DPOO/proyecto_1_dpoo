@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
@@ -7,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import learningPaths.Actividad;
 import persistencia.Controlador;
 import usuarios.Profesor;
 import javax.swing.JTabbedPane;
@@ -16,11 +18,13 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JSlider;
 import javax.swing.JComboBox;
+import java.util.ArrayList;
 
 public class CrearActividad extends JFrame {
 
@@ -32,6 +36,9 @@ public class CrearActividad extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textFieldCantidadPreg;
+	private JTextField textFieldCantidadPregEE;
+	private JTextField textFieldCantidadPregEx;
+	private JTextField textFieldCantidadPregQuiz;
 	private JTextField textField_7;
 
 	/**
@@ -42,6 +49,10 @@ public class CrearActividad extends JFrame {
 	 * Create the frame.
 	 */
 	public CrearActividad(Controlador programa, Profesor profesor) {
+		ArrayList<String> nombreAct = new ArrayList<String>();
+		for (Actividad act:programa.listaActividades) {
+			nombreAct.addLast(act.getTitulo());
+		}
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
 		setTitle("Crear Actividad");
@@ -136,33 +147,43 @@ public class CrearActividad extends JFrame {
 		lblSugerido.setBounds(10, 156, 67, 14);
 		panelQuiz.add(lblSugerido);
 		
-		textFieldCantidadPreg = new JTextField();
-		textFieldCantidadPreg.setColumns(10);
-		textFieldCantidadPreg.setBounds(314, 77, 87, 20);
-		panelQuiz.add(textFieldCantidadPreg);
+		textFieldCantidadPregQuiz = new JTextField();
+		textFieldCantidadPregQuiz.setColumns(10);
+		textFieldCantidadPregQuiz.setBounds(314, 77, 87, 20);
+		panelQuiz.add(textFieldCantidadPregQuiz);
 		
-		JButton btnNewButton_1 = new JButton("Crear Preguntas");
-		btnNewButton_1.setBounds(302, 105, 111, 23);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnCrearPreguntaQ = new JButton("Crear Preguntas");
+		btnCrearPreguntaQ.setBounds(302, 105, 111, 23);
+		btnCrearPreguntaQ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cantidadPreguntas = Integer.valueOf(textFieldCantidadPreg.getText()) ;
-				int j=1;
-				while (j <= cantidadPreguntas) {
+				int cantidadPreguntas = Integer.parseInt(textFieldCantidadPregQuiz.getText()) ;
+				System.out.println(cantidadPreguntas);
+				int j=0;
+				while (j < cantidadPreguntas) {
 					CrearPreguntasCerradas preg = new CrearPreguntasCerradas();
 					preg.setVisible(true);
+					j++;
 				}
 				
 			}
 		});
-		panelQuiz.add(btnNewButton_1);
+		panelQuiz.add(btnCrearPreguntaQ);
 		
-		JComboBox comboBoxPre_4 = new JComboBox();
-		comboBoxPre_4.setBounds(94, 126, 166, 22);
-		panelQuiz.add(comboBoxPre_4);
+		JComboBox comboBoxPrereq = new JComboBox();
+		comboBoxPrereq.setBounds(94, 126, 166, 22);
+		panelQuiz.add(comboBoxPrereq);
+		for(String nombre:nombreAct) {
+			comboBoxPrereq.addItem(nombre);
+		}
+		panelQuiz.add(comboBoxPrereq);
 		
-		JComboBox comboBoxSug_4 = new JComboBox();
-		comboBoxSug_4.setBounds(94, 156, 166, 22);
-		panelQuiz.add(comboBoxSug_4);
+		JComboBox comboBoxsug = new JComboBox();
+		comboBoxsug.setBounds(94, 156, 166, 22);
+		for(String nombre:nombreAct) {
+			comboBoxsug.addItem(nombre);
+		}
+		panelQuiz.add(comboBoxsug);
+		
 		
 		//
 		JPanel panelTarea = new JPanel();
@@ -294,20 +315,22 @@ public class CrearActividad extends JFrame {
 		lblSugeridoE.setBounds(10, 156, 67, 14);
 		panelExamen.add(lblSugeridoE);
 		
-		textFieldCantidadPreg = new JTextField();
-		textFieldCantidadPreg.setColumns(10);
-		textFieldCantidadPreg.setBounds(314, 77, 87, 20);
-		panelExamen.add(textFieldCantidadPreg);
+		textFieldCantidadPregEx = new JTextField();
+		textFieldCantidadPregEx.setColumns(10);
+		textFieldCantidadPregEx.setBounds(314, 77, 87, 20);
+		panelExamen.add(textFieldCantidadPregEx);
 		
 		JButton btnCrearPreguntasE = new JButton("Crear Preguntas");
 		btnCrearPreguntasE.setBounds(302, 105, 111, 23);
 		btnCrearPreguntasE.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cantidadPreguntas = Integer.valueOf(lblCantidadDePreguntasE.getText()) ;
-				int j=1;
-				while (j <= cantidadPreguntas) {
+				int cantidadPreguntas = Integer.parseInt(textFieldCantidadPregEx.getText()) ;
+				System.out.println(cantidadPreguntas);
+				int j=0;
+				while (j < cantidadPreguntas) {
 					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas();
 					preg.setVisible(true);
+					j++;
 				}
 				
 			}
@@ -394,20 +417,22 @@ public class CrearActividad extends JFrame {
 		lblSugeridoEE.setBounds(10, 160, 67, 14);
 		panelEncuesta.add(lblSugeridoEE);
 		
-		textFieldCantidadPreg = new JTextField();
-		textFieldCantidadPreg.setColumns(10);
-		textFieldCantidadPreg.setBounds(314, 77, 87, 20);
-		panelEncuesta.add(textFieldCantidadPreg);
+		textFieldCantidadPregEE = new JTextField();
+		textFieldCantidadPregEE.setColumns(10);
+		textFieldCantidadPregEE.setBounds(314, 77, 87, 20);
+		panelEncuesta.add(textFieldCantidadPregEE);
 		
 		JButton btnCrearPreguntasEE = new JButton("Crear Preguntas");
 		btnCrearPreguntasEE.setBounds(302, 105, 111, 23);
 		btnCrearPreguntasEE.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cantidadPreguntas = Integer.valueOf(lblCantidadDePreguntasEE.getText()) ;
-				int j=1;
-				while (j <= cantidadPreguntas) {
+				int cantidadPreguntas = Integer.parseInt(textFieldCantidadPregEE.getText()) ;
+				System.out.println(cantidadPreguntas);
+				int j=0;
+				while (j < cantidadPreguntas) {
 					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas();
 					preg.setVisible(true);
+					j++;
 				}
 				
 			}
@@ -533,6 +558,13 @@ public class CrearActividad extends JFrame {
 		JComboBox comboBoxSug = new JComboBox();
 		comboBoxSug.setBounds(94, 156, 166, 22);
 		panelRecurso.add(comboBoxSug);
+		
+		try {
+			programa.crearActividad(null, getName());
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
 	}
