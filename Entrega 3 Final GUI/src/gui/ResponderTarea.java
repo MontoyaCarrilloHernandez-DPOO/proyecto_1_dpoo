@@ -12,6 +12,7 @@ import learningPaths.Actividad;
 import learningPaths.Encuesta;
 import learningPaths.Tarea;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
 import usuarios.Estudiante;
 
 import javax.swing.JButton;
@@ -22,6 +23,7 @@ public class ResponderTarea extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private ModificarDatos modificarDatos = new ModificarDatos();
 
 	/**
 	 * Create the frame.
@@ -40,6 +42,8 @@ public class ResponderTarea extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	tarea.setCompletado();
+		    	modificarDatos.cambiarDatosEstudiante(estudiante.login, estudiante.getHistorialLearningPaths(), estudiante.actualLearningPath,null, estudiante.getRespuestas(), estudiante.getProgreso());
+				modificarDatos.cambiarDatosProgreso(estudiante.getProgreso());
 		    }
 		});
 		contentPane.add(btnOk);

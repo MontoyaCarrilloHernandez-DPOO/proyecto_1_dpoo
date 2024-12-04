@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import learningPaths.Encuesta;
 import learningPaths.Quiz;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
 import usuarios.Estudiante;
 
 import javax.swing.JLabel;
@@ -27,7 +28,10 @@ public class ResponderQuiz extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private int contador = 0;
+	private int correctas = 0;
+	private ModificarDatos modificarDatos = new ModificarDatos();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private float notaObtenida = 0;
 	
 	
 	public ResponderQuiz(Controlador sistema, Estudiante estudiante, Quiz quiz) {
@@ -46,6 +50,8 @@ public class ResponderQuiz extends JFrame {
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setEditable(false);
+		String enunciado = quiz.preguntas.get(contador).enunciado;
+		textPane.setText(enunciado);
 		textPane.setBounds(49, 36, 338, 211);
 		contentPane.add(textPane);
 		
@@ -101,14 +107,39 @@ public class ResponderQuiz extends JFrame {
 				if (contador == quiz.preguntas.size()) {
 					JButton btnEnviarQuiz = new JButton("Enviar Quiz");
 					btnEnviarQuiz.setBounds(174, 320, 226, 23);
+					btnEnviarQuiz.addActionListener(new ActionListener() {
+					    public void actionPerformed(ActionEvent e) {
+					    	notaObtenida = (correctas/quiz.preguntas.size())*5;
+					    	if (notaObtenida >= quiz.notaMinima) {
+					    		ExcepcionesFrame exp = new ExcepcionesFrame("Felicitaciones, aprobaste el quiz con " + notaObtenida);
+								exp.setVisible(true);
+								estudiante.terminarActividad();
+							}
+							else {
+								ExcepcionesFrame exp2 = new ExcepcionesFrame("No aprobaste el quiz, debes volverlo a hacer. Nota: " + notaObtenida);
+								exp2.setVisible(true);
+								estudiante.actualActividad=null;
+							}
+					    	
+					    	modificarDatos.cambiarDatosEstudiante(estudiante.login, estudiante.getHistorialLearningPaths(), estudiante.actualLearningPath,null, estudiante.getRespuestas(), estudiante.getProgreso());
+							modificarDatos.cambiarDatosProgreso(estudiante.getProgreso());
+							
+					    }
+					});
 					contentPane.add(btnEnviarQuiz);
 				}
-				
-				//Persistencia
+				String respuestaCorrecta = quiz.preguntas.get(contador-1).respuestaCorrecta;
+				if (respuesta.equals(respuestaCorrecta.toUpperCase().replace(" ", ""))) {
+					System.out.println("Justificacion: " + quiz.preguntas.get(contador-1).justificacion);
+					correctas +=1 ;
+				}
+				else {
+					System.out.println("Respuesta incorrecta");
+				}
 				
 				buttonGroup.clearSelection();
-				//TODO
-				textPane.setText("TODO EL DE LA PREGUNTA EN CUESTION");
+				String enunciado = quiz.preguntas.get(contador).enunciado;
+				textPane.setText(enunciado);
 				int sinContestar = quiz.preguntas.size() - contador;
 				lblNumPreg1.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Enviar Quiz");
 				

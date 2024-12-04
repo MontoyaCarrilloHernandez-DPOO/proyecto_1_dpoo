@@ -3,6 +3,7 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,10 +12,12 @@ import javax.swing.border.EmptyBorder;
 import consola.ConsolaCrearControlador;
 import learningPaths.Encuesta;
 import learningPaths.Examen;
+import learningPaths.PreguntaAbierta;
 import learningPaths.Quiz;
 import learningPaths.Recurso;
 import learningPaths.Tarea;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
 import usuarios.Estudiante;
 
 import javax.swing.JLabel;
@@ -28,11 +31,8 @@ public class ResponderEncuesta extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private int contador = 0;
-	
-	/**
-	 * Launch the application.
-	 */
-
+	private ModificarDatos modificarDatos = new ModificarDatos();
+	private HashMap<PreguntaAbierta, String> pregsRes = new HashMap<PreguntaAbierta, String> ();
 
 	/**
 	 * Create the frame.
@@ -55,6 +55,8 @@ public class ResponderEncuesta extends JFrame {
 		JTextPane textPane = new JTextPane();
 		textPane.setEditable(false);
 		textPane.setBounds(28, 36, 569, 62);
+		String enunciado = encuesta.preguntas.get(contador).enunciado;
+		textPane.setText(enunciado);
 		contentPane.add(textPane);
 		
 		JLabel lblEscribeTuRespuesta = new JLabel("Escribe tu respuesta:");
@@ -81,13 +83,22 @@ public class ResponderEncuesta extends JFrame {
 				if (contador == encuesta.preguntas.size()) {
 					JButton btnEnviarEncuesta = new JButton("Enviar Encuesta");
 					btnEnviarEncuesta.setBounds(199, 290, 226, 23);
+					btnEnviarEncuesta.addActionListener(new ActionListener() {
+					    public void actionPerformed(ActionEvent e) {
+					    	encuesta.setCompletado();
+					    	estudiante.terminarActividad();
+					    	modificarDatos.cambiarDatosEstudiante(estudiante.login, estudiante.getHistorialLearningPaths(), estudiante.actualLearningPath,null, estudiante.getRespuestas(), estudiante.getProgreso());
+							modificarDatos.cambiarDatosProgreso(estudiante.getProgreso());
+					    }
+					});
 					contentPane.add(btnEnviarEncuesta);
 				}
 				
-				//Persistencia
-				
+		
+				pregsRes.put(encuesta.preguntas.get(contador), respuesta);
+				String enunciado = encuesta.preguntas.get(contador).enunciado;
+				textPane.setText(enunciado);
 				textArea.setText("");
-				textPane.setText("");
 				int sinContestar = encuesta.preguntas.size() - contador;
 				lblNumPreg.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Enviar Encuesta");
 				

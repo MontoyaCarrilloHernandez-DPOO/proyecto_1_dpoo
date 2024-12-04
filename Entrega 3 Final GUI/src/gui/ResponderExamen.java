@@ -3,6 +3,7 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,7 +11,9 @@ import javax.swing.border.EmptyBorder;
 
 import learningPaths.Encuesta;
 import learningPaths.Examen;
+import persistencia.AnadirDatos;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
 import usuarios.Estudiante;
 
 import javax.swing.JLabel;
@@ -24,6 +27,8 @@ public class ResponderExamen extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private int contador = 0;
+	private ModificarDatos modificarDatos = new ModificarDatos();
+	private AnadirDatos anadirDatos = new AnadirDatos();
 
 	public ResponderExamen(Controlador sistema, Estudiante estudiante, Examen examen) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,6 +57,8 @@ public class ResponderExamen extends JFrame {
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setEditable(false);
+		String enunciado = examen.preguntas.get(contador).enunciado;
+		textPane.setText(enunciado);
 		textPane.setBounds(39, 94, 569, 62);
 		contentPane.add(textPane);
 		
@@ -73,13 +80,31 @@ public class ResponderExamen extends JFrame {
 				if (contador == examen.preguntas.size()) {
 					JButton btnEnviarExamen = new JButton("Enviar Examen");
 					btnEnviarExamen.setBounds(204, 348, 226, 23);
+					btnEnviarExamen.addActionListener(new ActionListener() {
+					    public void actionPerformed(ActionEvent e) {
+					    	estudiante.actualActividad=null;
+					    	modificarDatos.cambiarDatosEstudiante(estudiante.login, estudiante.getHistorialLearningPaths(), estudiante.actualLearningPath,null, estudiante.getRespuestas(), estudiante.getProgreso());
+							modificarDatos.cambiarDatosProgreso(estudiante.getProgreso());
+							ExcepcionesFrame exp = new ExcepcionesFrame("Tu progreso no se modificara hasta que tu profesor haya calificado el examen.");
+							exp.setVisible(true);
+							ExcepcionesFrame exp2 = new ExcepcionesFrame("No intentes volver a hacer el examen, sino sera anulado.");
+							exp2.setVisible(true);
+					    }
+					});
 					contentPane.add(btnEnviarExamen);
 				}
 				
-				//Persistencia
+				try {
+					int idEsperado = anadirDatos.nuevaRespuesta(estudiante.login, examen.titulo, examen.preguntas.get(contador-1).enunciado, respuesta);
+					estudiante.respuestas.put(idEsperado, examen.titulo);
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
 				
+				String enunciado = examen.preguntas.get(contador).enunciado;
+				textPane.setText(enunciado);
 				textArea.setText("");
-				textPane.setText("");
 				int sinContestar = examen.preguntas.size() - contador;
 				lblNumPreg.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Enviar Encuesta");
 				

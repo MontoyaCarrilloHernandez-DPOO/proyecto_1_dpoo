@@ -135,10 +135,11 @@ public class HacerActividades extends JFrame {
 					resRecurso.setVisible(true);
 					estudiante.terminarActividad();
 				}
+				else if (tipo.equals("ENCUESTAS")) {
+				Encuesta miEncuesta = (Encuesta) actReal;
+				ResponderEncuesta resEncuesta = new ResponderEncuesta(sistema, estudiante, miEncuesta);
 				
-				modificarDatos.cambiarDatosEstudiante(estudiante.login, estudiante.getHistorialLearningPaths(), estudiante.actualLearningPath,null, estudiante.getRespuestas(), estudiante.getProgreso());
-				modificarDatos.cambiarDatosProgreso(estudiante.getProgreso());
-				//Lo mejor es modificar y cambiar datos todo desde los otros botones
+			}
 				
 			}
 		});
