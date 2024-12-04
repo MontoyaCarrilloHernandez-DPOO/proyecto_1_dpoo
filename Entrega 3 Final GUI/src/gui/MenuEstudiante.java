@@ -40,7 +40,7 @@ public class MenuEstudiante extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("¡Bienvenido,");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 119, 228, 25);
+		lblNewLabel.setBounds(9, 84, 204, 35);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		contentPane.add(lblNewLabel);
 		
@@ -51,7 +51,7 @@ public class MenuEstudiante extends JFrame {
 				enroll.setVisible(true);
 			}
 		});
-		btnEnroll.setBounds(248, 24, 157, 23);
+		btnEnroll.setBounds(223, 24, 182, 23);
 		contentPane.add(btnEnroll);
 		
 		JButton btnUnenroll = new JButton("Sal de tu Learning Path");
@@ -60,7 +60,7 @@ public class MenuEstudiante extends JFrame {
 				//TODO
 			}
 		});
-		btnUnenroll.setBounds(248, 71, 157, 23);
+		btnUnenroll.setBounds(223, 71, 182, 23);
 		contentPane.add(btnUnenroll);
 		
 		JButton btnResumir = new JButton("Resume tu Learning Path");
@@ -70,11 +70,11 @@ public class MenuEstudiante extends JFrame {
 				act.setVisible(true);
 			}
 		});
-		btnResumir.setBounds(248, 118, 157, 23);
+		btnResumir.setBounds(223, 118, 182, 23);
 		contentPane.add(btnResumir);
 		
 		JButton btnRatea = new JButton("Valora Actividades");
-		btnRatea.setBounds(248, 165, 157, 23);
+		btnRatea.setBounds(223, 165, 182, 23);
 		btnRatea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RatearActividad act = new RatearActividad(sistema, estudiante);
@@ -84,7 +84,7 @@ public class MenuEstudiante extends JFrame {
 		contentPane.add(btnRatea);
 		
 		JButton btnReseniar = new JButton("Reseña Actividades");
-		btnReseniar.setBounds(248, 212, 157, 23);
+		btnReseniar.setBounds(223, 212, 182, 23);
 		btnReseniar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ReseniarActividad act = new ReseniarActividad(sistema, estudiante);
@@ -96,7 +96,7 @@ public class MenuEstudiante extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel(estudiante.getNombre()+" !");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(10, 145, 228, 25);
+		lblNewLabel_1.setBounds(0, 118, 228, 47);
 		contentPane.add(lblNewLabel_1);
 		
 		

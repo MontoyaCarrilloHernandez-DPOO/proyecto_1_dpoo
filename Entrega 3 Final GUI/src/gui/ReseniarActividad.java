@@ -1,12 +1,15 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import learningPaths.Actividad;
 import persistencia.Controlador;
 import usuarios.Estudiante;
 import javax.swing.JLabel;
@@ -30,7 +33,7 @@ public class ReseniarActividad extends JFrame {
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
 		setTitle("Reseñar Actividad");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,11 +48,10 @@ public class ReseniarActividad extends JFrame {
 		
 		JComboBox comboBoxAct = new JComboBox();
 		comboBoxAct.setBounds(87, 78, 261, 22);
+		for (Actividad act : sistema.listaActividades) {
+			comboBoxAct.addItem(act.titulo);
+			}
 		contentPane.add(comboBoxAct);
-		
-		JButton btnCalificar = new JButton("Calificar");
-		btnCalificar.setBounds(173, 197, 89, 23);
-		contentPane.add(btnCalificar);
 		
 		textFieldResenia = new JTextField();
 		textFieldResenia.setBounds(28, 157, 380, 29);
@@ -60,5 +62,28 @@ public class ReseniarActividad extends JFrame {
 		lblResenia.setHorizontalAlignment(SwingConstants.CENTER);
 		lblResenia.setBounds(20, 132, 396, 14);
 		contentPane.add(lblResenia);
+		
+		JButton btnCalificar = new JButton("Calificar");
+		btnCalificar.setBounds(173, 197, 89, 23);
+		btnCalificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String actNombre = (String) comboBoxAct.getSelectedItem();
+				Actividad actReal = null;
+				for (Actividad a : sistema.listaActividades) {
+					if (a.titulo.equals(actNombre)) {
+						actReal = a;
+					}
+				}
+				String resenia = textFieldResenia.getText();
+				
+				//Persistencia
+				
+				dispose();
+				ExcepcionesFrame exp = new ExcepcionesFrame("Reseña guardada");
+				exp.setVisible(true);
+				
+			}
+		});
+		contentPane.add(btnCalificar);
 	}
 }
