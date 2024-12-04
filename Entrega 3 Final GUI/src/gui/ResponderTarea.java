@@ -15,6 +15,7 @@ import persistencia.Controlador;
 import persistencia.ModificarDatos;
 import usuarios.Estudiante;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -29,7 +30,10 @@ public class ResponderTarea extends JFrame {
 	 * Create the frame.
 	 */
 	public ResponderTarea(Controlador sistema, Estudiante estudiante, Tarea tarea) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
+		setTitle("Tarea: "+  tarea.titulo);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -42,8 +46,10 @@ public class ResponderTarea extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		    	tarea.setCompletado();
+		    	estudiante.terminarActividad();
 		    	modificarDatos.cambiarDatosEstudiante(estudiante.login, estudiante.getHistorialLearningPaths(), estudiante.actualLearningPath,null, estudiante.getRespuestas(), estudiante.getProgreso());
 				modificarDatos.cambiarDatosProgreso(estudiante.getProgreso());
+				dispose();
 		    }
 		});
 		contentPane.add(btnOk);

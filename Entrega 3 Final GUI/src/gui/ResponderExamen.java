@@ -19,6 +19,7 @@ import usuarios.Estudiante;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -31,7 +32,10 @@ public class ResponderExamen extends JFrame {
 	private AnadirDatos anadirDatos = new AnadirDatos();
 
 	public ResponderExamen(Controlador sistema, Estudiante estudiante, Examen examen) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
+		setTitle("Examen: " + examen.titulo);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 646, 419);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,7 +43,7 @@ public class ResponderExamen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNotaMnimaPara = new JLabel("Nota mínima para aprobar: ");
+		JLabel lblNotaMnimaPara = new JLabel("Nota mínima para aprobar: " + examen.notaMinima);
 		lblNotaMnimaPara.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNotaMnimaPara.setBounds(10, 11, 247, 14);
 		contentPane.add(lblNotaMnimaPara);
@@ -63,20 +67,18 @@ public class ResponderExamen extends JFrame {
 		contentPane.add(textPane);
 		
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(30, 203, 578, 72);
+		textArea.setBounds(39, 194, 578, 72);
 		contentPane.add(textArea);
 		
 		JLabel lblNumPreg = new JLabel("Quedan"+ examen.preguntas.size() +" preguntas por responder. Una vez respondidas todas, haz click en Enviar Examen");
 		lblNumPreg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumPreg.setBounds(10, 289, 612, 14);
+		lblNumPreg.setBounds(10, 316, 612, 14);
 		contentPane.add(lblNumPreg);
 		
 		JButton btnSigPreg = new JButton("Siguiente Pregunta");
-		btnSigPreg.setBounds(199, 256, 226, 23);
+		btnSigPreg.setBounds(203, 282, 226, 23);
 		btnSigPreg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String respuesta = textArea.getText();
-				contador++;
 				if (contador == examen.preguntas.size()) {
 					JButton btnEnviarExamen = new JButton("Enviar Examen");
 					btnEnviarExamen.setBounds(204, 348, 226, 23);
@@ -85,29 +87,38 @@ public class ResponderExamen extends JFrame {
 					    	estudiante.actualActividad=null;
 					    	modificarDatos.cambiarDatosEstudiante(estudiante.login, estudiante.getHistorialLearningPaths(), estudiante.actualLearningPath,null, estudiante.getRespuestas(), estudiante.getProgreso());
 							modificarDatos.cambiarDatosProgreso(estudiante.getProgreso());
-							ExcepcionesFrame exp = new ExcepcionesFrame("Tu progreso no se modificara hasta que tu profesor haya calificado el examen.");
-							exp.setVisible(true);
+							dispose();
 							ExcepcionesFrame exp2 = new ExcepcionesFrame("No intentes volver a hacer el examen, sino sera anulado.");
 							exp2.setVisible(true);
+							ExcepcionesFrame exp = new ExcepcionesFrame("Tu progreso no se modificará hasta que \n tu profesor haya calificado el examen.");
+							exp.setVisible(true);
+							
 					    }
 					});
 					contentPane.add(btnEnviarExamen);
 				}
+				else {
+					String respuesta = textArea.getText();
+					contador++;
 				
 				try {
 					int idEsperado = anadirDatos.nuevaRespuesta(estudiante.login, examen.titulo, examen.preguntas.get(contador-1).enunciado, respuesta);
 					estudiante.respuestas.put(idEsperado, examen.titulo);
 				} catch (SQLException e1) {
-					
 					e1.printStackTrace();
 				}
 				
+				if (contador != examen.preguntas.size()) {
 				String enunciado = examen.preguntas.get(contador).enunciado;
 				textPane.setText(enunciado);
-				textArea.setText("");
+				textArea.setText("");}
+				else {
+					textPane.setText("");
+					textArea.setText("");
+				}
 				int sinContestar = examen.preguntas.size() - contador;
 				lblNumPreg.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Enviar Encuesta");
-				
+				}
 			}
 		});
 		contentPane.add(btnSigPreg);

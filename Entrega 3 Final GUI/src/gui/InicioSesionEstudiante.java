@@ -62,7 +62,7 @@ public class InicioSesionEstudiante extends JFrame {
 		contentPane.add(textFieldContrasenia);
 		textFieldContrasenia.setColumns(10);
 		
-		JButton btnDevolver = new JButton("<----");
+		JButton btnDevolver = new JButton("←");
 		btnDevolver.setBounds(25, 11, 71, 23);
 		btnDevolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

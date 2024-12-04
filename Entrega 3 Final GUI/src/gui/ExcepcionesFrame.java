@@ -39,7 +39,7 @@ public class ExcepcionesFrame extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(21, 49, 405, 91);
+		lblNewLabel.setBounds(21, 49, 405, 103);
 		lblNewLabel.setText(texto);
 		contentPane.add(lblNewLabel);
 		btnNewButton.addActionListener(new ActionListener() {

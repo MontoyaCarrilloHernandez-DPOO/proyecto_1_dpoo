@@ -68,7 +68,7 @@ public class HacerActividades extends JFrame {
 		txtrAquSeMostrar.setBounds(82, 92, 293, 135);
 		contentPane.add(txtrAquSeMostrar);
 		
-		ArrayList<Actividad> actividades = estudiante.progreso.getActividadesCompletas();
+		ArrayList<Actividad> actividades = estudiante.progreso.getActividadesIncompletas();
 		
 		JComboBox comboBoxAct = new JComboBox();
 		comboBoxAct.setBounds(18, 59, 399, 22);
@@ -78,21 +78,16 @@ public class HacerActividades extends JFrame {
 		comboBoxAct.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        String actNombre = (String) comboBoxAct.getSelectedItem();
-		        Actividad actReal = null;
 		        for (Actividad a : actividades) {
 		            if (a.titulo.equals(actNombre)) {
 		                actReal = a;
-		                break;
+		                txtrAquSeMostrar.setText("Titulo: " + actReal.titulo + "\n" +
+                                "Objetivo: " + actReal.objetivo + "\n" +
+                                "Nivel: " + actReal.nivel + "\n" +
+                                "Tiempo Límite: " + actReal.tiempoLimite);
 		            }
-		        }
-		        if (actReal != null) {
-		            txtrAquSeMostrar.setText("Titulo: " + actReal.titulo + "\n" +
-		                                     "Objetivo: " + actReal.objetivo + "\n" +
-		                                     "Nivel: " + actReal.nivel + "\n" +
-		                                     "Tiempo Límite: " + actReal.tiempoLimite);
-		        }
 		    }
-		});
+		}});
 		contentPane.add(comboBoxAct);
 		
 		/**String actNombre = (String) comboBoxAct.getSelectedItem();
@@ -100,8 +95,8 @@ public class HacerActividades extends JFrame {
 			if (a.titulo.equals(actNombre)) {
 				actReal = a;
 			}
-		}
-			**/
+		}**/
+			
 		
 		JButton btnNewButton = new JButton("Comenzar actividad");
 		btnNewButton.setBounds(138, 238, 159, 23);
@@ -115,7 +110,6 @@ public class HacerActividades extends JFrame {
 					Tarea miTarea = (Tarea) actReal;
 					ResponderTarea resTarea = new ResponderTarea(sistema, estudiante, miTarea);
 					resTarea.setVisible(true);
-					estudiante.terminarActividad();
 					
 				}else if (tipo.equals("QUIZES")) {
 					Quiz miQuiz = (Quiz) actReal;
@@ -133,12 +127,11 @@ public class HacerActividades extends JFrame {
 					Recurso miRecurso = (Recurso) actReal;
 					ResponderRecurso resRecurso = new ResponderRecurso(sistema, estudiante, miRecurso);
 					resRecurso.setVisible(true);
-					estudiante.terminarActividad();
 				}
 				else if (tipo.equals("ENCUESTAS")) {
 				Encuesta miEncuesta = (Encuesta) actReal;
 				ResponderEncuesta resEncuesta = new ResponderEncuesta(sistema, estudiante, miEncuesta);
-				
+				resEncuesta.setVisible(true);
 			}
 				
 			}

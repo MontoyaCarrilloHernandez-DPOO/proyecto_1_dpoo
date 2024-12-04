@@ -45,11 +45,11 @@ public class EnrollEstudiante extends JFrame {
 		
 		JLabel lblSeleccionaElLearning = new JLabel("Selecciona el Learning Path al que te quieres unir:");
 		lblSeleccionaElLearning.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeleccionaElLearning.setBounds(30, 91, 396, 14);
+		lblSeleccionaElLearning.setBounds(20, 80, 396, 14);
 		contentPane.add(lblSeleccionaElLearning);
 		
 		JComboBox comboBoxLP = new JComboBox();
-		comboBoxLP.setBounds(87, 78, 261, 22);
+		comboBoxLP.setBounds(87, 116, 261, 22);
 		for (LearningPath lp : sistema.listaLearningPaths) {
 			comboBoxLP.addItem(lp.titulo);
 			}

@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
+import javax.swing.ImageIcon;
 
 public class ResponderQuiz extends JFrame {
 
@@ -35,7 +36,10 @@ public class ResponderQuiz extends JFrame {
 	
 	
 	public ResponderQuiz(Controlador sistema, Estudiante estudiante, Quiz quiz) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
+		setTitle("Quiz: " + quiz.titulo);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 588, 391);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -43,7 +47,7 @@ public class ResponderQuiz extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNotaMnimaPara = new JLabel("Nota mínima para aprobar: ");
+		JLabel lblNotaMnimaPara = new JLabel("Nota mínima para aprobar: " + quiz.notaMinima);
 		lblNotaMnimaPara.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNotaMnimaPara.setBounds(10, 11, 247, 14);
 		contentPane.add(lblNotaMnimaPara);
@@ -90,20 +94,6 @@ public class ResponderQuiz extends JFrame {
 		btnSigPreg.setBounds(174, 286, 226, 23);
 		btnSigPreg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String respuesta = null;
-				if (rdbtnA.isSelected()) {
-					respuesta = "A";
-				}
-				else if (rdbtnB.isSelected()) {
-					respuesta = "B";
-				}
-				else if (rdbtnC.isSelected()) {
-					respuesta = "C";
-				}
-				else if (rdbtnD.isSelected()) {
-					respuesta = "D";
-				}
-				contador++;
 				if (contador == quiz.preguntas.size()) {
 					JButton btnEnviarQuiz = new JButton("Enviar Quiz");
 					btnEnviarQuiz.setBounds(174, 320, 226, 23);
@@ -113,11 +103,13 @@ public class ResponderQuiz extends JFrame {
 					    	if (notaObtenida >= quiz.notaMinima) {
 					    		ExcepcionesFrame exp = new ExcepcionesFrame("Felicitaciones, aprobaste el quiz con " + notaObtenida);
 								exp.setVisible(true);
+								dispose();
 								estudiante.terminarActividad();
 							}
 							else {
 								ExcepcionesFrame exp2 = new ExcepcionesFrame("No aprobaste el quiz, debes volverlo a hacer. Nota: " + notaObtenida);
 								exp2.setVisible(true);
+								dispose();
 								estudiante.actualActividad=null;
 							}
 					    	
@@ -128,6 +120,21 @@ public class ResponderQuiz extends JFrame {
 					});
 					contentPane.add(btnEnviarQuiz);
 				}
+				else {
+					String respuesta = null;
+					if (rdbtnA.isSelected()) {
+						respuesta = "A";
+					}
+					else if (rdbtnB.isSelected()) {
+						respuesta = "B";
+					}
+					else if (rdbtnC.isSelected()) {
+						respuesta = "C";
+					}
+					else if (rdbtnD.isSelected()) {
+						respuesta = "D";
+					}
+					contador++;
 				String respuestaCorrecta = quiz.preguntas.get(contador-1).respuestaCorrecta;
 				if (respuesta.equals(respuestaCorrecta.toUpperCase().replace(" ", ""))) {
 					System.out.println("Justificacion: " + quiz.preguntas.get(contador-1).justificacion);
@@ -138,11 +145,16 @@ public class ResponderQuiz extends JFrame {
 				}
 				
 				buttonGroup.clearSelection();
+				if (contador != quiz.preguntas.size()) {
 				String enunciado = quiz.preguntas.get(contador).enunciado;
-				textPane.setText(enunciado);
+				textPane.setText(enunciado);}
+				else {
+					textPane.setText("");
+				}
 				int sinContestar = quiz.preguntas.size() - contador;
-				lblNumPreg1.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Enviar Quiz");
+				lblNumPreg1.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Siguiente y Enviar Quiz");
 				
+				}
 			}
 		});
 		contentPane.add(btnSigPreg);

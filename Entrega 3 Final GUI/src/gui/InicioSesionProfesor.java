@@ -63,7 +63,7 @@ public class InicioSesionProfesor extends JFrame {
 		btnIniciarSesion.setBounds(301, 105, 103, 33);
 		contentPane.add(btnIniciarSesion);
 		
-		JButton btnDevolver = new JButton("<----");
+		JButton btnDevolver = new JButton("←");
 		btnDevolver.setBounds(25, 11, 71, 23);
 		btnDevolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

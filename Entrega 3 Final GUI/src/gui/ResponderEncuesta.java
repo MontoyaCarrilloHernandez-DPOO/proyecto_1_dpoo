@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class ResponderEncuesta extends JFrame {
@@ -39,7 +40,10 @@ public class ResponderEncuesta extends JFrame {
 	 */
 
 	public ResponderEncuesta(Controlador sistema, Estudiante estudiante, Encuesta encuesta) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon logo = new ImageIcon("datos/logo.png");
+		setIconImage(logo.getImage());
+		setTitle("Encuesta:" + encuesta.titulo);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 639, 371);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,11 +79,9 @@ public class ResponderEncuesta extends JFrame {
 		contentPane.add(lblNumPreg);
 		
 		JButton btnSigPreg = new JButton("Siguiente Pregunta");
-		btnSigPreg.setBounds(199, 256, 226, 23);
+		btnSigPreg.setBounds(199, 253, 226, 23);
 		btnSigPreg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String respuesta = textArea.getText();
-				contador++;
 				if (contador == encuesta.preguntas.size()) {
 					JButton btnEnviarEncuesta = new JButton("Enviar Encuesta");
 					btnEnviarEncuesta.setBounds(199, 290, 226, 23);
@@ -93,14 +95,25 @@ public class ResponderEncuesta extends JFrame {
 					});
 					contentPane.add(btnEnviarEncuesta);
 				}
+				else {
+					String respuesta = textArea.getText();
+					contador++;
+					
+					if (contador != encuesta.preguntas.size()) {
+					pregsRes.put(encuesta.preguntas.get(contador), respuesta);
+					String enunciado = encuesta.preguntas.get(contador).enunciado;
+					textPane.setText(enunciado);}
+					else {
+						textArea.setText("");
+						textPane.setText("");
+					}
+					
+					int sinContestar = encuesta.preguntas.size() - contador;
+					lblNumPreg.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Siguiente y Enviar Encuesta");
+					
+				}
 				
 		
-				pregsRes.put(encuesta.preguntas.get(contador), respuesta);
-				String enunciado = encuesta.preguntas.get(contador).enunciado;
-				textPane.setText(enunciado);
-				textArea.setText("");
-				int sinContestar = encuesta.preguntas.size() - contador;
-				lblNumPreg.setText("Quedan "+ sinContestar + " preguntas por responder. Una vez respondidas todas, haz click en Enviar Encuesta");
 				
 			}
 		});

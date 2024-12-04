@@ -88,6 +88,7 @@ public class MenuEstudiante extends JFrame {
 				modificarDatos.cambiarDatosProfesor(miProfLP);
 				
 				ExcepcionesFrame exp = new ExcepcionesFrame("Te has salido del Learning Path con éxito");
+				exp.setVisible(true);
 			}
 		});
 		contentPane.add(btnUnenroll);

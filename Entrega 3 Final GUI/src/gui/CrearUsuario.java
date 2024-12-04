@@ -51,6 +51,19 @@ public class CrearUsuario extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		JButton btnDevolver = new JButton("←");
+		btnDevolver.setBounds(25, 11, 71, 23);
+		btnDevolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				MainMenu menu = new MainMenu(sistema);
+				menu.setVisible(true);
+				}
+			}
+		);
+		contentPane.add(btnDevolver);
+		
 		JLabel lblNewLabel = new JLabel("Login:");
 		lblNewLabel.setBounds(58, 179, 77, 14);
 		contentPane.add(lblNewLabel);
