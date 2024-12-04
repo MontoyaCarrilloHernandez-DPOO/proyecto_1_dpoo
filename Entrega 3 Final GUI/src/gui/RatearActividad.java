@@ -3,6 +3,7 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,7 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import learningPaths.Actividad;
+import persistencia.AnadirDatos;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
+import persistencia.RecogerDatos;
 import usuarios.Estudiante;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -22,6 +26,9 @@ public class RatearActividad extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private RecogerDatos losDatos= new RecogerDatos();
+	private ModificarDatos modificarDatos = new ModificarDatos();
+	private AnadirDatos anadirDatos = new AnadirDatos();
 
 	/**
 	 * Create the frame.
@@ -43,9 +50,11 @@ public class RatearActividad extends JFrame {
 		lblSeleccion.setBounds(20, 36, 396, 14);
 		contentPane.add(lblSeleccion);
 		
+		ArrayList<Actividad> actividades = estudiante.progreso.getActividadesCompletas();
+		
 		JComboBox comboBoxAct = new JComboBox();
 		comboBoxAct.setBounds(87, 78, 261, 22);
-		for (Actividad act : sistema.listaActividades) {
+		for (Actividad act : actividades) {
 			comboBoxAct.addItem(act.titulo);
 			}
 		contentPane.add(comboBoxAct);
@@ -68,16 +77,15 @@ public class RatearActividad extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String actNombre = (String) comboBoxAct.getSelectedItem();
 				Actividad actReal = null;
-				for (Actividad a : sistema.listaActividades) {
+				for (Actividad a : actividades) {
 					if (a.titulo.equals(actNombre)) {
 						actReal = a;
 					}
 				}
 				int rating = slider.getValue();
-				
-				//Persistencia
-				
-				
+				estudiante.ratear((double)rating, actReal);
+				modificarDatos.cambiarDatosActividad(actReal);
+								
 				dispose();
 				ExcepcionesFrame exp = new ExcepcionesFrame("Reseña guardada");
 				exp.setVisible(true);

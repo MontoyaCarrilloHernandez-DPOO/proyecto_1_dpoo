@@ -7,8 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import learningPaths.LearningPath;
+import learningPaths.Progreso;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
 import usuarios.Estudiante;
+import usuarios.Profesor;
+
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -16,6 +21,7 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
@@ -23,6 +29,7 @@ public class MenuEstudiante extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private ModificarDatos modificarDatos = new ModificarDatos();
 	/**
 	 * Create the frame.
 	 */
@@ -55,12 +62,34 @@ public class MenuEstudiante extends JFrame {
 		contentPane.add(btnEnroll);
 		
 		JButton btnUnenroll = new JButton("Sal de tu Learning Path");
+		btnUnenroll.setBounds(223, 71, 182, 23);
 		btnUnenroll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				LearningPath lpActual = estudiante.actualLearningPath;
+	        	
+	        	lpActual.quitarEstudiantes(estudiante);
+	        	modificarDatos.cambiarDatosLP(lpActual);
+	        	
+	        	estudiante.unenroll();
+	        	
+	        	Progreso prog = new Progreso(null, estudiante.login);
+	        	modificarDatos.cambiarDatosProgreso(prog);
+				
+				
+				ArrayList<Profesor> misprof = sistema.listaProfesores;
+				Profesor miProfLP = null;
+				for (Profesor p : misprof) {
+					if (p.login.equals(lpActual.propietario)) {
+						miProfLP = p;
+					}
+				}
+				miProfLP.learningPaths.remove(lpActual);
+				miProfLP.learningPaths.add(lpActual);
+				modificarDatos.cambiarDatosProfesor(miProfLP);
+				
+				ExcepcionesFrame exp = new ExcepcionesFrame("Te has salido del Learning Path con éxito");
 			}
 		});
-		btnUnenroll.setBounds(223, 71, 182, 23);
 		contentPane.add(btnUnenroll);
 		
 		JButton btnResumir = new JButton("Resume tu Learning Path");

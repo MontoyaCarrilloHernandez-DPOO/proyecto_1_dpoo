@@ -3,15 +3,18 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Excepciones.LPException;
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
 import usuarios.Estudiante;
 import usuarios.Profesor;
 import javax.swing.JLabel;
@@ -23,6 +26,7 @@ public class EnrollEstudiante extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private ModificarDatos modificarDatos = new ModificarDatos();
 
 	/**
 	 * Create the frame.
@@ -57,12 +61,37 @@ public class EnrollEstudiante extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String lpNombre = (String) comboBoxLP.getSelectedItem();
 				
-				//Persistencia
+				LearningPath miLP = null;
+				ArrayList<LearningPath> lpsDisponibles = sistema.listaLearningPaths;
 				
+				for (LearningPath lp: lpsDisponibles) {
+					if (lp.titulo.toUpperCase().equals(lpNombre.toUpperCase())) {
+						 miLP = lp;
+					}
+				}
 				
-				dispose();
-				ExcepcionesFrame exp = new ExcepcionesFrame("Te has inscrito correctamente");
-				exp.setVisible(true);
+				try {
+					estudiante.enroll(miLP);
+					dispose();
+					ExcepcionesFrame exp = new ExcepcionesFrame("Te has inscrito correctamente");
+					exp.setVisible(true);
+				} catch (LPException e1) {
+					dispose();
+					ExcepcionesFrame exp = new ExcepcionesFrame("No te has inscrito. Vuelve a intentar.");
+					exp.setVisible(true);
+					e1.printStackTrace();
+				}
+				
+				Profesor miProf = null;
+				for (Profesor prof: sistema.listaProfesores) {
+					if (prof.login.toUpperCase().equals(miLP.propietario.toString().toUpperCase())) {
+						System.out.println(":)");
+						miProf = prof;
+					}
+				}
+				
+				modificarDatos.cambiarDatosProfesor(miProf);
+				
 				
 			}
 		});

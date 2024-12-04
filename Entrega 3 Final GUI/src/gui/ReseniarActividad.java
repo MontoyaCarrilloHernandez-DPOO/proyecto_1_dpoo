@@ -3,6 +3,7 @@ package gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,7 +11,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import learningPaths.Actividad;
+import persistencia.AnadirDatos;
 import persistencia.Controlador;
+import persistencia.ModificarDatos;
+import persistencia.RecogerDatos;
 import usuarios.Estudiante;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -25,6 +29,9 @@ public class ReseniarActividad extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldResenia;
+	private RecogerDatos losDatos= new RecogerDatos();
+	private ModificarDatos modificarDatos = new ModificarDatos();
+	private AnadirDatos anadirDatos = new AnadirDatos();
 
 	/**
 	 * Create the frame.
@@ -46,9 +53,11 @@ public class ReseniarActividad extends JFrame {
 		lblSeleccion.setBounds(20, 50, 396, 14);
 		contentPane.add(lblSeleccion);
 		
+		ArrayList<Actividad> actividades = estudiante.progreso.getActividadesCompletas();
+		
 		JComboBox comboBoxAct = new JComboBox();
 		comboBoxAct.setBounds(87, 78, 261, 22);
-		for (Actividad act : sistema.listaActividades) {
+		for (Actividad act : actividades) {
 			comboBoxAct.addItem(act.titulo);
 			}
 		contentPane.add(comboBoxAct);
@@ -68,15 +77,17 @@ public class ReseniarActividad extends JFrame {
 		btnCalificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String actNombre = (String) comboBoxAct.getSelectedItem();
-				Actividad actReal = null;
-				for (Actividad a : sistema.listaActividades) {
-					if (a.titulo.equals(actNombre)) {
-						actReal = a;
-					}
-				}
-				String resenia = textFieldResenia.getText();
 				
-				//Persistencia
+				Actividad actReal = null;
+				String resenia = textFieldResenia.getText();
+		 		
+        		for (Actividad act : actividades) {
+					if (act.getTitulo().equals(actNombre) ) {
+						actReal = act;
+						estudiante.reseniar(resenia,actReal);
+						modificarDatos.cambiarDatosActividad(act);
+					}
+        		}
 				
 				dispose();
 				ExcepcionesFrame exp = new ExcepcionesFrame("Reseña guardada");
