@@ -12,6 +12,7 @@ import learningPaths.Actividad;
 import learningPaths.PreguntaAbierta;
 import learningPaths.PreguntaCerrada;
 import learningPaths.Quiz;
+import learningPaths.Tarea;
 import persistencia.Controlador;
 import persistencia.ModificarDatos;
 import persistencia.RecogerDatos;
@@ -36,18 +37,39 @@ public class CrearActividad extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private JTextField textFieldTituloRecurso;
+	private JTextField textFieldTituloEncuesta;
+	private JTextField textFieldTituloExamen;
+	private JTextField textFieldTituloTarea;
+	private JTextField textFieldTituloQuiz;
 	private JTextField textField_1;
+	private JTextField textFieldNivelRecurso;
+	private JTextField textFieldNivelEncuesta;
+	private JTextField textFieldNivelExamen;
+	private JTextField textFieldNivelTarea;
+	private JTextField textFieldNivelQuiz;
 	private JTextField textField_2;
+	private JTextField textFieldTiempoRecurso;
+	private JTextField textFieldTiempoEncuesta;
+	private JTextField textFieldTiempoExamen;
+	private JTextField textFieldTiempoTarea;
+	private JTextField textFieldTiempoQuiz;
 	private JTextField textField_3;
+	private JTextField textFieldObjetivoRecurso;
+	private JTextField textFieldObjetivoEncuesta;
+	private JTextField textFieldObjetivoExamen;
+	private JTextField textFieldObjetivoTarea;
+	private JTextField textFieldObjetivoQuiz;
 	private JTextField textField_4;
 	private JTextField textFieldCantidadPreg;
-	private JTextField textFieldCantidadPregEE;
-	private JTextField textFieldCantidadPregEx;
+	private JTextField textFieldCantidadPregEncuesta;
+	private JTextField textFieldCantidadPregExamen;
 	private JTextField textFieldCantidadPregQuiz;
-	private JTextField textField_7;
+	private JTextField textFieldTipoRecurso;
 	 ArrayList<PreguntaAbierta> pregA = new ArrayList<PreguntaAbierta>();
 	ArrayList<PreguntaCerrada> pregC = new ArrayList<PreguntaCerrada>();
-	private JTextField textFieldNota;
+	private JTextField textFieldNotaQuiz;
+	private JTextField textFieldNotaExamen;
 	/**
 	 * Launch the application.
 	 */
@@ -59,9 +81,11 @@ public class CrearActividad extends JFrame {
 		ModificarDatos datos = new ModificarDatos();
 		RecogerDatos recoger = new RecogerDatos();
 		ArrayList<String> nombreAct = new ArrayList<String>();
+		
 		for (Actividad act:programa.listaActividades) {
 			nombreAct.addLast(act.getTitulo());
 		}
+		
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
 		setTitle("Crear Actividad");
@@ -84,6 +108,7 @@ public class CrearActividad extends JFrame {
 		tabbedPane.setBounds(0, 25, 436, 238);
 		contentPane.add(tabbedPane);
 		
+		//quiz
 		JPanel panelQuiz = new JPanel();
 		tabbedPane.addTab("   Quiz  ", null, panelQuiz, null);
 		panelQuiz.setLayout(null);
@@ -102,19 +127,17 @@ public class CrearActividad extends JFrame {
 		panelQuiz.add(textFieldCantidadPregQuiz);
 
 		JComboBox comboBoxPrereq = new JComboBox();
+		JComboBox comboBoxsug = new JComboBox();
 		comboBoxPrereq.setBounds(94, 153, 166, 22);
+		comboBoxsug.setBounds(94, 185, 166, 22);
 		panelQuiz.add(comboBoxPrereq);
 		for(String nombre:nombreAct) {
 			comboBoxPrereq.addItem(nombre);
-		}
-		panelQuiz.add(comboBoxPrereq);
-		
-		JComboBox comboBoxsug = new JComboBox();
-		comboBoxsug.setBounds(94, 185, 166, 22);
-		for(String nombre:nombreAct) {
 			comboBoxsug.addItem(nombre);
 		}
+		panelQuiz.add(comboBoxPrereq);
 		panelQuiz.add(comboBoxsug);
+		
 		JButton btnCrearQuiz = new JButton("Crear Quiz");
 		btnCrearQuiz.setBounds(311, 185, 120, 23);
 		btnCrearQuiz.addActionListener(new ActionListener() {
@@ -125,12 +148,13 @@ public class CrearActividad extends JFrame {
 				Actividad sug = null ;
 				for(Actividad act:programa.listaActividades) {
 					if(comboBoxPrereq.getSelectedItem().equals(act.getTitulo())){
-						pre = act;
+						pre = act;}
 					if(comboBoxsug.getSelectedItem().equals(act.getTitulo())) {
 						sug = act;
 					}
-				}}
-				Quiz quiz = new Quiz(Float.parseFloat(textFieldNota.getText()),(float) 0,false,pregC,textField_3.getText(),textField.getText(),textField_1.getText(),pre,sug,"",Float.parseFloat(textField_2.getText()),5,false);
+				}
+				Quiz quiz = new Quiz(Float.parseFloat(textFieldNotaQuiz.getText()),(float) 0,false,pregC,textFieldObjetivoQuiz.getText(),
+						textFieldTituloQuiz.getText(),textFieldNivelQuiz.getText(),pre,sug,"",Float.parseFloat(textFieldTiempoQuiz.getText()),5,false);
 				try {
                     programa.crearQuiz(quiz);
                     profesor.anadirActs(quiz);
@@ -147,37 +171,37 @@ public class CrearActividad extends JFrame {
 		lblTitulo.setBounds(10, 14, 32, 14);
 		panelQuiz.add(lblTitulo);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(94, 11, 166, 20);
-		panelQuiz.add(textField);
+		textFieldTituloQuiz = new JTextField();
+		textFieldTituloQuiz.setColumns(10);
+		textFieldTituloQuiz.setBounds(94, 11, 166, 20);
+		panelQuiz.add(textFieldTituloQuiz);
 		
 		JLabel lblNivel = new JLabel("Nivel:");
 		lblNivel.setBounds(10, 42, 48, 14);
 		panelQuiz.add(lblNivel);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(94, 39, 166, 20);
-		panelQuiz.add(textField_1);
+		textFieldNivelQuiz = new JTextField();
+		textFieldNivelQuiz.setColumns(10);
+		textFieldNivelQuiz.setBounds(94, 39, 166, 20);
+		panelQuiz.add(textFieldNivelQuiz);
 		
 		JLabel lblTiempoLmite = new JLabel("Tiempo Límite:");
 		lblTiempoLmite.setBounds(10, 70, 99, 14);
 		panelQuiz.add(lblTiempoLmite);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(94, 67, 166, 20);
-		panelQuiz.add(textField_2);
+		textFieldTiempoQuiz = new JTextField();
+		textFieldTiempoQuiz.setColumns(10);
+		textFieldTiempoQuiz.setBounds(94, 67, 166, 20);
+		panelQuiz.add(textFieldTiempoQuiz);
 		
 		JLabel lblObjetivo = new JLabel("Objetivo:");
 		lblObjetivo.setBounds(10, 99, 74, 14);
 		panelQuiz.add(lblObjetivo);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(94, 95, 166, 20);
-		panelQuiz.add(textField_3);
+		textFieldObjetivoQuiz = new JTextField();
+		textFieldObjetivoQuiz.setColumns(10);
+		textFieldObjetivoQuiz.setBounds(94, 95, 166, 20);
+		panelQuiz.add(textFieldObjetivoQuiz);
 		
 		JLabel lblCantidadDePreguntas = new JLabel("Cantidad de preguntas:");
 		lblCantidadDePreguntas.setBounds(293, 52, 128, 14);
@@ -215,13 +239,13 @@ public class CrearActividad extends JFrame {
 		lblNotaMinima.setBounds(10, 128, 74, 14);
 		panelQuiz.add(lblNotaMinima);
 		
-		textFieldNota = new JTextField();
-		textFieldNota.setColumns(10);
-		textFieldNota.setBounds(94, 124, 166, 20);
-		panelQuiz.add(textFieldNota);
+		textFieldNotaQuiz = new JTextField();
+		textFieldNotaQuiz.setColumns(10);
+		textFieldNotaQuiz.setBounds(94, 124, 166, 20);
+		panelQuiz.add(textFieldNotaQuiz);
 		
 		
-		//
+		//tarea
 		JPanel panelTarea = new JPanel();
 		tabbedPane.addTab("  Tarea  ", null, panelTarea, null);
 		panelTarea.setLayout(null);
@@ -230,46 +254,37 @@ public class CrearActividad extends JFrame {
 		lblTituloT.setBounds(10, 14, 32, 14);
 		panelTarea.add(lblTituloT);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(94, 11, 166, 20);
-		panelTarea.add(textField);
+		textFieldTituloTarea = new JTextField();
+		textFieldTituloTarea.setColumns(10);
+		textFieldTituloTarea.setBounds(94, 11, 166, 20);
+		panelTarea.add(textFieldTituloTarea);
 		
 		JLabel lblNivelT = new JLabel("Nivel:");
 		lblNivelT.setBounds(10, 42, 48, 14);
 		panelTarea.add(lblNivelT);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(94, 39, 166, 20);
-		panelTarea.add(textField_1);
+		textFieldNivelTarea = new JTextField();
+		textFieldNivelTarea.setColumns(10);
+		textFieldNivelTarea.setBounds(94, 39, 166, 20);
+		panelTarea.add(textFieldNivelTarea);
 		
 		JLabel lblTiempoLmiteT = new JLabel("Tiempo Límite:");
 		lblTiempoLmiteT.setBounds(10, 70, 99, 14);
 		panelTarea.add(lblTiempoLmiteT);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(94, 67, 166, 20);
-		panelTarea.add(textField_2);
+		textFieldTiempoTarea = new JTextField();
+		textFieldTiempoTarea.setColumns(10);
+		textFieldTiempoTarea.setBounds(94, 67, 166, 20);
+		panelTarea.add(textFieldTiempoTarea);
 		
 		JLabel lblObjetivoT = new JLabel("Objetivo:");
 		lblObjetivoT.setBounds(10, 99, 45, 14);
 		panelTarea.add(lblObjetivoT);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(94, 95, 166, 20);
-		panelTarea.add(textField_3);
-		
-		JLabel lblMetaT = new JLabel("Metadatos:");
-		lblMetaT.setBounds(10, 239, 56, 14);
-		panelTarea.add(lblMetaT);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(94, 236, 166, 20);
-		panelTarea.add(textField_4);
+		textFieldObjetivoTarea = new JTextField();
+		textFieldObjetivoTarea.setColumns(10);
+		textFieldObjetivoTarea.setBounds(94, 95, 166, 20);
+		panelTarea.add(textFieldObjetivoTarea);
 		
 		JLabel lblPrerequisitoT = new JLabel("Prerequisito:");
 		lblPrerequisitoT.setBounds(10, 131, 80, 14);
@@ -279,17 +294,52 @@ public class CrearActividad extends JFrame {
 		lblSugeridoT.setBounds(10, 156, 67, 14);
 		panelTarea.add(lblSugeridoT);
 		
+		JComboBox comboBoxPrereqTarea = new JComboBox();
+		comboBoxPrereqTarea.setBounds(94, 126, 166, 22);
+		
+		JComboBox comboBoxSugTarea = new JComboBox();
+		comboBoxSugTarea.setBounds(94, 156, 166, 22);
+		
+		for(String nombre:nombreAct) {
+			comboBoxPrereqTarea.addItem(nombre);
+			comboBoxSugTarea.addItem(nombre);
+		}
+	
+		panelTarea.add(comboBoxSugTarea);
+		panelTarea.add(comboBoxPrereqTarea);
+		
 		JButton btnCrearTarea = new JButton("Crear Tarea");
 		btnCrearTarea.setBounds(311, 185, 120, 23);
 		btnCrearTarea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ExcepcionesFrame exp = new ExcepcionesFrame("Tarea creada con éxito");
+				ExcepcionesFrame exp = new ExcepcionesFrame("Tarea Creada con exito");
 				exp.setVisible(true);
+				Actividad pre = null ;
+				Actividad sug = null ;
+				for(Actividad act:programa.listaActividades) {
+					if(comboBoxPrereqTarea.getSelectedItem().equals(act.getTitulo())){
+						pre = act;
+					}
+					if(comboBoxSugTarea.getSelectedItem().equals(act.getTitulo())) {
+						sug = act;
+					}
+				}
+				Tarea tarea = new Tarea(false,textFieldObjetivoTarea.getText(),textFieldTituloTarea.getText(),textFieldNivelTarea.getText()
+						,pre,sug,"",Float.parseFloat(textFieldTiempoTarea.getText()),5,false);
+				try {
+                    programa.crearTarea(tarea);
+                    profesor.anadirActs(tarea);
+                    datos.cambiarDatosProfesor(profesor);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
 			}
 		});
 		panelTarea.add(btnCrearTarea);
+		lblTiempoLmiteT.setBounds(10, 70, 99, 14);
+		lblSugeridoT.setBounds(10, 156, 67, 14);
 		
-		//
+		//Examen
 		JPanel panelExamen = new JPanel();
 		tabbedPane.addTab("   Examen ", null, panelExamen, null);
 		panelExamen.setLayout(null);
@@ -298,37 +348,37 @@ public class CrearActividad extends JFrame {
 		lblTituloE.setBounds(10, 14, 32, 14);
 		panelExamen.add(lblTituloE);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(94, 11, 166, 20);
-		panelExamen.add(textField);
+		textFieldTituloExamen = new JTextField();
+		textFieldTituloExamen.setColumns(10);
+		textFieldTituloExamen.setBounds(94, 11, 166, 20);
+		panelExamen.add(textFieldTituloExamen);
 		
 		JLabel lblNivelE = new JLabel("Nivel:");
 		lblNivelE.setBounds(10, 42, 48, 14);
 		panelExamen.add(lblNivelE);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(94, 39, 166, 20);
-		panelExamen.add(textField_1);
+		textFieldNivelExamen = new JTextField();
+		textFieldNivelExamen.setColumns(10);
+		textFieldNivelExamen.setBounds(94, 39, 166, 20);
+		panelExamen.add(textFieldNivelExamen);
 		
 		JLabel lblTiempoLmiteE = new JLabel("Tiempo Límite:");
 		lblTiempoLmiteE.setBounds(10, 70, 99, 14);
 		panelExamen.add(lblTiempoLmiteE);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(94, 67, 166, 20);
-		panelExamen.add(textField_2);
+		textFieldTiempoExamen = new JTextField();
+		textFieldTiempoExamen.setColumns(10);
+		textFieldTiempoExamen.setBounds(94, 67, 166, 20);
+		panelExamen.add(textFieldTiempoExamen);
 		
 		JLabel lblObjetivoE = new JLabel("Objetivo:");
-		lblObjetivoE.setBounds(10, 99, 45, 14);
+		lblObjetivoE.setBounds(10, 99, 56, 14);
 		panelExamen.add(lblObjetivoE);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(94, 95, 166, 20);
-		panelExamen.add(textField_3);
+		textFieldObjetivoExamen = new JTextField();
+		textFieldObjetivoExamen.setColumns(10);
+		textFieldObjetivoExamen.setBounds(94, 95, 166, 20);
+		panelExamen.add(textFieldObjetivoExamen);
 		
 		JLabel lblCantidadDePreguntasE = new JLabel("Cantidad de preguntas:");
 		lblCantidadDePreguntasE.setBounds(293, 52, 128, 14);
@@ -344,23 +394,23 @@ public class CrearActividad extends JFrame {
 		panelExamen.add(textField_4);
 		
 		JLabel lblPrerequisitoE = new JLabel("Prerequisito:");
-		lblPrerequisitoE.setBounds(10, 131, 80, 14);
+		lblPrerequisitoE.setBounds(10, 161, 80, 14);
 		panelExamen.add(lblPrerequisitoE);
 		
 		JLabel lblSugeridoE = new JLabel("Sugerido:");
-		lblSugeridoE.setBounds(10, 156, 67, 14);
+		lblSugeridoE.setBounds(10, 186, 67, 14);
 		panelExamen.add(lblSugeridoE);
 		
-		textFieldCantidadPregEx = new JTextField();
-		textFieldCantidadPregEx.setColumns(10);
-		textFieldCantidadPregEx.setBounds(314, 77, 87, 20);
-		panelExamen.add(textFieldCantidadPregEx);
+		textFieldCantidadPregExamen = new JTextField();
+		textFieldCantidadPregExamen.setColumns(10);
+		textFieldCantidadPregExamen.setBounds(314, 77, 87, 20);
+		panelExamen.add(textFieldCantidadPregExamen);
 		
-		JButton btnCrearPreguntasE = new JButton("Crear Preguntas");
-		btnCrearPreguntasE.setBounds(302, 105, 111, 23);
-		btnCrearPreguntasE.addActionListener(new ActionListener() {
+		JButton btnCrearPreguntasExamen = new JButton("Crear Preguntas");
+		btnCrearPreguntasExamen.setBounds(302, 105, 111, 23);
+		btnCrearPreguntasExamen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cantidadPreguntas = Integer.parseInt(textFieldCantidadPregEx.getText()) ;
+				int cantidadPreguntas = Integer.parseInt(textFieldCantidadPregExamen.getText()) ;
 				System.out.println(cantidadPreguntas);
 				int j=0;
 				while (j < cantidadPreguntas) {
@@ -371,7 +421,7 @@ public class CrearActividad extends JFrame {
 				
 			}
 		});
-		panelExamen.add(btnCrearPreguntasE);
+		panelExamen.add(btnCrearPreguntasExamen);
 		
 		JButton btnCrearExamen = new JButton("Crear Examen");
 		btnCrearExamen.setBounds(311, 185, 120, 23);
@@ -383,13 +433,22 @@ public class CrearActividad extends JFrame {
 		});
 		panelExamen.add(btnCrearExamen);
 		
-		JComboBox comboBoxPre_2 = new JComboBox();
-		comboBoxPre_2.setBounds(94, 126, 166, 22);
-		panelExamen.add(comboBoxPre_2);
+		JComboBox comboBoxPrereqExamen = new JComboBox();
+		comboBoxPrereqExamen.setBounds(94, 156, 166, 22);
+		panelExamen.add(comboBoxPrereqExamen);
 		
-		JComboBox comboBoxSug_2 = new JComboBox();
-		comboBoxSug_2.setBounds(94, 156, 166, 22);
-		panelExamen.add(comboBoxSug_2);
+		JComboBox comboBoxSugExamen = new JComboBox();
+		comboBoxSugExamen.setBounds(94, 186, 166, 22);
+		panelExamen.add(comboBoxSugExamen);
+		
+		JLabel lblNotaMinima_1 = new JLabel("Nota Minima");
+		lblNotaMinima_1.setBounds(10, 128, 80, 14);
+		panelExamen.add(lblNotaMinima_1);
+		
+		textFieldNotaExamen = new JTextField();
+		textFieldNotaExamen.setColumns(10);
+		textFieldNotaExamen.setBounds(94, 124, 166, 20);
+		panelExamen.add(textFieldNotaExamen);
 		
 		//
 		JPanel panelEncuesta = new JPanel();
@@ -400,37 +459,37 @@ public class CrearActividad extends JFrame {
 		lblTituloEE.setBounds(10, 14, 32, 14);
 		panelEncuesta.add(lblTituloEE);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(94, 11, 166, 20);
-		panelEncuesta.add(textField);
+		textFieldTituloEncuesta = new JTextField();
+		textFieldTituloEncuesta.setColumns(10);
+		textFieldTituloEncuesta.setBounds(94, 11, 166, 20);
+		panelEncuesta.add(textFieldTituloEncuesta);
 		
 		JLabel lblNivelEE = new JLabel("Nivel:");
 		lblNivelEE.setBounds(10, 42, 48, 14);
 		panelEncuesta.add(lblNivelEE);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(94, 39, 166, 20);
-		panelEncuesta.add(textField_1);
+		textFieldNivelEncuesta = new JTextField();
+		textFieldNivelEncuesta.setColumns(10);
+		textFieldNivelEncuesta.setBounds(94, 39, 166, 20);
+		panelEncuesta.add(textFieldNivelEncuesta);
 		
 		JLabel lblTiempoLmiteEE = new JLabel("Tiempo Límite:");
 		lblTiempoLmiteEE.setBounds(10, 70, 99, 14);
 		panelEncuesta.add(lblTiempoLmiteEE);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(94, 67, 166, 20);
-		panelEncuesta.add(textField_2);
+		textFieldTiempoEncuesta = new JTextField();
+		textFieldTiempoEncuesta.setColumns(10);
+		textFieldTiempoEncuesta.setBounds(94, 67, 166, 20);
+		panelEncuesta.add(textFieldTiempoEncuesta);
 		
 		JLabel lblObjetivoEE = new JLabel("Objetivo:");
 		lblObjetivoEE.setBounds(10, 99, 45, 14);
 		panelEncuesta.add(lblObjetivoEE);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(94, 95, 166, 20);
-		panelEncuesta.add(textField_3);
+		textFieldObjetivoEncuesta = new JTextField();
+		textFieldObjetivoEncuesta.setColumns(10);
+		textFieldObjetivoEncuesta.setBounds(94, 95, 166, 20);
+		panelEncuesta.add(textFieldObjetivoEncuesta);
 		
 		JLabel lblCantidadDePreguntasEE = new JLabel("Cantidad de preguntas:");
 		lblCantidadDePreguntasEE.setBounds(293, 52, 128, 14);
@@ -453,16 +512,16 @@ public class CrearActividad extends JFrame {
 		lblSugeridoEE.setBounds(10, 160, 67, 14);
 		panelEncuesta.add(lblSugeridoEE);
 		
-		textFieldCantidadPregEE = new JTextField();
-		textFieldCantidadPregEE.setColumns(10);
-		textFieldCantidadPregEE.setBounds(314, 77, 87, 20);
-		panelEncuesta.add(textFieldCantidadPregEE);
+		textFieldCantidadPregEncuesta = new JTextField();
+		textFieldCantidadPregEncuesta.setColumns(10);
+		textFieldCantidadPregEncuesta.setBounds(314, 77, 87, 20);
+		panelEncuesta.add(textFieldCantidadPregEncuesta);
 		
-		JButton btnCrearPreguntasEE = new JButton("Crear Preguntas");
-		btnCrearPreguntasEE.setBounds(302, 105, 111, 23);
-		btnCrearPreguntasEE.addActionListener(new ActionListener() {
+		JButton btnCrearPreguntasEncuesta = new JButton("Crear Preguntas");
+		btnCrearPreguntasEncuesta.setBounds(302, 105, 111, 23);
+		btnCrearPreguntasEncuesta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int cantidadPreguntas = Integer.parseInt(textFieldCantidadPregEE.getText()) ;
+				int cantidadPreguntas = Integer.parseInt(textFieldCantidadPregEncuesta.getText()) ;
 				System.out.println(cantidadPreguntas);
 				int j=0;
 				while (j < cantidadPreguntas) {
@@ -473,7 +532,7 @@ public class CrearActividad extends JFrame {
 				
 			}
 		});
-		panelEncuesta.add(btnCrearPreguntasEE);
+		panelEncuesta.add(btnCrearPreguntasEncuesta);
 		
 		JButton btnCrearEncuesta = new JButton("Crear Encuesta");
 		btnCrearEncuesta.setBounds(311, 185, 120, 23);
@@ -484,14 +543,13 @@ public class CrearActividad extends JFrame {
 			}
 		});
 		panelEncuesta.add(btnCrearEncuesta);
+		JComboBox comboBoxPrereqEncuesta = new JComboBox();
+		comboBoxPrereqEncuesta.setBounds(94, 126, 166, 22);
+		panelEncuesta.add(comboBoxPrereqEncuesta);
 		
-		JComboBox comboBoxPre_1 = new JComboBox();
-		comboBoxPre_1.setBounds(94, 126, 166, 22);
-		panelEncuesta.add(comboBoxPre_1);
-		
-		JComboBox comboBoxSug_1 = new JComboBox();
-		comboBoxSug_1.setBounds(94, 156, 166, 22);
-		panelEncuesta.add(comboBoxSug_1);
+		JComboBox comboBoxSugEncuesta = new JComboBox();
+		comboBoxSugEncuesta.setBounds(94, 156, 166, 22);
+		panelEncuesta.add(comboBoxSugEncuesta);
 		
 		
 		//
@@ -503,37 +561,36 @@ public class CrearActividad extends JFrame {
 		lblTituloR.setBounds(10, 14, 32, 14);
 		panelRecurso.add(lblTituloR);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(94, 11, 166, 20);
-		panelRecurso.add(textField);
+		textFieldTituloRecurso = new JTextField();
+		textFieldTituloRecurso.setColumns(10);
+		textFieldTituloRecurso.setBounds(94, 11, 166, 20);
+		panelRecurso.add(textFieldTituloRecurso);
 		
 		JLabel lblNivelR = new JLabel("Nivel:");
 		lblNivelR.setBounds(10, 42, 48, 14);
 		panelRecurso.add(lblNivelR);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(94, 39, 166, 20);
-		panelRecurso.add(textField_1);
+		textFieldNivelRecurso = new JTextField();
+		textFieldNivelRecurso.setColumns(10);
+		textFieldNivelRecurso.setBounds(94, 39, 166, 20);
+		panelRecurso.add(textFieldNivelRecurso);
 		
 		JLabel lblTiempoLmiteR = new JLabel("Tiempo Límite:");
-		lblTiempoLmiteT.setBounds(10, 70, 99, 14);
 		panelRecurso.add(lblTiempoLmiteR);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(94, 67, 166, 20);
-		panelRecurso.add(textField_2);
+		textFieldTiempoRecurso = new JTextField();
+		textFieldTiempoRecurso.setColumns(10);
+		textFieldTiempoRecurso.setBounds(94, 67, 166, 20);
+		panelRecurso.add(textFieldTiempoRecurso);
 		
 		JLabel lblObjetivoR = new JLabel("Objetivo:");
 		lblObjetivoR.setBounds(10, 99, 45, 14);
 		panelRecurso.add(lblObjetivoR);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(94, 95, 166, 20);
-		panelRecurso.add(textField_3);
+		textFieldObjetivoRecurso = new JTextField();
+		textFieldObjetivoRecurso.setColumns(10);
+		textFieldObjetivoRecurso.setBounds(94, 95, 166, 20);
+		panelRecurso.add(textFieldObjetivoRecurso);
 		
 		JLabel lblMetaR = new JLabel("Metadatos:");
 		lblMetaR.setBounds(10, 239, 56, 14);
@@ -549,27 +606,20 @@ public class CrearActividad extends JFrame {
 		panelRecurso.add(lblPrerequisitoR);
 		
 		JLabel lblSugeridoR = new JLabel("Sugerido:");
-		lblSugeridoT.setBounds(10, 156, 67, 14);
-		
-		JComboBox comboBoxPre_3 = new JComboBox();
-		comboBoxPre_3.setBounds(94, 126, 166, 22);
-		panelTarea.add(comboBoxPre_3);
-		
-		JComboBox comboBoxSug_3 = new JComboBox();
-		comboBoxSug_3.setBounds(94, 156, 166, 22);
-		panelTarea.add(comboBoxSug_3);
 		panelRecurso.add(lblSugeridoR);
 		
-		JButton btnNewButton = new JButton("Crear Recurso");
-		btnNewButton.setBounds(311, 185, 120, 23);
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		
+		JButton btnCrearRecurso = new JButton("Crear Recurso");
+		btnCrearRecurso.setBounds(311, 185, 120, 23);
+		btnCrearRecurso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ExcepcionesFrame exp = new ExcepcionesFrame("Recurso creado con éxito");
 				exp.setVisible(true);
 				
 			}
 		});
-		panelRecurso.add(btnNewButton);
+		panelRecurso.add(btnCrearRecurso);
 		
 		JLabel lblTiempoLmiteT_1 = new JLabel("Tiempo Límite:");
 		lblTiempoLmiteT_1.setBounds(10, 70, 99, 14);
@@ -583,18 +633,18 @@ public class CrearActividad extends JFrame {
 		lblTipo.setBounds(10, 189, 45, 14);
 		panelRecurso.add(lblTipo);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(94, 185, 166, 20);
-		panelRecurso.add(textField_7);
+		textFieldTipoRecurso = new JTextField();
+		textFieldTipoRecurso.setColumns(10);
+		textFieldTipoRecurso.setBounds(94, 185, 166, 20);
+		panelRecurso.add(textFieldTipoRecurso);
 		
-		JComboBox comboBoxPre = new JComboBox();
-		comboBoxPre.setBounds(94, 126, 166, 22);
-		panelRecurso.add(comboBoxPre);
+		JComboBox comboBoxPrereqRecurso = new JComboBox();
+		comboBoxPrereqRecurso.setBounds(94, 126, 166, 22);
+		panelRecurso.add(comboBoxPrereqRecurso);
 		
-		JComboBox comboBoxSug = new JComboBox();
-		comboBoxSug.setBounds(94, 156, 166, 22);
-		panelRecurso.add(comboBoxSug);
+		JComboBox comboBoxSugRecurso = new JComboBox();
+		comboBoxSugRecurso.setBounds(94, 156, 166, 22);
+		panelRecurso.add(comboBoxSugRecurso);
 		
 
 		
