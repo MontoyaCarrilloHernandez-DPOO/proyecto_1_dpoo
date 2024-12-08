@@ -6,11 +6,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import learningPaths.Actividad;
+import learningPaths.LearningPath;
 import persistencia.Controlador;
+import usuarios.Estudiante;
 import usuarios.Profesor;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import java.awt.Font;
@@ -19,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JSlider;
@@ -105,38 +111,62 @@ public class CrearLP extends JFrame {
 		textFieldMetadatos.setBounds(116, 267, 166, 20);
 		Crear.add(textFieldMetadatos);
 		
-		JList listLP = new JList();
-		listLP.setBounds(382, 45, 348, 229);
-		Crear.add(listLP);
+		DefaultListModel<String> listModelLp = new DefaultListModel<>();
+		JList<String> listLp = new JList<>(listModelLp);
+		listLp.setBounds(382, 45, 348, 229);
+		for (Actividad act:programa.listaActividades) {
+		    listModelLp.addElement(act.getTitulo()); 
+
+		}
+		Crear.add(listLp);
 		
-		JButton btnNewButton = new JButton("Crear Learning Path");
-		btnNewButton.addActionListener(new ActionListener() {
+		JSlider slider = new JSlider();
+		slider.setSnapToTicks(true);
+		slider.setPaintTicks(true);
+		slider.setPaintLabels(true);
+		slider.setMinorTickSpacing(1);
+		slider.setMajorTickSpacing(10);
+		slider.setValue(5);
+		slider.setMinimum(1);
+		slider.setMaximum(5);
+		slider.setBounds(116, 200, 166, 56);
+		Crear.add(slider);
+		
+		JButton btnCrearLp = new JButton("Crear Learning Path");
+		btnCrearLp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				ExcepcionesFrame exp = new ExcepcionesFrame("Learning Path creado con éxito");
+				ArrayList<Actividad> acts = new ArrayList<Actividad>();
+				ArrayList<Estudiante> ests = new ArrayList<Estudiante>();
+				
+				for (Actividad act:programa.listaActividades) {
+					for(Object ob : listLp.getSelectedValues()) {
+						if(ob.equals(act.getTitulo())) {
+							acts.add(act);
+						}
+					}
+				}
+				LearningPath lp = new LearningPath(profesor.getLogin(),textFieldTitulo.getText(),Float.parseFloat(textFieldDuracion.getText()),slider.getValue(),(float) 5,textFieldDescripcion.getText(),textFieldObjetivo.getText(),textFieldMetadatos.getText(),acts,ests);
+				try {
+					programa.crearLearningPath(lp);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				programa.subirDatos();
 				exp.setVisible(true);
 				
 			}
 		});
-		btnNewButton.setBounds(488, 285, 144, 23);
-		Crear.add(btnNewButton);
+		btnCrearLp.setBounds(488, 285, 144, 23);
+		Crear.add(btnCrearLp);
 		
 		JLabel lblAct = new JLabel("Selecciona las actividades que tu Learning Path contendrá: ");
 		lblAct.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAct.setBounds(358, 20, 384, 14);
 		Crear.add(lblAct);
 		
-		JSlider slider = new JSlider();
-		slider.setPaintLabels(true);
-		slider.setMinorTickSpacing(1);
-		slider.setMajorTickSpacing(10);
-		slider.setPaintTicks(true);
-		slider.setSnapToTicks(true);
-		slider.setValue(5);
-		slider.setMinimum(1);
-		slider.setMaximum(10);
-		slider.setBounds(116, 200, 166, 56);
-		Crear.add(slider);
 		
 		JPanel Duplicar = new JPanel();
 		tabbedPane.addTab("      Duplicar un Learning Path existente        ", null, Duplicar, null);
@@ -145,18 +175,34 @@ public class CrearLP extends JFrame {
 		JButton btnDuplicarLearningPath = new JButton("Duplicar Learning Path");
 		btnDuplicarLearningPath.setBounds(498, 270, 186, 23);
 		Duplicar.add(btnDuplicarLearningPath);
+		DefaultListModel<String> listModel = new DefaultListModel<>();
+		JList<String> listDup = new JList<>(listModel);
+		listDup.setBounds(217, 41, 260, 246);
+
+		for (LearningPath lp : programa.listaLearningPaths) {
+		    listModel.addElement(lp.getTitulo()); 
+		}
+		Duplicar.add(listDup);
+		
 		btnDuplicarLearningPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				LearningPath lp = null;
+				for (LearningPath lpa : programa.listaLearningPaths) {
+					if (lpa.getTitulo().equals(listDup.getSelectedValue())) {
+						lp = new LearningPath(profesor.getLogin(), lpa.getTitulo()+"Dup",lpa.getDuracion(),lpa.getDificultad(),lpa.getRating(),lpa.getDescripcion(),lpa.getObjetivo(),lpa.getMetadatos(),lpa.getActividades(),lpa.getEstudiantes());
+				}}
+				try {
+					
+					programa.crearLearningPath(lp);
+					programa.subirDatos();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				ExcepcionesFrame exp = new ExcepcionesFrame("Learning Path duplicado con éxito");
 				exp.setVisible(true);
 			}
 		});
-		
-		JList list_1 = new JList();
-		list_1.setBounds(217, 41, 260, 246);
-		Duplicar.add(list_1);
-		
 		JLabel lblNewLabel_4 = new JLabel("Selecciona uno de los siguientes Learning Paths para duplicarlo:");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setBounds(45, 16, 601, 14);
