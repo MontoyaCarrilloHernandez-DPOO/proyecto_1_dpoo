@@ -6,12 +6,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import learningPaths.PreguntaAbierta;
+import persistencia.Controlador;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 
@@ -25,7 +30,7 @@ public class CrearPreguntasAbiertas extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CrearPreguntasAbiertas() {
+	public CrearPreguntasAbiertas(Controlador sistema, CrearActividad crearActividad) {
 		ImageIcon logo = new ImageIcon("datos/logo.png");
 		setIconImage(logo.getImage());
 		setTitle("Crear Pregunta Abierta");
@@ -51,14 +56,6 @@ public class CrearPreguntasAbiertas extends JFrame {
 		
 		JButton btnCrearPregunta = new JButton("Crear Pregunta");
 		btnCrearPregunta.setBounds(153, 201, 129, 23);
-		btnCrearPregunta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//REGISTRAR PREGUNTA
-				dispose();
-				ExcepcionesFrame exp = new ExcepcionesFrame("Pregunta creada con éxito");
-				exp.setVisible(true);
-			}
-		});
 		contentPane.add(btnCrearPregunta);
 		
 		pregunta = new JTextField();
@@ -70,5 +67,21 @@ public class CrearPreguntasAbiertas extends JFrame {
 		rtaGuia.setColumns(10);
 		rtaGuia.setBounds(10, 131, 416, 28);
 		contentPane.add(rtaGuia);
+		btnCrearPregunta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//REGISTRAR PREGUNTA
+				dispose();
+				PreguntaAbierta preg = new PreguntaAbierta(rtaGuia.getText(),pregunta.getText());
+				try {
+					sistema.crearPreguntaAbierta(preg);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                crearActividad.pregA.add(preg);
+				ExcepcionesFrame exp = new ExcepcionesFrame("Pregunta creada con éxito");
+				exp.setVisible(true);
+			}
+		});
 	}
 }

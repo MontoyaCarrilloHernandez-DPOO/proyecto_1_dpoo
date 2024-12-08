@@ -9,9 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import learningPaths.Actividad;
+import learningPaths.Encuesta;
+import learningPaths.Examen;
 import learningPaths.PreguntaAbierta;
 import learningPaths.PreguntaCerrada;
 import learningPaths.Quiz;
+import learningPaths.Recurso;
 import learningPaths.Tarea;
 import persistencia.Controlador;
 import persistencia.ModificarDatos;
@@ -414,7 +417,7 @@ public class CrearActividad extends JFrame {
 				System.out.println(cantidadPreguntas);
 				int j=0;
 				while (j < cantidadPreguntas) {
-					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas();
+					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas(programa,CrearActividad.this);
 					preg.setVisible(true);
 					j++;
 				}
@@ -425,21 +428,21 @@ public class CrearActividad extends JFrame {
 		
 		JButton btnCrearExamen = new JButton("Crear Examen");
 		btnCrearExamen.setBounds(311, 185, 120, 23);
-		btnCrearExamen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ExcepcionesFrame exp = new ExcepcionesFrame("Examen creado con éxito");
-				exp.setVisible(true);
-			}
-		});
 		panelExamen.add(btnCrearExamen);
 		
 		JComboBox comboBoxPrereqExamen = new JComboBox();
 		comboBoxPrereqExamen.setBounds(94, 156, 166, 22);
-		panelExamen.add(comboBoxPrereqExamen);
 		
 		JComboBox comboBoxSugExamen = new JComboBox();
 		comboBoxSugExamen.setBounds(94, 186, 166, 22);
+		for(String nombre:nombreAct) {
+			comboBoxPrereqExamen.addItem(nombre);
+			comboBoxSugExamen.addItem(nombre);
+		}
+		
+		panelExamen.add(comboBoxPrereqExamen);
 		panelExamen.add(comboBoxSugExamen);
+		
 		
 		JLabel lblNotaMinima_1 = new JLabel("Nota Minima");
 		lblNotaMinima_1.setBounds(10, 128, 80, 14);
@@ -450,7 +453,32 @@ public class CrearActividad extends JFrame {
 		textFieldNotaExamen.setBounds(94, 124, 166, 20);
 		panelExamen.add(textFieldNotaExamen);
 		
-		//
+		btnCrearExamen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Examen creado con éxito");
+				Actividad pre = null ;
+				Actividad sug = null ;
+				for(Actividad act:programa.listaActividades) {
+					if(comboBoxPrereqExamen.getSelectedItem().equals(act.getTitulo())){
+						pre = act;
+					}
+					if(comboBoxSugExamen.getSelectedItem().equals(act.getTitulo())) {
+						sug = act;
+					}
+				}
+				Examen exa = new Examen(false,false,(float) 0,Float.parseFloat(textFieldNotaExamen.getText()),pregA,textFieldObjetivoExamen.getText(),textFieldTituloExamen.getText(),textFieldNivelExamen.getText(),pre,sug,"",Float.parseFloat(textFieldTiempoExamen.getText()),(double) 5,false);
+				try {
+                    programa.crearExamen(exa);
+                    profesor.anadirActs(exa);
+                    datos.cambiarDatosProfesor(profesor);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+				exp.setVisible(true);
+			}
+		});
+		
+		//Encuesta
 		JPanel panelEncuesta = new JPanel();
 		tabbedPane.addTab(" Encuesta ", null, panelEncuesta, null);
 		panelEncuesta.setLayout(null);
@@ -525,34 +553,57 @@ public class CrearActividad extends JFrame {
 				System.out.println(cantidadPreguntas);
 				int j=0;
 				while (j < cantidadPreguntas) {
-					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas();
+					CrearPreguntasAbiertas preg = new CrearPreguntasAbiertas(programa,CrearActividad.this);
 					preg.setVisible(true);
 					j++;
 				}
 				
 			}
 		});
-		panelEncuesta.add(btnCrearPreguntasEncuesta);
-		
 		JButton btnCrearEncuesta = new JButton("Crear Encuesta");
 		btnCrearEncuesta.setBounds(311, 185, 120, 23);
-		btnCrearEncuesta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ExcepcionesFrame exp = new ExcepcionesFrame("Encuesta creada con éxito");
-				exp.setVisible(true);
-			}
-		});
+		
 		panelEncuesta.add(btnCrearEncuesta);
 		JComboBox comboBoxPrereqEncuesta = new JComboBox();
 		comboBoxPrereqEncuesta.setBounds(94, 126, 166, 22);
-		panelEncuesta.add(comboBoxPrereqEncuesta);
 		
 		JComboBox comboBoxSugEncuesta = new JComboBox();
 		comboBoxSugEncuesta.setBounds(94, 156, 166, 22);
+		for(String nombre:nombreAct) {
+			comboBoxPrereqEncuesta.addItem(nombre);
+			comboBoxSugEncuesta.addItem(nombre);
+		}
 		panelEncuesta.add(comboBoxSugEncuesta);
+		panelEncuesta.add(comboBoxPrereqEncuesta);
+		
+		panelEncuesta.add(btnCrearPreguntasEncuesta);
+		btnCrearEncuesta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Encuesta creada con éxito");
+				Actividad pre = null ;
+				Actividad sug = null ;
+				for(Actividad act:programa.listaActividades) {
+					if(comboBoxPrereqEncuesta.getSelectedItem().equals(act.getTitulo())){
+						pre = act;
+					}
+					if(comboBoxSugEncuesta.getSelectedItem().equals(act.getTitulo())) {
+						sug = act;
+					}
+				}
+				Encuesta enc = new Encuesta(false,pregA,textFieldObjetivoEncuesta.getText(),textFieldTituloEncuesta.getText(),textFieldNivelEncuesta.getText(),pre,sug,"",Float.parseFloat(textFieldTiempoEncuesta.getText()),(double) 5,false);
+				try {
+                    programa.crearEncuesta(enc);
+                    profesor.anadirActs(enc);
+                    datos.cambiarDatosProfesor(profesor);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+				exp.setVisible(true);
+			}
+		});
 		
 		
-		//
+		//Recurso
 		JPanel panelRecurso = new JPanel();
 		tabbedPane.addTab("  Recurso", null, panelRecurso, null);
 		panelRecurso.setLayout(null);
@@ -612,13 +663,6 @@ public class CrearActividad extends JFrame {
 		
 		JButton btnCrearRecurso = new JButton("Crear Recurso");
 		btnCrearRecurso.setBounds(311, 185, 120, 23);
-		btnCrearRecurso.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ExcepcionesFrame exp = new ExcepcionesFrame("Recurso creado con éxito");
-				exp.setVisible(true);
-				
-			}
-		});
 		panelRecurso.add(btnCrearRecurso);
 		
 		JLabel lblTiempoLmiteT_1 = new JLabel("Tiempo Límite:");
@@ -640,12 +684,43 @@ public class CrearActividad extends JFrame {
 		
 		JComboBox comboBoxPrereqRecurso = new JComboBox();
 		comboBoxPrereqRecurso.setBounds(94, 126, 166, 22);
-		panelRecurso.add(comboBoxPrereqRecurso);
 		
 		JComboBox comboBoxSugRecurso = new JComboBox();
 		comboBoxSugRecurso.setBounds(94, 156, 166, 22);
+		
+		for(String nombre:nombreAct) {
+			comboBoxPrereqRecurso.addItem(nombre);
+			comboBoxSugRecurso.addItem(nombre);
+		}
+		
+		panelRecurso.add(comboBoxPrereqRecurso);
 		panelRecurso.add(comboBoxSugRecurso);
 		
+		btnCrearRecurso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExcepcionesFrame exp = new ExcepcionesFrame("Recurso creado con éxito");
+				Actividad pre = null ;
+				Actividad sug = null ;
+				for(Actividad act:programa.listaActividades) {
+					if(comboBoxPrereqEncuesta.getSelectedItem().equals(act.getTitulo())){
+						pre = act;
+					}
+					if(comboBoxSugEncuesta.getSelectedItem().equals(act.getTitulo())) {
+						sug = act;
+					}
+				}
+				Recurso rec = new Recurso(textFieldObjetivoRecurso.getText(),textFieldTituloRecurso.getText(),textFieldNivelRecurso.getText(),pre,sug,"",Float.parseFloat(textFieldTiempoRecurso.getText()),(double) 5, false,textFieldTipoRecurso.getText());
+				try {
+                    programa.crearRecurso(rec);
+                    profesor.anadirActs(rec);
+                    datos.cambiarDatosProfesor(profesor);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+				exp.setVisible(true);
+				
+			}
+		});
 
 		
 		
