@@ -10,11 +10,14 @@ import javax.swing.border.EmptyBorder;
 import learningPaths.Actividad;
 import learningPaths.LearningPath;
 import persistencia.Controlador;
+import persistencia.RecogerDatos;
 import usuarios.Estudiante;
 import usuarios.Profesor;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -57,21 +60,9 @@ public class CalificarExamenes extends JFrame {
 		comboBoxActividad.setBounds(10, 174, 170, 22);
 		contentPane.add(comboBoxActividad);
 		
-		JButton btnBuscarEst = new JButton("Buscar Respuestas");
-		btnBuscarEst.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String sele = (String) comboBoxLP.getSelectedItem();
-				for (LearningPath lpa:programa.listaLearningPaths) {
-					if (lpa.getTitulo().equals(sele)) {
-						for (Estudiante estu:lpa.getEstudiantes()) {
-							estu.
-						}
-					}
-				}
-			}
-		});
-		btnBuscarEst.setBounds(10, 216, 170, 22);
-		contentPane.add(btnBuscarEst);
+		JButton btnBuscarRTA = new JButton("Buscar Respuestas");
+		btnBuscarRTA.setBounds(10, 216, 170, 22);
+		contentPane.add(btnBuscarRTA);
 		
 		JTextArea txtrAquSeMostrarn = new JTextArea();
 		txtrAquSeMostrarn.setWrapStyleWord(true);
@@ -91,11 +82,6 @@ public class CalificarExamenes extends JFrame {
 		contentPane.add(lblNotaObtenida);
 		
 		JButton btnCalificar = new JButton("Calificar");
-		btnCalificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
 		btnCalificar.setBounds(173, 239, 89, 23);
 		contentPane.add(btnCalificar);
 		
@@ -116,11 +102,14 @@ public class CalificarExamenes extends JFrame {
 		
 		JButton btnBuscarEstudiantes = new JButton("Buscar Estudiantes");
 		btnBuscarEstudiantes.setBounds(33, 68, 127, 23);
+		LearningPath path = null;
+		Estudiante estudiante = null;
 		btnBuscarEstudiantes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String sele = (String) comboBoxLP.getSelectedItem();
 				for (LearningPath lpa:programa.listaLearningPaths) {
 					if (lpa.getTitulo().equals(sele)) {
+						LearningPath path = lpa;
 						for (Estudiante estu:lpa.getEstudiantes()) {
                             comboBoxEstudiante.addItem(estu.getNombre());
                         }
@@ -129,6 +118,36 @@ public class CalificarExamenes extends JFrame {
 						}
 					}
 				}
+			}
+		});
+		btnBuscarRTA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RecogerDatos recogerDatos = new RecogerDatos();
+				String sele = (String) comboBoxLP.getSelectedItem();
+				for (LearningPath lpa:programa.listaLearningPaths) {
+					if (lpa.getTitulo().equals(sele)) {
+						String sel = (String) comboBoxEstudiante.getSelectedItem();
+						for (Estudiante est:lpa.getEstudiantes()) {
+							Estudiante estudiante = est;
+							if (est.getNombre().equals(sel)) {
+                                String act = (String) comboBoxActividad.getSelectedItem();
+                        		HashMap<String,String> pyr = recogerDatos.getPreguntaRespuesta(est, act);
+                                
+                        		for (String pregunta:pyr.keySet()) {
+                                    txtrAquSeMostrarn.append(pregunta + "\n");
+                                    txtrAquSeMostrarn.append(pyr.get(pregunta) + "\n");
+                                }
+							}
+                        }
+					}
+				}
+			}
+		});
+		btnCalificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				profesor.calificar(estudiante,(String)comboBoxActividad.getSelectedItem() , Float.parseFloat(textFieldNota.getText()));
+				programa.subirDatos();
 			}
 		});
 		contentPane.add(btnBuscarEstudiantes);
