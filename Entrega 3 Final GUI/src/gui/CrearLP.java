@@ -150,10 +150,12 @@ public class CrearLP extends JFrame {
 				LearningPath lp = new LearningPath(profesor.getLogin(),textFieldTitulo.getText(),Float.parseFloat(textFieldDuracion.getText()),slider.getValue(),(float) 5,textFieldDescripcion.getText(),textFieldObjetivo.getText(),textFieldMetadatos.getText(),acts,ests);
 				try {
 					programa.crearLearningPath(lp);
+					profesor.crearLearningPath(acts,textFieldTitulo.getText(),textFieldDescripcion.getText(),textFieldObjetivo.getText(),textFieldMetadatos.getText(),Float.parseFloat(textFieldDuracion.getText()),slider.getValue(),(float) 5);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
 				programa.subirDatos();
 				exp.setVisible(true);
 				
@@ -195,6 +197,7 @@ public class CrearLP extends JFrame {
 				try {
 					
 					programa.crearLearningPath(lp);
+					profesor.duplicarLP(lp);
 					programa.subirDatos();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
